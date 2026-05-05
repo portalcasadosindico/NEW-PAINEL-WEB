@@ -1,0 +1,99 @@
+App Requerer atualização V0.28
+	- O afiliado não pode escolher a mesma categoria mais de uma vez, a não ser que ele exclua ela pelo app e refaça a solicitação.
+
+App Sem requerer atualização
+	- Ajustado forma de pagamento para somente BOLETO
+	- Ajuste cartão contrato social aparecer no lugar do CNPJ
+	- Ajustado edição do perfil de afiliado
+	- Ajustado quando realiza o upload do contrato via admin, ficar com status "aprovado" ao invés de "aceito"
+	
+	# Revisão nos dados criptografados.
+	
+Admin
+	- Ajustado login pelo admin
+	- Ajustado listagem de parceiros
+	- Ajustado exclusão de afiliado
+	- Ajustado forma de pagamento para somente BOLETO
+	- Ajustado quando realiza o upload do contrato via admin, ficar com status "aprovado" ao invés de "aceito"
+	- O afiliado não pode escolher a mesma categoria mais de uma vez, a não ser que ele exclua ela pelo app e refaça a solicitação.
+	
+	# Remover arquivo de contrato social do admin
+	# Remover arquivo de cartão cnpj do afiliado pelo admin
+	# Remover arquivo de foto da logo do afiliado pelo admin
+
+Site
+	- Alterado no site e o item Placas de sinalização para Checkist gratuito do condomínio
+	- Ajuste posicionamento dos telefones no site para não quebrar em duas linhas.
+	
+	# Ajuste mostrar logo dos parceiros do admin novo.
+	# Ajuste mostrar logo dos afiliado do admin novo.
+	
+	
+	
+28/04/2021
+	App Requerer atualização
+		- O afiliado não pode escolher a mesma categoria mais de uma vez, a não ser que ele exclua ela pelo app e refaça a solicitação.
+
+	App Sem requerer atualização
+		# Revisão nos dados criptografados.
+		
+	Admin/API
+		- O afiliado não pode escolher a mesma categoria mais de uma vez, a não ser que ele exclua ela pelo app e refaça a solicitação.
+		- Ajuste no cadastro de condomínio e a definição de sua região, agora o sistema desconsidera caracters especiais, então Palhoça é igual palhoca que é igual Palho Ça
+		- O sistema identifica que a escrita está incorreta e faz o correção conforme está cadastrado no admin.
+		# Remover arquivo de contrato social do admin
+		# Remover arquivo de cartão cnpj do afiliado pelo admin
+		# Remover arquivo de foto da logo do afiliado pelo admin
+
+	Site
+		- Alterado no site o item "Cursos, palestras e eventos sobre temas específicos" para "Cursos, palestras e eventos sobre temas específicos"
+		- Alterado no site o item "Eventos" para "Plano de manutenção anual para condomínios"
+		- Ajuste mostrar logo dos parceiros do admin novo.
+		- Ajuste mostrar logo dos afiliado do admin novo.
+		- Link do botão para visualizar os pontos do sconds redirecionar para o site http://fidelidade.casadosindico.srv.br/
+		
+		
+29/04/2021
+	App Requerer atualização V0.29
+		- O app mostra se o condomínio possui uma região ou não na listagem de condominios.
+		- O app mostra se o condomínio possui uma região na escolha do condominio em uma solicitação
+
+	App Sem requerer atualização
+		- Ajuste em regiões onde o admin cancelou a assinatura.
+		
+	Admin/API
+		- O afiliado não pode escolher a mesma categoria mais de uma vez, a não ser que ele exclua ela pelo app e refaça a solicitação.
+		- Ajuste no cadastro de condomínio e a definição de sua região, agora o sistema desconsidera caracters especiais, então Palhoça é igual palhoca que é igual Palho Ça
+		- O sistema identifica que a escrita está incorreta e faz o correção conforme está cadastrado no admin.
+		- Ajuste na edição de uma solicitação pelo super admin
+		- Redefinição de região de um condominio sempre que há nova solicitação.
+		- Redefinição da região do orçamento se, pelo admin franqueado ou super admin, o usuário Editar a solicitação. Se a solicitação estiver na região 12 ou na região vazia, então revisa se é possivel encontrar uma região que possua uma franqueado cuidando.
+
+	Site
+		- Não há nada aqui.
+		
+		
+30/04/2021
+	App Requerer atualização V0.29
+		- O app mostra se o condomínio possui uma região ou não na listagem de condominios.
+		- O app mostra se o condomínio possui uma região na escolha do condominio em uma solicitação
+
+		
+	Admin/API
+		- Remover ou recusar após aprovado ou pendente, um arquivo de contrato social do admin.
+		- Remover ou recusar após aprovado ou pendente um arquivo de cartão cnpj do afiliado pelo admin.
+		- Remover, um arquivo de foto da logo do afiliado pelo admin.
+		- Verificar atualizaçao data de vencimento da assinatura pela asaas.
+		- Verificar atualizaçao do status da assinatura pela asaas.
+		- Verificar 10 dias de indimplencias.
+		
+	Servidor
+		- Backp automático todos os dias as 00:00
+		
+		
+		
+		# Inserir data de vencimento quando a assinatura for do tipo gerenciada pela franquia.????
+		
+		# Inserir botão para Deletar o plano_regiao pelo admin.
+		
+		$2y$10$.483KwtqwNrQD8TzwX465uOPiN8G4xAknhGmPLt2zEF4dRvrrVhl.

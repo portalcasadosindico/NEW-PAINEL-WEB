@@ -1,0 +1,24 @@
+[19-Nov-2024 12:31:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Cookie\Middleware\EncryptCookies' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/EncryptCookies.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/EncryptCookies.php on line 7
+[19-Nov-2024 12:32:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/CheckForMaintenanceMode.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/CheckForMaintenanceMode.php on line 7
+[19-Nov-2024 12:33:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/VerifyCsrfToken.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/VerifyCsrfToken.php on line 7
+[19-Nov-2024 12:33:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Auth\Middleware\Authenticate' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/Authenticate.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/Authenticate.php on line 7
+[19-Nov-2024 12:34:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Middleware\TrimStrings' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/TrimStrings.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/TrimStrings.php on line 7
+[19-Nov-2024 12:37:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Fideloper\Proxy\TrustProxies' not found in /home/wwcasa/public_html/admin/app/Http/Middleware/TrustProxies.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Middleware/TrustProxies.php on line 8

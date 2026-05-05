@@ -1,0 +1,192 @@
+[14-Jul-2023 23:07:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/app.php on line 16
+[14-Jul-2023 23:07:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/broadcasting.php on line 18
+[14-Jul-2023 23:07:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/cache.php on line 21
+[14-Jul-2023 23:07:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/database.php on line 18
+[14-Jul-2023 23:07:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/filesystems.php on line 16
+[14-Jul-2023 23:07:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/hashing.php on line 32
+[14-Jul-2023 23:07:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/logging.php on line 20
+[14-Jul-2023 23:08:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/mail.php on line 19
+[14-Jul-2023 23:08:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/queue.php on line 16
+[14-Jul-2023 23:08:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/services.php on line 18
+[14-Jul-2023 23:08:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/session.php on line 21
+[14-Jul-2023 23:08:34 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/wwcasa/public_html/admin/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/view.php on line 17
+[15-Jul-2023 13:10:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/app.php on line 16
+[15-Jul-2023 13:10:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/broadcasting.php on line 18
+[15-Jul-2023 13:10:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/cache.php on line 21
+[15-Jul-2023 13:11:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/database.php on line 18
+[15-Jul-2023 13:11:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/filesystems.php on line 16
+[15-Jul-2023 13:11:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/hashing.php on line 32
+[15-Jul-2023 13:11:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/logging.php on line 20
+[15-Jul-2023 13:11:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/mail.php on line 19
+[15-Jul-2023 13:12:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/queue.php on line 16
+[15-Jul-2023 13:12:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/services.php on line 18
+[15-Jul-2023 13:12:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/session.php on line 21
+[15-Jul-2023 13:12:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/wwcasa/public_html/admin/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/view.php on line 17
+[16-Jul-2023 09:54:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/app.php on line 16
+[16-Jul-2023 09:55:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/broadcasting.php on line 18
+[16-Jul-2023 09:55:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/cache.php on line 21
+[16-Jul-2023 09:55:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/database.php on line 18
+[16-Jul-2023 09:55:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/filesystems.php on line 16
+[16-Jul-2023 09:55:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/hashing.php on line 32
+[16-Jul-2023 09:55:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/logging.php on line 20
+[16-Jul-2023 09:55:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/mail.php on line 19
+[16-Jul-2023 09:55:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/queue.php on line 16
+[16-Jul-2023 09:56:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/services.php on line 18
+[16-Jul-2023 09:56:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/session.php on line 21
+[16-Jul-2023 09:56:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/wwcasa/public_html/admin/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/view.php on line 17
+[19-Nov-2024 13:11:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/cache.php on line 21
+[19-Nov-2024 13:13:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/broadcasting.php on line 18
+[19-Nov-2024 13:14:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/hashing.php on line 32
+[19-Nov-2024 13:14:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/logging.php on line 20
+[19-Nov-2024 13:15:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/mail.php on line 19
+[19-Nov-2024 13:15:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/queue.php on line 16
+[19-Nov-2024 13:16:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/services.php on line 18
+[19-Nov-2024 13:16:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/session.php on line 21
+[19-Nov-2024 13:17:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/filesystems.php on line 16
+[19-Nov-2024 13:17:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/wwcasa/public_html/admin/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/view.php on line 17
+[19-Nov-2024 13:18:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/app.php on line 16
+[19-Nov-2024 13:18:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/config/database.php on line 18

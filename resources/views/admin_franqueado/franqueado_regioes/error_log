@@ -1,0 +1,8 @@
+[19-Nov-2024 08:57:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Auth' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/franqueado_regioes/form.blade.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/franqueado_regioes/form.blade.php on line 5
+[19-Nov-2024 08:58:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Models\Afiliado' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/franqueado_regioes/index.blade.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/franqueado_regioes/index.blade.php on line 9

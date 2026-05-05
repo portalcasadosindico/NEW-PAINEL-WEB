@@ -1,0 +1,16 @@
+[14-Jul-2023 22:57:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/wwcasa/public_html/admin/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Kernel.php on line 7
+[15-Jul-2023 12:53:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/wwcasa/public_html/admin/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Kernel.php on line 7
+[16-Jul-2023 09:45:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/wwcasa/public_html/admin/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Kernel.php on line 7
+[19-Nov-2024 12:30:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/wwcasa/public_html/admin/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Kernel.php on line 7

@@ -1,0 +1,24 @@
+* Politica de privacidade e termos de uso.	
+	- Inserir formulário com textarea e título.
+	- Uma página par cada uma.
+	- O textarea é um com editor de texto para deixar negrito, itálico e etc.
+	- Não há edição de política de privacidade e nem de termos.
+	- Para disponiblizar nova politica ou termos, é necessário novo cadastro.
+	- Na listagem, ordenar pela última inserida.
+	- Manter o campo data de cadastro.
+	- Não colocar opções de gerenciamento, somente o botão cadastrar.
+	
+	- Inserir no menu super admin > Termos e politica o seguite item "Responsável":
+		- Formulário com: Nome, email, telefone e CPF. Todos obrigatórios.
+		- Canais de atendimento. Nome not null, e-mail null, telefone null.
+		- Não há exclusão do responsável
+		- Somente novo cadastro ou edição.
+	
+
+BLOG
+* Posts
+	- Inserir textarea com edtor de texto para a descrição do conteúdo.
+	
+
+	
+	

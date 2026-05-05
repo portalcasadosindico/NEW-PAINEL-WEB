@@ -1,0 +1,16 @@
+[14-Jul-2023 23:04:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/User.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/User.php on line 9
+[15-Jul-2023 13:04:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/User.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/User.php on line 9
+[16-Jul-2023 09:52:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/User.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/User.php on line 9
+[19-Nov-2024 11:32:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/User.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/User.php on line 9

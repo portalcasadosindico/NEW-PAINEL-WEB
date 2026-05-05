@@ -1,0 +1,13 @@
+[19-Nov-2024 09:08:17 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Models\Categoria' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/form.blade.php:214
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/form.blade.php on line 214
+[19-Nov-2024 09:08:55 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/show.blade.php on line 260
+[19-Nov-2024 09:08:55 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Models\Orcamento' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/show.blade.php:273
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/show.blade.php on line 273
+[19-Nov-2024 09:09:11 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/index.blade.php:69
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/afiliados/index.blade.php on line 69

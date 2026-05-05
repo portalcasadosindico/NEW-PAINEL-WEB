@@ -1,0 +1,80 @@
+[14-Jul-2023 23:03:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php on line 7
+[14-Jul-2023 23:03:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php on line 8
+[14-Jul-2023 23:03:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php on line 8
+[14-Jul-2023 23:03:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php on line 10
+[14-Jul-2023 23:03:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php on line 8
+[15-Jul-2023 13:03:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php on line 7
+[15-Jul-2023 13:03:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php on line 8
+[15-Jul-2023 13:03:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php on line 8
+[15-Jul-2023 13:03:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php on line 10
+[15-Jul-2023 13:04:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php on line 8
+[16-Jul-2023 09:51:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php on line 7
+[16-Jul-2023 09:51:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php on line 8
+[16-Jul-2023 09:51:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php on line 8
+[16-Jul-2023 09:51:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php on line 10
+[16-Jul-2023 09:51:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php on line 8
+[19-Nov-2024 11:52:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/EventServiceProvider.php on line 10
+[19-Nov-2024 11:52:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AuthServiceProvider.php on line 8
+[19-Nov-2024 11:53:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/RouteServiceProvider.php on line 8
+[19-Nov-2024 11:54:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/AppServiceProvider.php on line 7
+[19-Nov-2024 11:55:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Providers/BroadcastServiceProvider.php on line 8

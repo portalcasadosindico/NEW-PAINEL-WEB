@@ -1,0 +1,816 @@
+[14-Jul-2023 22:57:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Afiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Afiliado.php on line 8
+[14-Jul-2023 22:57:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php on line 8
+[14-Jul-2023 22:57:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php on line 14
+[14-Jul-2023 22:57:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php on line 8
+[14-Jul-2023 22:58:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php on line 9
+[14-Jul-2023 22:58:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Bairro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Bairro.php on line 8
+[14-Jul-2023 22:58:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Blog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Blog.php on line 8
+[14-Jul-2023 22:58:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php on line 8
+[14-Jul-2023 22:58:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogTag.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogTag.php on line 8
+[14-Jul-2023 22:58:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php on line 8
+[14-Jul-2023 22:58:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php on line 8
+[14-Jul-2023 22:58:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Categoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Categoria.php on line 8
+[14-Jul-2023 22:58:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Cidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Cidade.php on line 8
+[14-Jul-2023 22:59:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Condominio.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Condominio.php on line 8
+[14-Jul-2023 22:59:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Configuracao.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Configuracao.php on line 14
+[14-Jul-2023 22:59:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Contrato.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Contrato.php on line 8
+[14-Jul-2023 22:59:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php on line 8
+[14-Jul-2023 22:59:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php on line 8
+[14-Jul-2023 22:59:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Device.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Device.php on line 9
+[14-Jul-2023 22:59:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Estado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Estado.php on line 8
+[14-Jul-2023 22:59:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Franqueado.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Franqueado.php on line 11
+[14-Jul-2023 22:59:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php on line 8
+[14-Jul-2023 22:59:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php on line 8
+[14-Jul-2023 23:00:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php on line 8
+[14-Jul-2023 23:00:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php on line 7
+[14-Jul-2023 23:00:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php on line 7
+[14-Jul-2023 23:00:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSystem.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSystem.php on line 9
+[14-Jul-2023 23:00:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacao.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacao.php on line 33
+[14-Jul-2023 23:01:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php on line 8
+[14-Jul-2023 23:01:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php on line 8
+[14-Jul-2023 23:01:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Orcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Orcamento.php on line 8
+[14-Jul-2023 23:01:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php on line 8
+[14-Jul-2023 23:01:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Parceiro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Parceiro.php on line 8
+[14-Jul-2023 23:01:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php on line 15
+[14-Jul-2023 23:01:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php on line 8
+[14-Jul-2023 23:01:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php on line 8
+[14-Jul-2023 23:01:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Regiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Regiao.php on line 8
+[14-Jul-2023 23:02:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php on line 8
+[14-Jul-2023 23:02:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php on line 8
+[14-Jul-2023 23:02:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php on line 8
+[14-Jul-2023 23:02:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Rua.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Rua.php on line 8
+[14-Jul-2023 23:02:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php on line 8
+[14-Jul-2023 23:02:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Sindico.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Sindico.php on line 8
+[14-Jul-2023 23:02:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php on line 8
+[14-Jul-2023 23:02:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/TermoUso.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/TermoUso.php on line 8
+[14-Jul-2023 23:02:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/User.php on line 10
+[14-Jul-2023 23:02:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php on line 11
+[14-Jul-2023 23:03:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php on line 11
+[14-Jul-2023 23:03:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoria.php on line 8
+[14-Jul-2023 23:03:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php on line 8
+[14-Jul-2023 23:03:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php on line 8
+[15-Jul-2023 12:53:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Afiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Afiliado.php on line 8
+[15-Jul-2023 12:54:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php on line 8
+[15-Jul-2023 12:54:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php on line 14
+[15-Jul-2023 12:54:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php on line 8
+[15-Jul-2023 12:54:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php on line 9
+[15-Jul-2023 12:54:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Bairro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Bairro.php on line 8
+[15-Jul-2023 12:54:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Blog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Blog.php on line 8
+[15-Jul-2023 12:55:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php on line 8
+[15-Jul-2023 12:55:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogTag.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogTag.php on line 8
+[15-Jul-2023 12:55:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php on line 8
+[15-Jul-2023 12:55:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php on line 8
+[15-Jul-2023 12:55:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Categoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Categoria.php on line 8
+[15-Jul-2023 12:55:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Cidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Cidade.php on line 8
+[15-Jul-2023 12:56:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Condominio.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Condominio.php on line 8
+[15-Jul-2023 12:56:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Configuracao.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Configuracao.php on line 14
+[15-Jul-2023 12:56:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Contrato.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Contrato.php on line 8
+[15-Jul-2023 12:56:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php on line 8
+[15-Jul-2023 12:56:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php on line 8
+[15-Jul-2023 12:57:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Device.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Device.php on line 9
+[15-Jul-2023 12:57:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Estado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Estado.php on line 8
+[15-Jul-2023 12:57:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Franqueado.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Franqueado.php on line 11
+[15-Jul-2023 12:57:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php on line 8
+[15-Jul-2023 12:57:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php on line 8
+[15-Jul-2023 12:57:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php on line 8
+[15-Jul-2023 12:58:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php on line 7
+[15-Jul-2023 12:58:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php on line 7
+[15-Jul-2023 12:58:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSystem.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSystem.php on line 9
+[15-Jul-2023 12:58:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacao.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacao.php on line 33
+[15-Jul-2023 12:58:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php on line 8
+[15-Jul-2023 12:59:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php on line 8
+[15-Jul-2023 12:59:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Orcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Orcamento.php on line 8
+[15-Jul-2023 12:59:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php on line 8
+[15-Jul-2023 12:59:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Parceiro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Parceiro.php on line 8
+[15-Jul-2023 12:59:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php on line 15
+[15-Jul-2023 12:59:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php on line 8
+[15-Jul-2023 13:00:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php on line 8
+[15-Jul-2023 13:00:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Regiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Regiao.php on line 8
+[15-Jul-2023 13:00:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php on line 8
+[15-Jul-2023 13:00:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php on line 8
+[15-Jul-2023 13:00:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php on line 8
+[15-Jul-2023 13:01:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Rua.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Rua.php on line 8
+[15-Jul-2023 13:01:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php on line 8
+[15-Jul-2023 13:01:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Sindico.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Sindico.php on line 8
+[15-Jul-2023 13:01:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php on line 8
+[15-Jul-2023 13:01:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/TermoUso.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/TermoUso.php on line 8
+[15-Jul-2023 13:02:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/User.php on line 10
+[15-Jul-2023 13:02:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php on line 11
+[15-Jul-2023 13:02:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php on line 11
+[15-Jul-2023 13:02:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoria.php on line 8
+[15-Jul-2023 13:02:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php on line 8
+[15-Jul-2023 13:03:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php on line 8
+[16-Jul-2023 09:46:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Afiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Afiliado.php on line 8
+[16-Jul-2023 09:46:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php on line 8
+[16-Jul-2023 09:46:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php on line 14
+[16-Jul-2023 09:46:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php on line 8
+[16-Jul-2023 09:46:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php on line 9
+[16-Jul-2023 09:46:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Bairro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Bairro.php on line 8
+[16-Jul-2023 09:46:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Blog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Blog.php on line 8
+[16-Jul-2023 09:46:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php on line 8
+[16-Jul-2023 09:47:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogTag.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogTag.php on line 8
+[16-Jul-2023 09:47:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php on line 8
+[16-Jul-2023 09:47:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php on line 8
+[16-Jul-2023 09:47:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Categoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Categoria.php on line 8
+[16-Jul-2023 09:47:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Cidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Cidade.php on line 8
+[16-Jul-2023 09:47:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Condominio.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Condominio.php on line 8
+[16-Jul-2023 09:47:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Configuracao.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Configuracao.php on line 14
+[16-Jul-2023 09:47:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Contrato.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Contrato.php on line 8
+[16-Jul-2023 09:47:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php on line 8
+[16-Jul-2023 09:47:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php on line 8
+[16-Jul-2023 09:48:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Device.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Device.php on line 9
+[16-Jul-2023 09:48:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Estado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Estado.php on line 8
+[16-Jul-2023 09:48:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Franqueado.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Franqueado.php on line 11
+[16-Jul-2023 09:48:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php on line 8
+[16-Jul-2023 09:48:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php on line 8
+[16-Jul-2023 09:48:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php on line 8
+[16-Jul-2023 09:48:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php on line 7
+[16-Jul-2023 09:48:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php on line 7
+[16-Jul-2023 09:48:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSystem.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSystem.php on line 9
+[16-Jul-2023 09:48:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacao.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacao.php on line 33
+[16-Jul-2023 09:49:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php on line 8
+[16-Jul-2023 09:49:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php on line 8
+[16-Jul-2023 09:49:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Orcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Orcamento.php on line 8
+[16-Jul-2023 09:49:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php on line 8
+[16-Jul-2023 09:49:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Parceiro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Parceiro.php on line 8
+[16-Jul-2023 09:49:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php on line 15
+[16-Jul-2023 09:49:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php on line 8
+[16-Jul-2023 09:49:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php on line 8
+[16-Jul-2023 09:49:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Regiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Regiao.php on line 8
+[16-Jul-2023 09:49:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php on line 8
+[16-Jul-2023 09:50:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php on line 8
+[16-Jul-2023 09:50:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php on line 8
+[16-Jul-2023 09:50:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Rua.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Rua.php on line 8
+[16-Jul-2023 09:50:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php on line 8
+[16-Jul-2023 09:50:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Sindico.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Sindico.php on line 8
+[16-Jul-2023 09:50:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php on line 8
+[16-Jul-2023 09:50:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/TermoUso.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/TermoUso.php on line 8
+[16-Jul-2023 09:50:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/User.php on line 10
+[16-Jul-2023 09:51:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php on line 11
+[16-Jul-2023 09:51:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php on line 11
+[16-Jul-2023 09:51:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoria.php on line 8
+[16-Jul-2023 09:51:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php on line 8
+[16-Jul-2023 09:51:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php on line 8
+[19-Nov-2024 11:57:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PoliticaPrivacidade.php on line 8
+[19-Nov-2024 11:57:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Configuracao.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Configuracao.php on line 14
+[19-Nov-2024 11:58:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/OrcamentoAssinatura.php on line 8
+[19-Nov-2024 12:00:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/VistoriaImagem.php on line 8
+[19-Nov-2024 12:00:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/RegiaoFaixaCep.php on line 8
+[19-Nov-2024 12:01:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoDisponivelFranqueado.php on line 8
+[19-Nov-2024 12:01:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Categoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Categoria.php on line 8
+[19-Nov-2024 12:02:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/NotificacoesLog.php on line 8
+[19-Nov-2024 12:02:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelAfiliado.php on line 8
+[19-Nov-2024 12:03:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Sindico.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Sindico.php on line 8
+[19-Nov-2024 12:05:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Bairro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Bairro.php on line 8
+[19-Nov-2024 12:06:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogErroEmail.php on line 7
+[19-Nov-2024 12:07:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/TermoUso.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/TermoUso.php on line 8
+[19-Nov-2024 12:08:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Afiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Afiliado.php on line 8
+[19-Nov-2024 12:09:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CanalAtendimento.php on line 8
+[19-Nov-2024 12:10:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Device.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Device.php on line 9
+[19-Nov-2024 12:10:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoFranqueadoAsaas.php on line 14
+[19-Nov-2024 12:10:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoSocial.php on line 8
+[19-Nov-2024 12:12:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacoes.php on line 8
+[19-Nov-2024 12:12:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoRegiao.php on line 9
+[19-Nov-2024 12:12:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ImagemOrcamento.php on line 8
+[19-Nov-2024 12:13:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSendinBlue.php on line 7
+[19-Nov-2024 12:14:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioApp.php on line 11
+[19-Nov-2024 12:14:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ContratoAssinatura.php on line 8
+[19-Nov-2024 12:16:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoCategoria.php on line 8
+[19-Nov-2024 12:16:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Estado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Estado.php on line 8
+[19-Nov-2024 12:17:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Contrato.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Contrato.php on line 8
+[19-Nov-2024 12:18:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Notificacao.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Notificacao.php on line 33
+[19-Nov-2024 12:18:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoria.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoria.php on line 8
+[19-Nov-2024 12:19:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Cidade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Cidade.php on line 8
+[19-Nov-2024 12:19:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/User.php on line 10
+[19-Nov-2024 12:20:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/AfiliadoOrcamentoInteresse.php on line 8
+[19-Nov-2024 12:20:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogTag.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogTag.php on line 8
+[19-Nov-2024 12:20:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SolicitacaoOrcamentos.php on line 8
+[19-Nov-2024 12:21:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/UsuarioSistemaAdmin.php on line 11
+[19-Nov-2024 12:21:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Auth\User' not found in /home/wwcasa/public_html/admin/app/Models/Franqueado.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Franqueado.php on line 11
+[19-Nov-2024 12:21:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Regiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Regiao.php on line 8
+[19-Nov-2024 12:22:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/CartaoCnpj.php on line 8
+[19-Nov-2024 12:22:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/ResponsavelPolitica.php on line 8
+[19-Nov-2024 12:23:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/SessaoUsuario.php on line 8
+[19-Nov-2024 12:24:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/BlogComentario.php on line 8
+[19-Nov-2024 12:24:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/PlanoAssinaturaAfiliadoRegiao.php on line 15
+[19-Nov-2024 12:25:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Vistoriador.php on line 8
+[19-Nov-2024 12:26:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiao.php on line 8
+[19-Nov-2024 12:26:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/LogSystem.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/LogSystem.php on line 9
+[19-Nov-2024 12:27:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Orcamento.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Orcamento.php on line 8
+[19-Nov-2024 12:27:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Parceiro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Parceiro.php on line 8
+[19-Nov-2024 12:28:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Rua.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Rua.php on line 8
+[19-Nov-2024 12:28:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/FranqueadoRegiaoPlanoDisponibilizado.php on line 8
+[19-Nov-2024 12:29:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Blog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Blog.php on line 8
+[19-Nov-2024 12:29:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home/wwcasa/public_html/admin/app/Models/Condominio.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Models/Condominio.php on line 8

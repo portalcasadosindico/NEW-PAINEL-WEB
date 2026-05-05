@@ -1,0 +1,8 @@
+[19-Nov-2024 09:18:29 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Models\Bairro' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/sindicos/show.blade.php:132
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/sindicos/show.blade.php on line 132
+[19-Nov-2024 09:18:53 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/sindicos/index.blade.php:66
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/sindicos/index.blade.php on line 66

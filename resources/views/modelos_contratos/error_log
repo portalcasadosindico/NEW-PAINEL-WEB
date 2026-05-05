@@ -1,0 +1,52 @@
+[19-Nov-2024 11:06:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCNPJ() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_semcomissao.blade.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_semcomissao.blade.php on line 26
+[19-Nov-2024 11:08:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_terceirizado.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_terceirizado.php on line 7
+[19-Nov-2024 11:20:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCNPJ() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_terceirizado.blade.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_terceirizado.blade.php on line 26
+[19-Nov-2024 11:21:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_comcomissao.blade.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_comcomissao.blade.php on line 7
+[19-Nov-2024 11:22:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado.php on line 8
+[19-Nov-2024 11:22:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCNPJ() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_parceiro.blade.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_parceiro.blade.php on line 26
+[19-Nov-2024 11:23:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_semcomissao.blade.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_semcomissao.blade.php on line 7
+[19-Nov-2024 11:23:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado.blade.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado.blade.php on line 8
+[19-Nov-2024 11:24:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_terceirizado.blade.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_terceirizado.blade.php on line 7
+[19-Nov-2024 11:24:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCNPJ() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_gratuito.blade.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_gratuito.blade.php on line 26
+[19-Nov-2024 11:25:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCNPJ() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_comcomissao.blade.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_afiliado_comcomissao.blade.php on line 26
+[19-Nov-2024 11:25:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_comcomissao.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_comcomissao.php on line 7
+[19-Nov-2024 11:26:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function formatarCEP() in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_semcomissao.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/modelos_contratos/contrato_semcomissao.php on line 7

@@ -1,0 +1,8 @@
+[19-Nov-2024 10:36:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin/vistoriadores/show.blade.php:44
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin/vistoriadores/show.blade.php on line 44
+[19-Nov-2024 10:37:06 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin/vistoriadores/index.blade.php:84
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin/vistoriadores/index.blade.php on line 84

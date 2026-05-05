@@ -1,0 +1,16 @@
+[14-Jul-2023 22:57:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php on line 8
+[15-Jul-2023 12:52:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php on line 8
+[16-Jul-2023 09:45:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php on line 8
+[19-Nov-2024 11:34:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exceptions/Handler.php on line 8

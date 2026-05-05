@@ -1,0 +1,24 @@
+[19-Nov-2024 13:05:47 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/VerificationController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/VerificationController.php on line 8
+[19-Nov-2024 13:06:40 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ConfirmPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ConfirmPasswordController.php on line 8
+[19-Nov-2024 13:07:03 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ForgotPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[19-Nov-2024 13:07:26 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ResetPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[19-Nov-2024 13:07:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/LoginController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/LoginController.php on line 10
+[19-Nov-2024 13:08:59 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/RegisterController.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Http/Controllers/Auth/RegisterController.php on line 11

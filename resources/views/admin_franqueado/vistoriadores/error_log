@@ -1,0 +1,8 @@
+[19-Nov-2024 09:32:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Auth' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistoriadores/form.blade.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistoriadores/form.blade.php on line 5
+[19-Nov-2024 09:33:11 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistoriadores/index.blade.php:71
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistoriadores/index.blade.php on line 71

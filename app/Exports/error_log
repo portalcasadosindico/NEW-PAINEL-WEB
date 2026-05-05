@@ -1,0 +1,16 @@
+[14-Jul-2023 22:57:17 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromCollection' not found in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php on line 12
+[15-Jul-2023 12:53:05 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromCollection' not found in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php on line 12
+[16-Jul-2023 09:45:42 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromCollection' not found in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php on line 12
+[19-Nov-2024 11:56:52 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromCollection' not found in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/app/Exports/AfiliadosExport.php on line 12

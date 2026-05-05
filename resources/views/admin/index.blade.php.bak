@@ -1,0 +1,50 @@
+@extends('admin.layouts.app')
+
+@section('content')
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Dashboard</h3>
+    </div>
+    <div class="panel-body panel-body-with-table" style="max-height: 600px; overflow: auto;">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th width="200">Região/Franqueado</th>
+                        <th>Solicitações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($franqueadoRegioes as $franqueadoRegiao)
+                    <tr>
+                        <td>
+                            Região:
+                            <b>
+                                @if($franqueadoRegiao && is_object($franqueadoRegiao) && $franqueadoRegiao->regiao && is_object($franqueadoRegiao->regiao))
+                                    {{ $franqueadoRegiao->regiao->nome }}
+                                @else
+                                    SEM REGIÃO
+                                @endif
+                            </b><br>
+                            Franqueado: <b>{{ $franqueadoRegiao && is_object($franqueadoRegiao) && $franqueadoRegiao->franqueado ? $franqueadoRegiao->franqueado->nome : 'N/A' }}</b>
+                        </td>
+                        <td>
+                            <label class="badge badge-success"> Concluidas:
+                                {{ $franqueadoRegiao && is_object($franqueadoRegiao) ? $franqueadoRegiao->concluidas : '0' }}</label>
+                            <label class="badge badge-danger"> Canceladas:
+                                {{ $franqueadoRegiao && is_object($franqueadoRegiao) ? $franqueadoRegiao->canceladas : '0' }}</label>
+                            <label class="badge badge-info"> Total:
+                                {{ $franqueadoRegiao && is_object($franqueadoRegiao) && is_array($franqueadoRegiao->orcamentos) ? count($franqueadoRegiao->orcamentos) : '0' }}</label>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="2" class="text-center">Nenhum registro encontrado.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

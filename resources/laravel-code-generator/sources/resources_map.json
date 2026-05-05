@@ -1,0 +1,17 @@
+[
+    {
+        "model-name": "ResponsavelPolitica",
+        "resource-file": "responsavel_politicas.json",
+        "table-name": "responsavel_politica"
+    },
+    {
+        "model-name": "CanalAtendimento",
+        "resource-file": "canal_atendimentos.json",
+        "table-name": "canal_atendimento"
+    },
+    {
+        "model-name": "TermoUso",
+        "resource-file": "termo_usos.json",
+        "table-name": "termo_uso"
+    }
+]

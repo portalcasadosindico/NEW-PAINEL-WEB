@@ -1,0 +1,8 @@
+[19-Nov-2024 09:24:53 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/orcamentos/index.blade.php:105
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/orcamentos/index.blade.php on line 105
+[19-Nov-2024 09:29:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\StatusOrcamento' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/orcamentos/formedit.blade.php:128
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/orcamentos/formedit.blade.php on line 128

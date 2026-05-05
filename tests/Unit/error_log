@@ -1,0 +1,16 @@
+[14-Jul-2023 23:23:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php on line 8
+[15-Jul-2023 13:42:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php on line 8
+[16-Jul-2023 10:13:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php on line 8
+[19-Nov-2024 07:03:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/tests/Unit/ExampleTest.php on line 8

@@ -1,0 +1,4 @@
+[19-Nov-2024 09:13:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistorias/index.blade.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/vistorias/index.blade.php on line 88

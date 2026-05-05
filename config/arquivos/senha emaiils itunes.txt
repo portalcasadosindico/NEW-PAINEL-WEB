@@ -1,0 +1,15 @@
+Gmail
+appcasasindicoios@gmail.com
+@#55tf)-oop
+
+Itunes
+appcasasindicoios@gmail.com
+@#55tf)-ooP
+
+Link tutorial
+https://medium.com/@abimaelc.andrade/deploy-de-uma-aplica%C3%A7%C3%A3o-laravel-na-aws-ec2-c259ef990260
+
+Credenciais AWS
+Acesar pelo terminal 
+
+ssh -i "renatoparanagua.pem" ubuntu@ec2-18-222-75-87.us-east-2.compute.amazonaws.com

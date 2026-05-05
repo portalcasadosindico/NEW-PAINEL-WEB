@@ -1,0 +1,440 @@
+<?php
+    use App\Models\AfiliadoFranqueadoAsaas;
+    use App\Models\ResponsavelAfiliado;
+    use App\Uteis\StatusOrcamento; 
+    use App\Uteis\StatusPlano;
+    use App\Uteis\Formatacao; 
+    use App\Uteis\StatusVistoria; 
+?>
+@extends('layout.master')
+
+@push('plugin-styles')
+<link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+@endpush
+
+@section('content')
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+        <h4 class="mb-3 mb-md-0">Bem vindo ao painel administrativo</h4>
+    </div>
+    <div class="col-lg-12 col-xl-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0" style="font-size: 18px;">Documentos pendentes (<b id="qtd-doc-pendentes">{{$totalDocPendentes}}</b>)</h6>
+                </div>
+
+                @if(count($documentosPendentesShow) == 0)
+                    <div class="panel-body text-center">
+                        <i class="fa fa-thumbs-o-up fa-5x"></i>
+                        <h4>Nenhuma pendência</h4>
+                    </div>
+                @else
+                <div class="panel-body panel-body-with-table">
+                    <div class="table-responsive">
+                        <table class="table table-striped ">
+                            <thead>
+                                <tr>
+                                    <th>Afiliado</th>
+                                    <th>Documento</th>
+                                    <th>Opções</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="container-doc-pendentes">
+                                @foreach($documentosPendentesShow as $docLinha)
+                                    @foreach($docLinha as $doc)
+                                        @if($doc->afiliado)
+                                            <tr class="linha-doc-pendente" id="linha-doc-pendente-{{$doc->id}}-{{$doc->tipo}}">
+                                                <td>
+                                                    <a title="Detalhes deste afiliado" target="_blank" href="afiliados/{{$doc->afiliado->id}}">
+                                                        <?php
+                                                            $responsavelAfiliado = ResponsavelAfiliado::where("afiliado_id", $doc->afiliado->id)->first();
+                                                        ?>
+                                                        <!-- [HUBBOX FIX] Proteção caso o responsável não exista -->
+                                                        {{$doc->afiliado->razao_social ? $doc->afiliado->razao_social : optional($responsavelAfiliado)->nome ?? 'Responsável não encontrado'}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{Storage::url($doc->arquivo)}}" target="_blank">Ver Documento</a>
+                                                    <h6>{{$doc->tipo}}</h6>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0)" onclick="aprovarDocPendente({{$doc->id}}, 'aprovado', '{{$doc->tipo}}')" class="btn btn-success btn-aprovar-doc-{{$doc->id}}-{{$doc->tipo}}">Aprovar</a>
+                                                    <a href="javascript:void(0)" onclick="abrirMotivoDocPendente({{$doc->id}}, '{{$doc->tipo}}')" class="btn btn-danger">Reprovar</a>
+                                                    <div id="content-motivo-doc-{{$doc->id}}-{{$doc->tipo}}" style="background: #fff; padding: 8px; margin-top: 8px; display: none;">
+                                                        <h6>Confirmando reprovação</h6>
+                                                        <textarea id="motivo-reprovado-doc-{{$doc->id}}-{{$doc->tipo}}" class="form-control" placeholder="Informe o motivo"></textarea>
+                                                        <a href="javascript:void(0)" style="margin-top: 10px;" class="btn btn-danger btn-reprovar-doc-{{$doc->id}}"  onclick="aprovarDocPendente({{$doc->id}}, 'reprovado', '{{$doc->tipo}}')">Reprovar</a>
+                                                        <a href="javascript:void(0)" class="btn btn-light" style="margin-top: 10px;" onclick="abrirMotivoDocPendente({{$doc->id}}, '{{$doc->tipo}}')">Cancelar</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-xl-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0" style="font-size: 18px;">Solicitações de categorias por afiliados (<b id="qtd-categorias-pendentes">{{count($categoriasPendentesShow)}}</b>)</h6>
+                </div>
+
+                @if(count($categoriasPendentesShow) == 0)
+                    <div class="panel-body text-center">
+                        <i class="fa fa-thumbs-o-up fa-5x"></i>
+                        <h4>Nenhuma pendência</h4>
+                    </div>
+                @else
+                <div class="panel-body panel-body-with-table">
+                    <div class="table-responsive">
+                        <table class="table table-striped ">
+                            <thead>
+                                <tr>
+                                    <th>Afiliado</th>
+                                    <th>Categoria</th>
+                                    <th>Opções</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="container-categorias-pendentes">
+                                @foreach($categoriasPendentesShow as $categoriaPendente)
+								@if($categoriaPendente && $categoriaPendente->afiliado)
+										<tr class="linha-categoria-pendente" id="linha-categoria-pendente-{{$categoriaPendente->id}}">
+											<td>
+												<a title="Detalhes deste afiliado" target="_blank" href="afiliados/{{$categoriaPendente->afiliado->id}}">
+													<?php
+                                                        $responsavelAfiliado = ResponsavelAfiliado::where("afiliado_id", $categoriaPendente->afiliado->id)->first();
+                                                    ?>
+                                                    <!-- [HUBBOX FIX] Proteção caso o responsável não exista -->
+                                                    {{$categoriaPendente->afiliado->razao_social ? $categoriaPendente->afiliado->razao_social : optional($responsavelAfiliado)->nome ?? 'Responsável não encontrado'}}
+												</a>
+											</td>
+											<td>{{$categoriaPendente->categoria ? $categoriaPendente->categoria->nome : "Categoria removida"}}</td>
+											<td>
+												<a href="javascript:void(0)" onclick="aprovarCategoria({{$categoriaPendente->id}}, 'aprovado')" class="btn btn-success btn-aprovar-{{$categoriaPendente->id}}">Aprovar</a>
+												<a href="javascript:void(0)" onclick="abrirMotivo({{$categoriaPendente->id}})" class="btn btn-danger">Reprovar</a>
+												<div id="content-motivo-{{$categoriaPendente->id}}" style="background: #fff; padding: 8px; margin-top: 8px; display: none;">
+													<h6>Confirmando reprovação</h6>
+													<textarea id="motivo-reprovado-{{$categoriaPendente->id}}" class="form-control" placeholder="Informe o motivo"></textarea>
+													<a href="javascript:void(0)" style="margin-top: 10px;" class="btn btn-danger btn-reprovar-{{$categoriaPendente->id}}"  onclick="aprovarCategoria({{$categoriaPendente->id}}, 'reprovado')"  >Reprovar</a>
+													<a href="javascript:void(0)" class="btn btn-light" style="margin-top: 10px;" onclick="abrirMotivo({{$categoriaPendente->id}})">Cancelar</a>
+												</div>
+											</td>
+										</tr>
+									@endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- categorias table-->
+    <div class="col-lg-12 col-xl-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0">Vistorias em aberto</h6>
+                </div>
+
+                @if(count($vistorias) == 0)
+                <div class="panel-body text-center">
+                    <h4>Nenhuma vistoria listada</h4>
+                </div>
+            @else
+                <div class="panel-body panel-body-with-table">
+                <div class="table-responsive">
+             <table data-page-length="25" id="dataTableExample" class="table table-striped dataTableDesc no-footer" role="grid" aria-describedby="dataTableExample_info">
+                        <thead>
+                            <tr>
+                                 <th>#</th>
+                                <th>Datas</th>
+                                <th width="200">Solicitação/Local</th>
+                                <th width="200">Vistoriador</th>
+                                <th>Check-in/Check-out</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($vistorias as $vistoria)
+                                <td>{{ $vistoria->id }}</td>
+                                <td> 
+                                    <p>
+                                         <b class="d-block mb-0">Solicitado em</b>
+                                         <?php
+                                             if($vistoria->data_cadastro)
+                                                 echo Formatacao::data($vistoria->data_cadastro); 
+                                             else
+                                                 echo "--";
+                                         ?>
+                                    </p>
+                                    <p class="mt-1">
+                                         <b class="d-block">Data da vistoria</b>
+                                         <?php
+                                             if($vistoria->data_vistoria){
+                                                 echo Formatacao::data($vistoria->data_vistoria); 
+                                                 if($vistoria->hora_vistoria)
+                                                     echo " - ". Formatacao::hora($vistoria->hora_vistoria, true, true, false);
+                                             } else
+                                                 echo "--";
+ 
+                                             
+                                         ?>
+                                    </p>
+                                 </td>    
+                                 <td>
+                                     <h5 class="mb-0"><a href="<?php echo env("APP_URL"); ?>/admin/orcamentos/{{$vistoria->orcamento->id}}/edit" title="Ver solicitação em nova aba" target="_blank">#{{ $vistoria->orcamento->id }} - {{ $vistoria->orcamento->nome }}</a></h5>
+                                     <label class="mb-2 badge badge-<?php echo StatusVistoria::getColor($vistoria->status); ?>"><?php echo StatusVistoria::getLabel($vistoria->status); ?></label>
+                                     <h5>{{ $vistoria->orcamento->condominio->nome }}</h5>
+                                     <a title="Abrir no mapa" style="font-size: 14px; margin-top: 6px; display: block;" target="_blank" href="https://www.google.com/maps/place/{{$vistoria->orcamento->condominio->endereco . "," . $vistoria->orcamento->condominio->numero."-".$vistoria->orcamento->condominio->bairro."+,+".$vistoria->orcamento->condominio->cidade."+-+".$vistoria->orcamento->condominio->estado.",+".$vistoria->orcamento->condominio->cep}}">
+                                         {{ $vistoria->orcamento->condominio->cep.". ".$vistoria->orcamento->condominio->endereco.", ".$vistoria->orcamento->condominio->numero.". ".$vistoria->orcamento->condominio->bairro.", ".$vistoria->orcamento->condominio->cidade."/".$vistoria->orcamento->condominio->estado }}
+                                     </a>
+                                 </td>
+                                 <td>
+                                     @if($vistoria->vistoriador_id>0)    
+                                         <h5>{{$vistoria->vistoriador->nome}}</h5>
+                                         <p><?php echo nl2br($vistoria->vistoriador->dados_acesso_condominio); ?></p>
+                                     @else
+                                         --
+                                     @endif
+                                 </td> 
+                                 <td>
+                                     <p>
+                                         <b class="d-block mb-0">Check-in</b>
+                                         <?php
+                                             if($vistoria->data_checkin)
+                                                 echo Formatacao::data($vistoria->data_checkin); 
+                                             else
+                                                 echo "--";
+                                         ?>
+                                    </p>
+                                    <p class="mt-1">
+                                         <b class="d-block">Check-out</b>
+                                         <?php
+                                             if($vistoria->data_checkout)
+                                                 echo Formatacao::data($vistoria->data_checkout); 
+                                             else
+                                                 echo "--";
+                                         ?>
+                                    </p>
+                                 </td>
+                                <td align="right">
+ 
+                                        <div class="btn-group btn-group-xs pull-right" role="group">
+                                            <a href="{{ route('admin.vistorias.edit', $vistoria->id ) }}" class="btn btn-primary" title="Editar vistoria">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+              </div>
+            </div>
+                @endif
+            </div>
+        </div>
+    </div> <!-- categorias table-->
+
+<form method="POST">{{ csrf_field() }}</form>
+@endsection
+
+@push('plugin-scripts')
+<script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
+<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/progressbar-js/progressbar.min.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+<script src="{{ asset('assets/js/dashboard.js') }}"></script>
+<script src="{{ asset('assets/js/datepicker.js') }}"></script>
+
+
+<script>
+    function abrirMotivo(index){
+        if($("#content-motivo-"+index).css("display")=="none"){
+            $("#content-motivo-"+index).show();
+        } else {
+            $("#content-motivo-"+index).hide();
+        }
+    }
+
+    function abrirMotivoDocPendente(index, tipo){
+        if($("#content-motivo-doc-"+index+"-"+tipo).css("display")=="none"){
+            $("#content-motivo-doc-"+index+"-"+tipo).show();
+        } else {
+            $("#content-motivo-doc-"+index+"-"+tipo).hide();
+        }
+    }
+
+    function aprovarCategoria(afiliado_categoria_id, newStatus){
+
+        if(newStatus=="aprovado"){
+            var textoConfirm = "Você confirma a aprovação desta categoria?";
+        } else if(newStatus=="reprovado"){
+            var textoConfirm = "Você confirma a reprovação desta categoria?";
+        }
+
+        if(confirm(textoConfirm)){
+            $(".btn-aprovar-"+afiliado_categoria_id).html("Aguarde...")
+            $(".btn-aprovar-"+afiliado_categoria_id).addClass("disabled")
+            $(".btn-reprovar-"+afiliado_categoria_id).html("Aguarde...")
+            $(".btn-reprovar-"+afiliado_categoria_id).addClass("disabled")
+            var motivo = $("#motivo-reprovado-"+afiliado_categoria_id).val()
+            var _token = $('input[name="_token"]').val();
+            $.getJSON({
+                url: '<?php echo getenv("APP_URL"); ?>/admin/alterar_status_categoria_afiliado/'+afiliado_categoria_id,
+                method: "POST",
+                data: {
+                    _token: _token,
+                    status: newStatus,
+                    motivo: motivo
+                },
+                success: function(data) {
+                    if(data.res==true){
+                        $("#linha-categoria-pendente-"+afiliado_categoria_id).remove();
+                        contarQuantidaeCategoriasPendentes();
+                    } else {
+                        $(".btn-aprovar-"+afiliado_categoria_id).html("Aprovar")
+                        $(".btn-aprovar-"+afiliado_categoria_id).removeClass("disabled")
+                        $(".btn-reprovar-"+afiliado_categoria_id).html("Reprovar")
+                        $(".btn-reprovar-"+afiliado_categoria_id).removeClass("disabled")
+                        alert("Tente novamente.")
+                    }
+                },
+                error: function() {
+                    $(".btn-aprovar-"+afiliado_categoria_id).html("Aprovar")
+                    $(".btn-aprovar-"+afiliado_categoria_id).removeClass("disabled")
+                    $(".btn-reprovar-"+afiliado_categoria_id).html("Reprovar")
+                    $(".btn-reprovar-"+afiliado_categoria_id).removeClass("disabled")
+                    alert("Tente novamente.")
+                }
+            });  
+        }
+
+        
+    }
+
+    function aprovarDocPendente(documento_id, newStatus, tipo){
+
+        if(newStatus=="aprovado"){
+            var textoConfirm = "Você confirma a aprovação deste documento?";
+        } else if(newStatus=="reprovado"){
+            var textoConfirm = "Você confirma a reprovação deste documento?";
+        }
+
+        if(confirm(textoConfirm)){
+            $(".btn-aprovar-doc-"+documento_id+"-"+tipo).html("Aguarde...")
+            $(".btn-aprovar-doc-"+documento_id+"-"+tipo).addClass("disabled")
+            $(".btn-reprovar-doc-"+documento_id+"-"+tipo).html("Aguarde...")
+            $(".btn-reprovar-doc-"+documento_id+"-"+tipo).addClass("disabled")
+            var motivo = $("#motivo-reprovado-doc-"+documento_id+"-"+tipo).val()
+            var _token = $('input[name="_token"]').val();
+            $.getJSON({
+                url: '<?php echo getenv("APP_URL"); ?>/admin/alterar_status_documento_pendente/'+documento_id,
+                method: "POST",
+                data: {
+                    _token: _token,
+                    status: newStatus,
+                    motivo: motivo,
+                    tipo: tipo
+                },
+                success: function(data) {
+                    if(data.res==true){
+                        $("#linha-doc-pendente-"+documento_id+"-"+tipo).remove();
+                        contarQuantidaeDocPendentes();
+                    } else {
+                        $(".btn-aprovar-doc-"+documento_id+"-"+tipo).html("Aprovar")
+                        $(".btn-aprovar-doc-"+documento_id+"-"+tipo).removeClass("disabled")
+                        $(".btn-reprovar-doc-"+documento_id+"-"+tipo).html("Reprovar")
+                        $(".btn-reprovar-doc-"+documento_id+"-"+tipo).removeClass("disabled")
+                        alert("Tente novamente.")
+                    }
+                },
+                error: function() {
+                    $(".btn-aprovar-doc-"+documento_id+"-"+tipo).html("Aprovar")
+                    $(".btn-aprovar-doc-"+documento_id+"-"+tipo).removeClass("disabled")
+                    $(".btn-reprovar-doc-"+documento_id+"-"+tipo).html("Reprovar")
+                    $(".btn-reprovar-doc-"+documento_id+"-"+tipo).removeClass("disabled")
+                    alert("Tente novamente.")
+                }
+            });  
+        }
+
+
+    }
+
+    function contarQuantidaeCategoriasPendentes(){
+        var qtd = $(".linha-categoria-pendente").length;
+        $("#qtd-categorias-pendentes").html(qtd);
+        if(qtd==0){
+            $("#container-categorias-pendentes").html('<tr><td colspan="3"><div class="panel-body text-center"><br><i class="fa fa-thumbs-o-up fa-5x"></i><h4>Nenhuma solicitação pendente</h4></div></td></tr>')
+        }
+        return true;
+    }
+
+    function contarQuantidaeDocPendentes(){
+        var qtd = $(".linha-doc-pendente").length;
+        $("#qtd-doc-pendentes").html(qtd);
+        if(qtd==0){
+            $("#container-doc-pendentes").html('<tr><td colspan="3"><div class="panel-body text-center"><br><i class="fa fa-thumbs-o-up fa-5x"></i><h4>Nenhuma solicitação pendente</h4></div></td></tr>')
+        }
+        return true;
+    }
+
+    function alterarModus(){
+        var _token = $('input[name="_token"]').val();
+        var w = prompt('Você deve digitar o valor do novo status.\nDigite producao para deixar modo real\nDigite debug para testes\nDigite manutencao para remover o sistema do ar')
+        if(w && (w=="producao" || w=="debug" || w=="manutencao")){
+            var q = prompt("Informe o PIN secreto")
+            $.getJSON({
+                url: '<?php echo getenv("APP_URL"); ?>/admin/alterar_modus_operandi',
+                method: "POST",
+                data: {
+                    _token: _token,
+                    pin: q,
+                    modo: w
+                },
+                success: function(data) {
+                    if(data.status==true){
+                        alert("Modus operandi alterado para " + w + " com sucesso!")
+                        window.location.reload()
+                    } else {
+                        alert("PIN Incorreto.")
+                    }
+                },
+                error: function() {
+                    alert("Tente novamente.")
+                }
+            })
+        } else {
+            alert("Ação cancelada.")
+        }
+    }
+
+</script>
+
+<script type='text/javascript'>
+    function filtroSolicitacoes(texto){ 
+        dataTableNoOrder.search(texto).draw();
+    }
+</script>
+
+@endpush

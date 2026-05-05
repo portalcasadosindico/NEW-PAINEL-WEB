@@ -1,0 +1,16 @@
+[14-Jul-2023 23:06:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/wwcasa/public_html/admin/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/bootstrap/app.php on line 14
+[15-Jul-2023 13:08:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/wwcasa/public_html/admin/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/bootstrap/app.php on line 14
+[16-Jul-2023 09:54:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/wwcasa/public_html/admin/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/bootstrap/app.php on line 14
+[19-Nov-2024 07:06:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/wwcasa/public_html/admin/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/bootstrap/app.php on line 14

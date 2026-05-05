@@ -1,0 +1,4 @@
+[19-Nov-2024 10:58:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Auth' not found in /home/wwcasa/public_html/admin/resources/views/layout/header.blade.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/layout/header.blade.php on line 5

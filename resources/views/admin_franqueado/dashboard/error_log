@@ -1,0 +1,4 @@
+[19-Nov-2024 09:04:19 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Uteis\Formatacao' not found in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/dashboard/solicitacoes-andamento.blade.php:59
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/resources/views/admin_franqueado/dashboard/solicitacoes-andamento.blade.php on line 59

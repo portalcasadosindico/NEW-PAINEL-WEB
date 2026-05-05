@@ -1,0 +1,64 @@
+[14-Jul-2023 23:22:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/wwcasa/public_html/admin/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/api.php on line 16
+[14-Jul-2023 23:22:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/wwcasa/public_html/admin/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/channels.php on line 14
+[14-Jul-2023 23:22:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Artisan' not found in /home/wwcasa/public_html/admin/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/console.php on line 16
+[14-Jul-2023 23:22:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Route' not found in /home/wwcasa/public_html/admin/routes/web.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/web.php on line 18
+[15-Jul-2023 13:38:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/wwcasa/public_html/admin/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/api.php on line 16
+[15-Jul-2023 13:39:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/wwcasa/public_html/admin/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/channels.php on line 14
+[15-Jul-2023 13:39:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Artisan' not found in /home/wwcasa/public_html/admin/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/console.php on line 16
+[15-Jul-2023 13:39:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Route' not found in /home/wwcasa/public_html/admin/routes/web.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/web.php on line 18
+[16-Jul-2023 10:10:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/wwcasa/public_html/admin/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/api.php on line 16
+[16-Jul-2023 10:10:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/wwcasa/public_html/admin/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/channels.php on line 14
+[16-Jul-2023 10:10:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Artisan' not found in /home/wwcasa/public_html/admin/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/console.php on line 16
+[16-Jul-2023 10:11:01 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Route' not found in /home/wwcasa/public_html/admin/routes/web.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/web.php on line 18
+[19-Nov-2024 14:30:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Route' not found in /home/wwcasa/public_html/admin/routes/web.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/web.php on line 18
+[19-Nov-2024 14:30:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Artisan' not found in /home/wwcasa/public_html/admin/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/console.php on line 16
+[19-Nov-2024 14:31:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/wwcasa/public_html/admin/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/channels.php on line 14
+[19-Nov-2024 14:31:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/wwcasa/public_html/admin/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/wwcasa/public_html/admin/routes/api.php on line 16

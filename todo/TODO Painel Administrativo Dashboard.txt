@@ -1,0 +1,95 @@
+Banco de dados
+	- Fazer o reverse migration a partir do banco de dados.
+	- Fazer engenharia reversa do banco de dados no Workbench
+	
+
+Super admin
+
+	Correções
+		Vistorias
+			Corrigir listagem, formulário e visualização com base nas vistorias em franqueado.
+	
+	
+
+	1) No dashboard super admin listar todas as solicitações:
+		Adicionar o datatable sem ordenação por coluna.
+		
+
+		
+	1) Dividir o menu dashboard em Dashboard e Pendências
+		1.1) Dashboard com os seguintes itens
+			1.1) Gráfico de Franqueado X Quantidade de afiliados ativo (afiliado_regiao) (franqueado_regiao) statusPlano=1 && status=1
+			1.2) Gráfico de Franqueado X Quantidade de síndicos. Listar condominios, pegar o id da região dele, 
+						$d = FranqueadoRegiao::where("regiao_id", $condomino->getRegiaoId())  (franqueado_regiao) 
+						if($d){
+							$sindico = $condominio->sindico;
+							$sindicosRegiao[$sindico->id] = $sindico;
+						}
+
+						count($sindicosRegiao)
+
+			1.2) Gráfico de Franqueado X Quantidade de solicitações Concluídas
+						(franqueado_regiao)
+			
+			Item lado a lado.
+				Inserir dois cards
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h5>Categorias</h5>
+							</div>
+							<div class="card-body">
+								<table.......></table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h5>Regiões franquias</h5>
+							</div>
+							<div class="card-body">
+								<table.......></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				1.3) Tabela col-md-6  listando as categorias
+					1.3.1) Colunas da tabela são:
+						Categoria - Solicitações - Afiliados
+						Na coluna Categoria, mostrar o nome da categoria.
+						Na coluna Solicitações, 
+							Mostrar em três labels uma abaixo da outra as seguintes quantidades:
+								1) Total de solicitações com status Concluido/Finalizado. badge-success
+								2) Quantidade de solicitações com status Cancelado. badge-danger
+								3) Total de solicitações. badge-info
+								
+						Na coluna Afiliados, mostrar a quantidade de afiliados que possuem a categoria com status aprovado.
+				
+				1.5) Tabela col-md-6 listando as regiões com o nome do franqueado responsavel atual
+					1.5.1) Colunas da tabela são:
+						Região/Franqueado - Solicitações
+						Na coluna Região/Franqueado mostrar o nome da região e o franqueado.
+						Na coluna Solicitações, 
+							Mostrar em três labels uma abaixo da outra as seguintes quantidades:
+								1) Total de solicitações com status Finalizado. badge-success
+								2) Quantidade de solicitações com status Cancelado. badge-danger
+								3) Total de solicitações. badge-info
+			
+			1.4) Tabela com todas as solicitações que não foram canceladas e não estão concluídas. (Radar) (Já existe, apenas adionar o nome do afiliado se houver)
+			1.6) Criar Tabela com listagem de todas as vistorias que não estão finalizadas e não estão canceladas, utilizar referência da tabela de listagem das vistorias, mantendo apenas a opção de editar.
+					
+							
+		1.1) Pendências com os seguintes itens
+			1.1.1) Solicitações de categorias
+			1.1.2) Solicitações de documentos
+			
+
+
+Admin franqueado
+	1) Dividir o menu dashboard em Dashboard e Pendências
+		1.1) Dashboard com os seguintes itens
+
+		1.1) Pendências com os seguintes itens
