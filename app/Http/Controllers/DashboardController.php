@@ -548,6 +548,8 @@ class DashboardController extends Controller
   private function populateAdminIndex()
   {
 
+    $dbg = function($msg) { file_put_contents(storage_path('logs/dash_debug.txt'), date('H:i:s.') . substr(microtime(), 2, 3) . " $msg\n", FILE_APPEND); };
+    $dbg('populateAdminIndex start');
     $afiliados_inativos = "--";
     // [HUBBOX FIX] Calcula afiliados ativos para alimentar o card "Afiliados Ativos" no admin/inicio
     $afiliados_ativos = AfiliadoRegiao::join(
@@ -620,6 +622,14 @@ class DashboardController extends Controller
     $solicitacoes = [];
     // [HUBBOX FIX] Carrega as solicitações com status para classificar em andamento e canceladas
     $solicitacoesLinha = Orcamento::whereNotNull('status')
+      ->with([
+        'Condominio'              => fn($q) => $q->withTrashed(),
+        'Condominio.Sindico'      => fn($q) => $q->withTrashed(),
+        'Condominio.Bairro.cidade.estado',
+        'Regiao'                  => fn($q) => $q->withTrashed(),
+        'Categoria'               => fn($q) => $q->withTrashed(),
+        'afiliado',
+      ])
       ->select('orcamento.*')
       ->orderBy('orcamento.id', 'desc')
       ->limit(200)
@@ -633,8 +643,7 @@ class DashboardController extends Controller
         StatusOrcamento::$EM_EXECUCAO,
         StatusOrcamento::$CONTRATO_ASSINADO
       ])) {
-        $bairro_id = optional($solicitacaoLinha->condominio)->bairro_id;
-        $solicitacaoLinha->bairroFK = $bairro_id ? Bairro::where("id", $bairro_id)->first() : null;
+        $solicitacaoLinha->bairroFK = optional($solicitacaoLinha->Condominio)->Bairro ?? null;
         $solicitacoes[] = $solicitacaoLinha;
         $solicitacoesEmAndamento++;
       }
@@ -650,52 +659,60 @@ class DashboardController extends Controller
     }
 
     $solicitacoesDisputa = Vistoria::where("status", StatusVistoria::$PENDENTE)->count();
+    $dbg('after solicitacoes+vistoria');
     // END Solicitações
 
-    $categoriasPendentesShowAux = AfiliadoCategoria::where("status", "pendente")->get();
-    $categoriasPendentesShow = [];
-    foreach ($categoriasPendentesShowAux as $categoriaPendente) {
-      $afiliado = Afiliado::where("id", $categoriaPendente->afiliado_id)->first();
-      $categoria = Categoria::where("id", $categoriaPendente->categoria_id)->first();
-      if ($afiliado && $categoria) {
-        $categoriasPendentesShow[] = $categoriaPendente;
-      }
-    }
+    $categoriasPendentesShow = AfiliadoCategoria::where("status", "pendente")
+      ->with(['Afiliado', 'Categoria'])
+      ->get()
+      ->filter(fn($c) => $c->Afiliado && $c->Categoria)
+      ->values()
+      ->all();
 
     $valor_planos_afiliados_ativos = Formatacao::prefixoSufixo($valor_planos_afiliados_ativos);
+    $dbg('after categorias pendentes');
     // Popular graficos
     $franqueados = Franqueado::all();
+    $dbg('after franqueados::all');
     $chartQA = $this->populateChartQA($franqueados);
+    $dbg('after chartQA');
     $condominios = Condominio::all();
+    $dbg('after condominios::all');
     $chartQS = $this->populateChartQS($condominios);
+    $dbg('after chartQS');
     $chartQSo = $this->populateChartQSo($franqueados);
+    $dbg('after chartQSo');
 
     // END Popular graficos
 
     // Popular table regioes
+    $dbg('starting franqueadoRegioes');
     $franqueadoRegioes = FranqueadoRegiao::where('status', 'ativo')->get();
+    $regiaoIds = $franqueadoRegioes->pluck('regiao_id')->unique()->values();
+    $allOrcamentos = Orcamento::whereIn('regiao_id', $regiaoIds)
+      ->select('id', 'regiao_id', 'status')
+      ->get()
+      ->groupBy('regiao_id');
     foreach ($franqueadoRegioes as $franqueadoRegiao) {
       $franqueadoRegiao->afiliados = 0;
       $franqueadoRegiao->concluidas = 0;
       $franqueadoRegiao->canceladas = 0;
-      $orcamentos =  Orcamento::where('regiao_id', $franqueadoRegiao->regiao_id)->get();
+      $orcamentos = $allOrcamentos->get($franqueadoRegiao->regiao_id, collect());
       $franqueadoRegiao->orcamentos = $orcamentos;
       foreach ($orcamentos as $orcamento) {
-        if ($orcamento->status == StatusOrcamento::$FINALIZADO) {
-          $franqueadoRegiao->concluidas++;
-        }
-        if (
-          $orcamento->status == StatusOrcamento::$CANCELADO_PELO_ADMIN ||
-          $orcamento->status == StatusOrcamento::$CANCELADO_PELO_FRANQUEADO ||
-          $orcamento->status == StatusOrcamento::$CANCELADO_PELO_SINDICO ||
-          $orcamento->status == StatusOrcamento::$CANCELADO_PELO_AFILIADO
-        ) {
-          $franqueadoRegiao->canceladas++;
-        }
+        if ($orcamento->status == StatusOrcamento::$FINALIZADO) $franqueadoRegiao->concluidas++;
+        if (in_array($orcamento->status, [
+          StatusOrcamento::$CANCELADO_PELO_ADMIN,
+          StatusOrcamento::$CANCELADO_PELO_FRANQUEADO,
+          StatusOrcamento::$CANCELADO_PELO_SINDICO,
+          StatusOrcamento::$CANCELADO_PELO_AFILIADO
+        ])) $franqueadoRegiao->canceladas++;
       }
     }
+    $dbg('after franqueadoRegioes orcamentos loop');
     // END Popular table regioes
 
+    $dbg('starting view render');
     // Popular table vistorias
     /*$vistoriasResource = Vistoria::get();
 
@@ -718,6 +735,7 @@ class DashboardController extends Controller
     print_r('<br />');
     print_r(date("Y-m-d H:i:s"));
     dd($vistorias);*/
+    $dbg('calling return view');
     return view(
       $this->url . '.index',
       compact(
@@ -758,49 +776,41 @@ class DashboardController extends Controller
    **/
   private function populateChartQA($franqueados)
   {
-    $chartQA = [
-      "data" => [],
-      "labels" => [],
-      "colors" => '#727cf5',
-      "min" => 0,
-      "max" => 0
-    ];
+    $chartQA = ["data" => [], "labels" => [], "colors" => '#727cf5', "min" => 0, "max" => 0];
+
+    $franqueados->load('franqueadoRegiao');
     $regioes = [];
     foreach ($franqueados as $franqueado) {
       foreach ($franqueado->franqueadoRegiao as $franqueadoRegiao) {
         if ($franqueadoRegiao->status == 'ativo') {
           if (!in_array($franqueado->nome, $chartQA['labels'])) {
-            array_push($chartQA['labels'], $franqueado->nome);
+            $chartQA['labels'][] = $franqueado->nome;
           }
-          if (!in_array($franqueadoRegiao->regiao_id, $regioes)) {
-            array_push($regioes, [$franqueadoRegiao->regiao_id, $franqueado->nome]);
+          if (!in_array($franqueadoRegiao->regiao_id, array_column($regioes, 0))) {
+            $regioes[] = [$franqueadoRegiao->regiao_id, $franqueado->nome];
           }
         }
       }
     }
+
+    if (empty($regioes)) return $chartQA;
+
+    $regiaoIds = array_column($regioes, 0);
+    $counts = AfiliadoRegiao::join('plano_assinatura_afiliado_regiao', 'plano_assinatura_afiliado_regiao.id', '=', 'afiliado_regiao.plano_assinatura_afiliado_regiao_id')
+      ->whereIn('afiliado_regiao.regiao_id', $regiaoIds)
+      ->where('plano_assinatura_afiliado_regiao.statusPlano', 1)
+      ->selectRaw('afiliado_regiao.regiao_id, count(*) as total')
+      ->groupBy('afiliado_regiao.regiao_id')
+      ->pluck('total', 'regiao_id');
+
     $data = [];
-    foreach ($regioes as  $regiaoDados) {
-      $afiliadoRegioes = AfiliadoRegiao::where('regiao_id', $regiaoDados[0])->get();
-      $numAfiliados = 0;
-      foreach ($afiliadoRegioes as $afiliadoRegiao) {
-        if (
-          $afiliadoRegiao->PlanoAssinaturaAfiliadoRegiao->statusPlano ==  1 &&
-          $afiliadoRegiao->PlanoAssinaturaAfiliadoRegiao->statusPlano == 1
-        ) {
-          $numAfiliados++;
-        }
-      }
-      if (key_exists($regiaoDados[1], $data)) {
-        $data[$regiaoDados[1]]  += $numAfiliados;
-      } else {
-        $data[$regiaoDados[1]] = $numAfiliados;
-      }
+    foreach ($regioes as $regiaoDados) {
+      $num = $counts->get($regiaoDados[0], 0);
+      $data[$regiaoDados[1]] = ($data[$regiaoDados[1]] ?? 0) + $num;
     }
     foreach ($data as $d) {
-      if ($d > $chartQA['max']) {
-        $chartQA['max'] = $d;
-      }
-      array_push($chartQA['data'], $d);
+      if ($d > $chartQA['max']) $chartQA['max'] = $d;
+      $chartQA['data'][] = $d;
     }
     return $chartQA;
   }
@@ -812,33 +822,30 @@ class DashboardController extends Controller
    **/
   private function populateChartQS($condominios)
   {
-    $chartQS = [
-      "data" => [],
-      "labels" => [],
-      "colors" => '#727cf5',
-      "min" => 0,
-      "max" => 0
-    ];
+    // Replaced N+1 (getRegiao per condominio) with a bairro-based join approach
+    $chartQS = ["data" => [], "labels" => [], "colors" => '#727cf5', "min" => 0, "max" => 0];
+
+    $franqueadoRegioes = FranqueadoRegiao::where('status', 'ativo')->with('Franqueado')->get()->keyBy('regiao_id');
+    $condominios->load('Bairro', 'Sindico');
+
     $sindicosFranqueado = [];
     foreach ($condominios as $condominio) {
-      $franqueadoRegiao = FranqueadoRegiao::where('status', 'ativo')->where('regiao_id', $condominio->getRegiao())->first();
-      if ($franqueadoRegiao != null) {
-        if (!isset($sindicosFranqueado[$franqueadoRegiao->franqueado->nome], $sindicosFranqueado)) {
-          $sindicosFranqueado[$franqueadoRegiao->franqueado->nome] = [];
-        }
-        if (!in_array(optional($condominio->sindico)->id, $sindicosFranqueado[$franqueadoRegiao->franqueado->nome])) {
-          array_push($sindicosFranqueado[$franqueadoRegiao->franqueado->nome], optional($condominio->sindico)->id);
-        }
-        if (!in_array($franqueadoRegiao->franqueado->nome, $chartQS['labels'])) {
-          array_push($chartQS['labels'], $franqueadoRegiao->franqueado->nome);
-        }
+      $regiao_id = optional($condominio->Bairro)->regiao_id;
+      if (!$regiao_id) continue;
+      $franqueadoRegiao = $franqueadoRegioes->get($regiao_id);
+      if (!$franqueadoRegiao || !$franqueadoRegiao->Franqueado) continue;
+      $nome = $franqueadoRegiao->Franqueado->nome;
+      if (!isset($sindicosFranqueado[$nome])) $sindicosFranqueado[$nome] = [];
+      $sid = optional($condominio->Sindico)->id;
+      if ($sid && !in_array($sid, $sindicosFranqueado[$nome])) {
+        $sindicosFranqueado[$nome][] = $sid;
       }
+      if (!in_array($nome, $chartQS['labels'])) $chartQS['labels'][] = $nome;
     }
     foreach ($sindicosFranqueado as $sindicos) {
-      array_push($chartQS['data'], sizeof($sindicos));
-      if (sizeof($sindicos) > $chartQS['max']) {
-        $chartQS['max']  = sizeof($sindicos);
-      }
+      $n = count($sindicos);
+      $chartQS['data'][] = $n;
+      if ($n > $chartQS['max']) $chartQS['max'] = $n;
     }
     return $chartQS;
   }
@@ -850,41 +857,40 @@ class DashboardController extends Controller
    **/
   private function populateChartQSo($franqueados)
   {
-    $chartQSo = [
-      "data" => [],
-      "labels" => [],
-      "colors" => '#727cf5',
-      "min" => 0,
-      "max" => 0
-    ];
+    $chartQSo = ["data" => [], "labels" => [], "colors" => '#727cf5', "min" => 0, "max" => 0];
+
+    $franqueados->load('franqueadoRegiao');
     $regioes = [];
     foreach ($franqueados as $franqueado) {
       foreach ($franqueado->franqueadoRegiao as $franqueadoRegiao) {
         if ($franqueadoRegiao->status == 'ativo') {
           if (!in_array($franqueado->nome, $chartQSo['labels'])) {
-            array_push($chartQSo['labels'], $franqueado->nome);
+            $chartQSo['labels'][] = $franqueado->nome;
           }
-          if (!in_array($franqueadoRegiao->regiao_id, $regioes)) {
-            array_push($regioes, [$franqueadoRegiao->regiao_id, $franqueadoRegiao->franqueado->nome]);
+          if (!in_array($franqueadoRegiao->regiao_id, array_column($regioes, 0))) {
+            $regioes[] = [$franqueadoRegiao->regiao_id, $franqueado->nome];
           }
         }
       }
     }
-    $data = [];
 
-    foreach ($regioes as  $regiaoDados) {
-      $numOrcamentos = Orcamento::where('regiao_id', $regiaoDados[0])->where('status', StatusOrcamento::$FINALIZADO)->count();
-      if (key_exists($regiaoDados[1], $data)) {
-        $data[$regiaoDados[1]]  += $numOrcamentos;
-      } else {
-        $data[$regiaoDados[1]] = $numOrcamentos;
-      }
+    if (empty($regioes)) return $chartQSo;
+
+    $regiaoIds = array_column($regioes, 0);
+    $counts = Orcamento::whereIn('regiao_id', $regiaoIds)
+      ->where('status', StatusOrcamento::$FINALIZADO)
+      ->selectRaw('regiao_id, count(*) as total')
+      ->groupBy('regiao_id')
+      ->pluck('total', 'regiao_id');
+
+    $data = [];
+    foreach ($regioes as $regiaoDados) {
+      $num = $counts->get($regiaoDados[0], 0);
+      $data[$regiaoDados[1]] = ($data[$regiaoDados[1]] ?? 0) + $num;
     }
     foreach ($data as $d) {
-      if ($d > $chartQSo['max']) {
-        $chartQSo['max'] = $d;
-      }
-      array_push($chartQSo['data'], $d);
+      if ($d > $chartQSo['max']) $chartQSo['max'] = $d;
+      $chartQSo['data'][] = $d;
     }
     return $chartQSo;
   }

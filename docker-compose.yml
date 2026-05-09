@@ -5,5 +5,9 @@ services:
       - "8000:8000"
     volumes:
       - .:/var/www/html
+      - vendor_data:/var/www/html/vendor
     env_file:
       - .env
+
+volumes:
+  vendor_data:

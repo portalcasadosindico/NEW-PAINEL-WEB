@@ -2,6 +2,9 @@
 /public/storage
 /public/assets/plugins
 /storage/*.key
+/storage/framework/sessions
+/storage/framework/views
+/storage/logs
 /vendor
 .env
 .env.backup
@@ -13,3 +16,6 @@
 /todo
 /.claude
 app.zip
+test_auth.php
+teste.html
+OrcamentoController.php

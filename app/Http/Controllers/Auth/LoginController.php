@@ -35,15 +35,22 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+        $dbg = function($msg) { file_put_contents(storage_path('logs/login_debug.txt'), date('H:i:s') . " $msg\n", FILE_APPEND); };
+        $dbg('login() called, email=' . $request->email);
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
         ];
-        if (Auth::guard($this->guard)->attempt($credentials)) {
+        $dbg('calling attempt()');
+        $result = Auth::guard($this->guard)->attempt($credentials);
+        $dbg('attempt() returned: ' . ($result ? 'true' : 'false'));
+        if ($result) {
+            $dbg('redirecting to ' . $this->url . '.index');
             return redirect()->route($this->url . '.index');
         } else {
+            $dbg('returning back with errors');
             return back()->withInput()
-                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+                ->withErrors(['unexpected_error' => 'Credenciais inválidas.']);
         }
     }
     public function showRegisterForm()

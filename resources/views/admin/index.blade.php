@@ -288,12 +288,12 @@
                                 <td>
                                     <h5>#{{ $solicitacao->id }}</h5>
                                     Data: <b><?php echo Formatacao::data($solicitacao->data_cadastro) ?></b><br><br>
-                                    Síndico: <b>{{$solicitacao->condominio()->withTrashed()->first()->sindico()->withTrashed()->first()->nome}}</b><br>
+                                    Síndico: <b>{{optional(optional($solicitacao->Condominio)->Sindico)->nome}}</b><br>
                                     Afiliado: <b>{{$solicitacao->afiliado ? $solicitacao->afiliado->nome_fantasia : 'Nenhum afiliado'}}</b>
                                 </td>
                                 <td>
                                     @if($solicitacao->regiao_id)
-                                        <label class="badge badge-success">Região: {{ $solicitacao->regiao()->withTrashed()->first()->nome }}</label>
+                                        <label class="badge badge-success">Região: {{ optional($solicitacao->Regiao)->nome }}</label>
                                     @else
                                         <label class="badge badge-danger">Sem região</label>
                                         <p>
@@ -305,10 +305,10 @@
                                         </p>
                                     @endif
                                     <br><br>
-                                    Categoria: <b><?php echo $solicitacao->categoria()->withTrashed()->first()->nome; ?></b><br><br>
-                                    Condominio: <b>{{ $solicitacao->condominio()->withTrashed()->first()->nome }}</b><br>
+                                    Categoria: <b>{{ optional($solicitacao->Categoria)->nome }}</b><br><br>
+                                    Condominio: <b>{{ optional($solicitacao->Condominio)->nome }}</b><br>
                                     <br>
-                                    {{ $solicitacao->condominio->endereco.". ".$solicitacao->bairroFK->nome.", ".$solicitacao->bairroFK->cidade->nome."/".$solicitacao->bairroFK->cidade->estado->uf }}
+                                    {{ optional($solicitacao->Condominio)->endereco.". ".optional($solicitacao->bairroFK)->nome.", ".optional(optional($solicitacao->bairroFK)->cidade)->nome."/".optional(optional(optional($solicitacao->bairroFK)->cidade)->estado)->uf }}
                                 </td>
                                 <td>
                                     {{ $solicitacao->status ? StatusOrcamento::getLabel( $solicitacao->status) : 'Sem status' }}
