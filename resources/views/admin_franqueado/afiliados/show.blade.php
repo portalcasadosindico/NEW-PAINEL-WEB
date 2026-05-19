@@ -560,6 +560,16 @@ use App\Uteis\StatusOrcamento;
                                             @if($planoAssinatura->tipo_assinatura==2)
                                             <a href="{{Storage::url($planoAssinatura->arquivo_assinado)}}" target="_blank">Ver contrato assinado
                                                 (Autenticado franqueado)</a>
+                                            <br><br>
+                                            @if($planoAssinatura->status_afiliado == \App\Uteis\StatusAssinaturaPlano::$ASSINADO)
+                                                <label class="badge badge-success">Contrato confirmado</label>
+                                            @else
+                                                <button class="btn btn-sm btn-warning btn-confirmar-contrato"
+                                                    data-plano-id="{{ $planoAssinatura->id }}"
+                                                    data-url="{{ url($url . '/plano_regiao/' . $planoAssinatura->id . '/confirmar-contrato') }}">
+                                                    Confirmar contrato assinado
+                                                </button>
+                                            @endif
                                             @elseif($planoAssinatura->tipo_assinatura==1)
                                             <a href="{{$planoAssinatura->arquivo_original_autentique}}" target="_blank">Contrato original
                                                 autentique</a>
@@ -1349,5 +1359,30 @@ use App\Uteis\StatusOrcamento;
             $(".container-contrato").hide(300);
         }
     }
+
+    $(document).on('click', '.btn-confirmar-contrato', function () {
+        if (!confirm('Confirmar que o contrato deste afiliado foi assinado? Isso liberará o acesso às solicitações no app.')) return;
+        var btn = $(this);
+        var url = btn.data('url');
+        var token = $('input[name="_token"]').val();
+        btn.prop('disabled', true).text('Confirmando...');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: { _token: token },
+            success: function (res) {
+                if (res.status) {
+                    btn.closest('td').find('.btn-confirmar-contrato').replaceWith('<label class="badge badge-success">Contrato confirmado</label>');
+                } else {
+                    alert(res.message || 'Erro ao confirmar contrato.');
+                    btn.prop('disabled', false).text('Confirmar contrato assinado');
+                }
+            },
+            error: function () {
+                alert('Erro de comunicação. Tente novamente.');
+                btn.prop('disabled', false).text('Confirmar contrato assinado');
+            }
+        });
+    });
 </script>
 @endpush
