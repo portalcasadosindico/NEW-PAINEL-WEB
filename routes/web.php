@@ -350,6 +350,7 @@ Route::middleware('authMiddleware')->group(function () {
         Route::post('orcamentos/filtro', 'OrcamentoController@indexByDate')->name('admin.orcamentos.indexByDate');
 
         Route::post('alterar_status/plano_regiao/{id}', "PlanoAssinaturaAfiliadoRegiaoController@alterarStatus");
+        Route::post('plano_regiao/{id}/confirmar-contrato', "PlanoAssinaturaAfiliadoRegiaoController@confirmarContrato");
     });
 
     Route::group(['prefix' => 'admin_franqueado'], function () {
@@ -369,6 +370,7 @@ Route::middleware('authMiddleware')->group(function () {
         ]);
 
         Route::post('alterar_status/plano_regiao/{id}', "PlanoAssinaturaAfiliadoRegiaoController@alterarStatus");
+        Route::post('plano_regiao/{id}/confirmar-contrato', "PlanoAssinaturaAfiliadoRegiaoController@confirmarContrato");
         Route::get('afiliados/regiao/{regiao_id}/orcamentos/afiliado_id/{afiliado_id}', "OrcamentoController@fetchOrcamentosByRegiao")->name("admin_franqueado.afiliados.fetchOrcamentos");
 
 

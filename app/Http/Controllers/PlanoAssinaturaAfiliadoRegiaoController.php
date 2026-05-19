@@ -81,6 +81,26 @@ class PlanoAssinaturaAfiliadoRegiaoController extends Controller
         }
     }
 
+    // Confirma manualmente que o contrato do tipo franquia (tipo_assinatura=2) foi assinado,
+    // liberando o afiliado para visualizar solicitações no app.
+    public function confirmarContrato($id)
+    {
+        try {
+            $plano_regiao = PlanoAssinaturaAfiliadoRegiao::where("id", $id)->first();
+            if (!$plano_regiao) {
+                return response()->json(['status' => false, 'message' => 'Plano não encontrado.'], 404);
+            }
+            if ($plano_regiao->tipo_assinatura != 2) {
+                return response()->json(['status' => false, 'message' => 'Ação disponível apenas para contratos gerenciados pela franquia.'], 422);
+            }
+            $plano_regiao->status_afiliado = StatusAssinaturaPlano::$ASSINADO;
+            $plano_regiao->update();
+            return response()->json(['status' => true]);
+        } catch (Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
