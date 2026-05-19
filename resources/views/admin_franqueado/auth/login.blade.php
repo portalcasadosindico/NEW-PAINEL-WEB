@@ -16,15 +16,20 @@
             <div class="auth-form-wrapper px-4 py-5">
               <a href="#" class="noble-ui-logo d-block mb-2">Casa do <span>Síndico</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Bem vindo ao painel administrativo da sua franquia</h5>
+              @if($errors->any())
+              <div class="alert alert-danger mb-3">
+                {{ $errors->first() }}
+              </div>
+              @endif
               <form class="" action="{{ route('admin_franqueado.login.do') }}" method="POST">
               {{ csrf_field() }}
                 <div class="form-group">
                   <label for="email">E-mail</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
                   <label for="password">Senha</label>
-                  <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" placeholder="Password">
+                  <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" placeholder="Senha">
                 </div>
                 <div class="form-check form-check-flat form-check-primary">
                   <label class="form-check-label">

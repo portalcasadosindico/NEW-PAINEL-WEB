@@ -26,6 +26,7 @@ use App\Uteis\Formatacao;
 use App\Uteis\ModusOperandiStatus;
 use App\Uteis\StatusAsass;
 use App\Uteis\StatusAssinaturaPlano;
+use App\Uteis\StatusOrcamento;
 use App\Uteis\StatusPlano;
 use App\Uteis\Url;
 use App\Uteis\Util;
@@ -61,43 +62,90 @@ class AfiliadoController extends Controller
         $franqueados = Franqueado::all(["id", "nome"]);
         if ($this->url == 'admin') {
 
+            $eagerLoads = ['usuarioApp', 'responsavel', 'categorias.categoria', 'regioes.PlanoAssinaturaAfiliadoRegiao', 'regioes.regiao'];
+
             if ($franqueado_id != null && $franqueado_id > 0) {
                 $afiliados = Afiliado::join('afiliado_regiao', 'afiliado_regiao.afiliado_id', 'afiliado.id')
                     ->whereIn('afiliado_regiao.regiao_id', function ($query) {
                         $query->select('regiao_id')
                             ->from('franqueado_regiao')
                             ->where('franqueado_regiao.franqueado_id', $this->franqueado_id);
-                    })->distinct()->select('afiliado.*')->get();
+                    })->distinct()->select('afiliado.*')->with($eagerLoads)->get();
             } elseif ($franqueado_id == -1) {
-                $afiliados = Afiliado::where("forma_cadastro", "app")->get();
+                $afiliados = Afiliado::where("forma_cadastro", "app")->with($eagerLoads)->get();
             } else {
-                $afiliados = Afiliado::all();
+                $afiliados = Afiliado::with($eagerLoads)->get();
             }
+
+            $afiliadoIds = $afiliados->pluck('id');
+
+            $sF  = StatusOrcamento::$FINALIZADO;
+            $sCA = implode(',', [StatusOrcamento::$CANCELADO_PELO_ADMIN, StatusOrcamento::$CANCELADO_PELO_SINDICO, StatusOrcamento::$CANCELADO_PELO_AFILIADO, StatusOrcamento::$CANCELADO_PELO_FRANQUEADO]);
+            $sAn = implode(',', [StatusOrcamento::$ANALISANDO_CANDIDATOS, StatusOrcamento::$ANALISANDO_ORCAMENTOS, StatusOrcamento::$AGUARDANDO_CONTRATO, StatusOrcamento::$CONTRATO_ASSINADO, StatusOrcamento::$EM_EXECUCAO]);
+
+            $orcamentoCounts = Orcamento::selectRaw(
+                "afiliado_id,
+                 SUM(CASE WHEN status = {$sF}  THEN 1 ELSE 0 END) as concluidas,
+                 SUM(CASE WHEN status IN ({$sCA}) THEN 1 ELSE 0 END) as canceladas,
+                 SUM(CASE WHEN status IN ({$sAn}) THEN 1 ELSE 0 END) as andamento,
+                 COUNT(*) as total"
+            )->whereIn('afiliado_id', $afiliadoIds)->groupBy('afiliado_id')->get()->keyBy('afiliado_id');
+
+            $afiliadoAsaasMap = AfiliadoFranqueadoAsaas::leftJoin('franqueado', function ($join) {
+                    $join->on('franqueado.id', '=', 'afiliado_franqueado_asaas.franqueado_id')
+                         ->whereNull('franqueado.deleted_at');
+                })
+                ->whereIn('afiliado_franqueado_asaas.afiliado_id', $afiliadoIds)
+                ->select('afiliado_franqueado_asaas.*', 'franqueado.nome as franqueado_nome')
+                ->orderBy('afiliado_franqueado_asaas.id', 'desc')
+                ->get()
+                ->groupBy('afiliado_id');
+
             $url = Url::baseURL();
-            return view('admin.afiliados.index', compact('afiliados', 'franqueados', 'franqueado_id', 'url'));
+            return view('admin.afiliados.index', compact('afiliados', 'franqueados', 'franqueado_id', 'url', 'orcamentoCounts', 'afiliadoAsaasMap'));
         } else if ($this->url == 'admin_franqueado') {
-            $franqueadoRegioes = FranqueadoRegiao::where("franqueado_id", $this->user_franqueado->id)->where("status", "ativo")->orderBy("id", "desc")->get();
-            $afiliadosLnha = Afiliado::get();
-            $afiliados = [];
-            foreach ($afiliadosLnha as $afiliado) {
-                $afiliadoRegioes = AfiliadoRegiao::where("afiliado_id", $afiliado->id)->get();
-                foreach ($afiliadoRegioes as $afiliadoRegiao) {
-                    foreach ($franqueadoRegioes as $franqueadoREgiao) {
-                        if ($afiliadoRegiao->regiao_id == $franqueadoREgiao->regiao_id) {
-                            $afiliados[$afiliado->id] = $afiliado;
-                        }
-                    }
-                }
-            }
+            $fid = Auth::guard('franqueados')->user()->id;
+            $franqueadoRegioes = FranqueadoRegiao::where("franqueado_id", $fid)->where("status", "ativo")->orderBy("id", "desc")->get();
+            $franqueadoRegiaoIds = $franqueadoRegioes->pluck('regiao_id');
 
-            $afiliadosLnha = Afiliado::where("franqueado_id", $this->user_franqueado->id)->get();
-            foreach ($afiliadosLnha as $afiliado) {
-                $afiliados[] = $afiliado;
+            $eagerLoads = ['usuarioApp', 'responsavel', 'categorias.categoria', 'regioes.PlanoAssinaturaAfiliadoRegiao', 'regioes.regiao'];
+
+            $search = request('search');
+            $query = Afiliado::where(function ($q) use ($franqueadoRegiaoIds, $fid) {
+                $q->whereHas('regioes', function ($q2) use ($franqueadoRegiaoIds) {
+                    $q2->whereIn('afiliado_regiao.regiao_id', $franqueadoRegiaoIds);
+                })->orWhere('franqueado_id', $fid);
+            });
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('razao_social', 'like', "%{$search}%")
+                      ->orWhere('nome_fantasia', 'like', "%{$search}%");
+                });
             }
+            $afiliados = $query->with($eagerLoads)->paginate(50)->withQueryString();
+
+            $afiliadoIds = $afiliados->pluck('id');
+
+            $sF  = StatusOrcamento::$FINALIZADO;
+            $sCA = implode(',', [StatusOrcamento::$CANCELADO_PELO_ADMIN, StatusOrcamento::$CANCELADO_PELO_SINDICO, StatusOrcamento::$CANCELADO_PELO_AFILIADO, StatusOrcamento::$CANCELADO_PELO_FRANQUEADO]);
+            $sAn = implode(',', [StatusOrcamento::$ANALISANDO_CANDIDATOS, StatusOrcamento::$ANALISANDO_ORCAMENTOS, StatusOrcamento::$AGUARDANDO_CONTRATO, StatusOrcamento::$CONTRATO_ASSINADO, StatusOrcamento::$EM_EXECUCAO]);
+
+            $orcamentoCounts = Orcamento::selectRaw(
+                "afiliado_id,
+                 SUM(CASE WHEN status = {$sF}  THEN 1 ELSE 0 END) as concluidas,
+                 SUM(CASE WHEN status IN ({$sCA}) THEN 1 ELSE 0 END) as canceladas,
+                 SUM(CASE WHEN status IN ({$sAn}) THEN 1 ELSE 0 END) as andamento,
+                 COUNT(*) as total"
+            )->whereIn('afiliado_id', $afiliadoIds)->groupBy('afiliado_id')->get()->keyBy('afiliado_id');
+
+            $asaasMap = AfiliadoFranqueadoAsaas::where('franqueado_id', $fid)
+                ->whereIn('afiliado_id', $afiliadoIds)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->groupBy('afiliado_id');
 
             $url = Url::baseURL();
-            $fid = Auth::guard('franqueados')->user()->id;
-            return view('admin_franqueado.afiliados.index', compact('franqueadoRegioes', 'fid', 'afiliados', 'franqueados', 'franqueado_id', 'url'));
+            return view('admin_franqueado.afiliados.index', compact('franqueadoRegioes', 'fid', 'afiliados', 'franqueados', 'franqueado_id', 'url', 'orcamentoCounts', 'asaasMap'));
         }
     }
 
@@ -964,9 +1012,11 @@ class AfiliadoController extends Controller
                 }
             }
 
-            $responsavelAfiliado = $afiliado->responsavel;
-            $responsavelAfiliado->nome = $request['nome_responsavel'];
-            $responsavelAfiliado->email = $request['email_responsavel'] ? $request['email_responsavel'] : $request['email'];
+            $responsavelAfiliado = $afiliado->responsavel ?? new ResponsavelAfiliado(['afiliado_id' => $afiliado->id]);
+            if (!empty($request['nome_responsavel'])) {
+                $responsavelAfiliado->nome = $request['nome_responsavel'];
+            }
+            $responsavelAfiliado->email = $request['email_responsavel'] ?: $request['email'];
             $responsavelAfiliado->telefone = $request['telefone_responsavel'];
             $responsavelAfiliado->cpf = $request['cpf'];
             $responsavelAfiliado->cargo = $request['cargo'];
@@ -1139,13 +1189,13 @@ class AfiliadoController extends Controller
     protected function getDataUpdate(Request $request, $id)
     {
         $rules = [
-            'razao_social' => 'required|string|min:1|max:255',
-            'nome_fantasia' => 'required|string|min:1|max:255',
-            'cpf' => 'nullable|cpf|string|min:1|max:255',
-            'telefone' => 'nullable|string',
-            'nome_responsavel' => 'required|string|min:1|max:255',
-            'cnpj' => 'nullable|cnpj|string|min:11|max:60',
-            'email' => 'required|email|unique:usuario_app,email,' . $request['usuario_app_id'] . ',id,deleted_at,NULL,tipo,"afiliado"',
+            'razao_social'     => 'required|string|min:1|max:255',
+            'nome_fantasia'    => 'required|string|min:1|max:255',
+            'cpf'              => 'nullable|string|max:255',
+            'telefone'         => 'nullable|string',
+            'nome_responsavel' => 'nullable|string|min:1|max:255',
+            'cnpj'             => 'nullable|cnpj|string|min:11|max:60',
+            'email'            => 'required|email|unique:usuario_app,email,' . $request['usuario_app_id'] . ',id,deleted_at,NULL,tipo,"afiliado"',
         ];
 
         $data = $request->validate($rules);

@@ -36,21 +36,29 @@ use App\Models\FranqueadoRegiaoPlanoDisponibilizado;
             <a href="{{ route('admin_franqueado.afiliados.create') }}" class="btn btn-success" title="Criar novo afiliado">
                 <i data-feather="plus"></i> <span>Novo afiliado</span>
             </a>
-            <h4 class="mt-5 mb-5">Listagem de afiliados</h4>
+            <h4 class="mt-5 mb-5">Listagem de afiliados ({{ $afiliados->total() }})</h4>
         </div>
 
     </div>
 
+    <div class="panel-body">
+        <form method="GET" action="{{ route('admin_franqueado.afiliados.index') }}" class="form-inline mb-3">
+            <input type="text" name="search" class="form-control mr-2" placeholder="Buscar por razão social ou nome fantasia" value="{{ request('search') }}" style="width: 380px;">
+            <button type="submit" class="btn btn-primary mr-1">Buscar</button>
+            @if(request('search'))
+                <a href="{{ route('admin_franqueado.afiliados.index') }}" class="btn btn-secondary">Limpar</a>
+            @endif
+        </form>
+    </div>
 
-
-    @if(count($afiliados) == 0)
+    @if($afiliados->isEmpty())
     <div class="panel-body text-center">
         <h4>Nenhum afiliado listado</h4>
     </div>
     @else
     <div class="panel-body panel-body-with-table">
         <div class="table-responsive">
-            <table data-page-length="25" id="dataTableExample" class="table table-striped dataTable no-footer" role="grid" aria-describedby="dataTableExample_info">
+            <table id="afiliados-table" class="table table-striped">
                 <thead>
                     <tr>
                         <th width="200">Razão social</th>
@@ -75,18 +83,8 @@ use App\Models\FranqueadoRegiaoPlanoDisponibilizado;
                                 <label class="badge badge-secondary">Login pelo E-mail</label>
                             @endif
                             <?php
-                                if($fid>0){
-                                    $afiliadaAsaas = AfiliadoFranqueadoAsaas::where("franqueado_id", $fid)
-                                    ->where("afiliado_id", $afiliado->id)
-                                    ->orderBy("id", "desc")
-                                    ->first();
-                                    if($afiliadaAsaas)
-                                        $afiliado->asaas_customer_id = $afiliadaAsaas->asaas_customer_id;
-                                    else
-                                        $afiliado->asaas_customer_id = null;
-                                } else {
-                                    $afiliado->asaas_customer_id = null;
-                                }
+                                $afiliadaAsaas = isset($asaasMap[$afiliado->id]) ? $asaasMap[$afiliado->id]->first() : null;
+                                $afiliado->asaas_customer_id = $afiliadaAsaas ? $afiliadaAsaas->asaas_customer_id : null;
                             ?>
 
                             @if($afiliado->asaas_customer_id)
@@ -133,13 +131,12 @@ use App\Models\FranqueadoRegiaoPlanoDisponibilizado;
                         <span class="whats-link">{{ $afiliado->telefone }}</span>
                     </td>
                     <td>
-                        <?php 
-                            $countConcluidas = Orcamento::where("afiliado_id", $afiliado->id)->where("status", StatusOrcamento::$FINALIZADO)->count();
-                            $countCanceladas = Orcamento::where("afiliado_id", $afiliado->id)->whereIn("status", [StatusOrcamento::$CANCELADO_PELO_ADMIN, StatusOrcamento::$CANCELADO_PELO_SINDICO, StatusOrcamento::$CANCELADO_PELO_AFILIADO, StatusOrcamento::$CANCELADO_PELO_FRANQUEADO])->count();
-                            $countAndamento = Orcamento::where("afiliado_id", $afiliado->id)->whereIn("status", [
-                                StatusOrcamento::$ANALISANDO_CANDIDATOS, StatusOrcamento::$ANALISANDO_ORCAMENTOS, StatusOrcamento::$AGUARDANDO_CONTRATO, StatusOrcamento::$CONTRATO_ASSINADO, StatusOrcamento::$EM_EXECUCAO])->count();
-                            $countTotal = Orcamento::where("afiliado_id", $afiliado->id)->count();
-                            
+                        <?php
+                            $_oc = $orcamentoCounts[$afiliado->id] ?? null;
+                            $countConcluidas = $_oc ? $_oc->concluidas : 0;
+                            $countCanceladas = $_oc ? $_oc->canceladas : 0;
+                            $countAndamento  = $_oc ? $_oc->andamento  : 0;
+                            $countTotal      = $_oc ? $_oc->total      : 0;
                         ?>
                         <label class="badge badge-success mb-2" style="font-size: 13px;">Concluidas: {{$countConcluidas}}</label><br>
                         <label class="badge badge-warning mb-2" style="font-size: 13px;">Em andamento: {{$countAndamento}}</label><br>
@@ -220,6 +217,9 @@ use App\Models\FranqueadoRegiaoPlanoDisponibilizado;
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-3">
+            {{ $afiliados->links() }}
         </div>
     </div>
     @endif

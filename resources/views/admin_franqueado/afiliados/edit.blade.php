@@ -9,6 +9,15 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Editando Afiliado</h6>
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form method="POST" class="forms-sample" action="{{ route('admin_franqueado.afiliados.update',$afiliado->id) }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PUT">

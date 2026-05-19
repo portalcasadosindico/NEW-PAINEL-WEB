@@ -28,9 +28,29 @@
   <!-- end common css -->
 
   @stack('style')
+  <style>
+    #page-loading-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,.45); z-index: 99999;
+        flex-direction: column; align-items: center; justify-content: center;
+        color: #fff; font-size: 16px;
+    }
+    #page-loading-overlay.active { display: flex; }
+    #page-loading-spinner {
+        width: 48px; height: 48px;
+        border: 5px solid rgba(255,255,255,.3); border-top-color: #fff;
+        border-radius: 50%; animation: pls 0.8s linear infinite; margin-bottom: 14px;
+    }
+    @keyframes pls { to { transform: rotate(360deg); } }
+  </style>
 </head>
 
 <body data-base-url="{{url('/')}}" class="sidebar-dark">
+
+  <div id="page-loading-overlay">
+    <div id="page-loading-spinner"></div>
+    <span>Carregando...</span>
+  </div>
 
   <script src="{{ asset('assets/js/spinner.js') }}"></script>
 
@@ -212,6 +232,22 @@
   <!-- end common js -->
 
   @stack('custom-scripts')
+  <script>
+    (function() {
+      var overlay = document.getElementById('page-loading-overlay');
+      function showOverlay() { overlay.classList.add('active'); }
+      $(document).on('click', 'a[href]', function() {
+        var href = $(this).attr('href');
+        if (!href || href.startsWith('javascript') || href.startsWith('#') || href === '') return;
+        if ($(this).attr('target') === '_blank') return;
+        showOverlay();
+      });
+      $(document).on('submit', 'form', function() { showOverlay(); });
+      $(window).on('pageshow', function(e) {
+        if (e.originalEvent.persisted) overlay.classList.remove('active');
+      });
+    })();
+  </script>
 </body>
 
 </html>

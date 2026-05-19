@@ -152,144 +152,105 @@ class DashboardController extends Controller
    **/
   private function populateFranqueadoIndex()
   {
+    $fid = $this->user_franqueado->id;
 
     $afiliados_inativos = Afiliado::where('status', 'inativo')->select('id')->count();
 
-    $franqueadoRegioes = FranqueadoRegiao::where("franqueado_id", $this->user_franqueado->id)
+    $franqueadoRegioes = FranqueadoRegiao::where("franqueado_id", $fid)
       ->where("status", "ativo")
       ->orderBy("id", "desc")
-      ->select('regiao_id')
       ->get();
-    $afiliados = $this->getAfiliados($franqueadoRegioes);
 
+    $regiaoIds        = $franqueadoRegioes->pluck('regiao_id');
+    $franqueadoRegiaoIds = $franqueadoRegioes->pluck('id');
 
+    // --- Top 10 afiliados (regiões + diretos) ---
+    $afiliadosInRegioes = $regiaoIds->isEmpty() ? collect() :
+      Afiliado::join('afiliado_regiao', 'afiliado_regiao.afiliado_id', '=', 'afiliado.id')
+        ->whereIn('afiliado_regiao.regiao_id', $regiaoIds)
+        ->distinct()->select('afiliado.*')->orderBy('afiliado.id', 'desc')->get()->keyBy('id');
+
+    $afiliadosDirect = Afiliado::where("franqueado_id", $fid)->orderBy('id', 'desc')->get()->keyBy('id');
+    $afiliados = $afiliadosDirect->merge($afiliadosInRegioes)->sortByDesc('id')->take(10)->values()->all();
+
+    // --- Planos / tabela $t (substitui N loops aninhados por 1 JOIN) ---
     $planos_ativos = 0;
     $valor_planos_afiliados_ativos = 0;
     $valor_planos_afiliados_ativos_com_dessconto = 0;
     $t = [];
-    foreach ($franqueadoRegioes as $franqueado_regiao) {
-      $afiliadosRegioes = AfiliadoRegiao::where("regiao_id", $franqueado_regiao->regiao_id)
-        ->orderBy("id", "desc")
-        ->select('afiliado_id', 'plano_assinatura_afiliado_regiao_id', 'regiao_id')
+
+    if ($regiaoIds->isNotEmpty()) {
+      $planRows = AfiliadoRegiao::join('plano_assinatura_afiliado_regiao as paar', 'paar.id', '=', 'afiliado_regiao.plano_assinatura_afiliado_regiao_id')
+        ->join('afiliado', 'afiliado.id', '=', 'afiliado_regiao.afiliado_id')
+        ->join('usuario_app', 'usuario_app.id', '=', 'afiliado.usuario_app_id')
+        ->whereIn('afiliado_regiao.regiao_id', $regiaoIds)
+        ->whereIn('paar.statusPlano', [StatusPlano::$ATIVO, StatusPlano::$INADIMPLENTE])
+        ->select(
+          'afiliado.id as afiliado_id', 'afiliado.razao_social',
+          'paar.nome as nome_plano', 'paar.valor', 'paar.desconto',
+          'paar.statusPlano', 'paar.asaas_customer_id',
+          'paar.data_cadastro', 'paar.data_expiracao'
+        )
         ->get();
-      foreach ($afiliadosRegioes as $afiliadoRegiao) {
-        if ($franqueado_regiao->regiao_id == $afiliadoRegiao->regiao_id) {
-          $planoAfiliado = PlanoAssinaturaAfiliadoRegiao::where("id", $afiliadoRegiao->plano_assinatura_afiliado_regiao_id)->whereIn("statusPlano", [StatusPlano::$ATIVO, StatusPlano::$INADIMPLENTE])->first();
-          if ($planoAfiliado) {
-            $afiliado = Afiliado::where("id", $afiliadoRegiao->afiliado_id)->select('usuario_app_id', 'id', 'razao_social')->first();
-            if ($afiliado) {
-              $usuarioApp = UsuarioApp::where("id", $afiliado->usuario_app_id)->first();
-              if ($usuarioApp) {
-                if ($planoAfiliado->statusPlano == StatusPlano::$ATIVO) {
-                  $planos_ativos++;
-                  $valor_planos_afiliados_ativos += $planoAfiliado->valor;
-                  $valor_planos_afiliados_ativos_com_dessconto += $planoAfiliado->valor - ($planoAfiliado->valor * ($planoAfiliado->desconto / 100));
-                }
-                $t[] = [
-                  "razao_social" => $afiliado->razao_social . " (" . $planoAfiliado->asaas_customer_id . ")",
-                  "nome_plano" => $planoAfiliado->nome . ". Criado em \n" . Formatacao::data($planoAfiliado->data_cadastro),
-                  "valor" => "R$ " . $planoAfiliado->valor,
-                  "valor_desconto" => "R$ " . ($planoAfiliado->valor - ($planoAfiliado->valor * ($planoAfiliado->desconto / 100))),
-                  "afiliado_id" => $afiliado->id,
-                  "desconto" => $planoAfiliado->desconto,
-                  "data_expiracao" => $planoAfiliado->data_expiracao ? Formatacao::data($planoAfiliado->data_expiracao) : "Gerenciado pela franquia",
-                  "cor" => $planoAfiliado->statusPlano == StatusPlano::$ATIVO ? "--success" : "--warning"
-                ];
-              }
-            }
-          }
+
+      foreach ($planRows as $row) {
+        if ($row->statusPlano == StatusPlano::$ATIVO) {
+          $planos_ativos++;
+          $valor_planos_afiliados_ativos += $row->valor;
+          $valor_planos_afiliados_ativos_com_dessconto += $row->valor - ($row->valor * ($row->desconto / 100));
         }
+        $t[] = [
+          "razao_social"   => $row->razao_social . " (" . $row->asaas_customer_id . ")",
+          "nome_plano"     => $row->nome_plano . ". Criado em \n" . Formatacao::data($row->data_cadastro),
+          "valor"          => "R$ " . $row->valor,
+          "valor_desconto" => "R$ " . ($row->valor - ($row->valor * ($row->desconto / 100))),
+          "afiliado_id"    => $row->afiliado_id,
+          "desconto"       => $row->desconto,
+          "data_expiracao" => $row->data_expiracao ? Formatacao::data($row->data_expiracao) : "Gerenciado pela franquia",
+          "cor"            => $row->statusPlano == StatusPlano::$ATIVO ? "--success" : "--warning",
+        ];
       }
     }
+
     $valor_planos_afiliados_ativos = Formatacao::prefixoSufixo($valor_planos_afiliados_ativos);
     $valor_planos_afiliados_ativos_com_dessconto = Formatacao::prefixoSufixo($valor_planos_afiliados_ativos_com_dessconto);
 
-    $sindicos = [];
-    $sindicosAll = Sindico::where("franqueado_id", null)->orWhere("franqueado_id", $this->user_franqueado->id)
-      ->orderBy("id", "desc")
-      ->limit(11)
-      ->get();
-    foreach ($sindicosAll as $sindico) {
-      $condominios = Condominio::where("sindico_id", $sindico->id)->get();
-      $addSindico = false;
-
-      foreach ($condominios as $c) {
-        if (isset($c->bairro()->first()->regiao)) {
-          $franqueado_condominio_id = FranqueadoRegiao::where("regiao_id", $c->bairro()->first()->regiao->id)->orderBy("id", "desc")->first()->franqueado_id;
-          if ($franqueado_condominio_id == $this->user_franqueado->id) {
-            $addSindico = true;
-          }
-        } else if ($this->user_franqueado->id == 1) {
-          $addSindico = true;
-        }
-      }
-      if ($addSindico) {
-        $sindicos[$sindico->id] = $sindico;
-      }
+    // --- Síndicos top 10 (substitui loop com bairro/regiao N+1 por 1 JOIN) ---
+    if ($fid == 1) {
+      $sindicos = Sindico::orderBy("id", "desc")->limit(10)->get()->all();
+    } else {
+      $sindicoIds = Condominio::join('bairro', 'bairro.id', '=', 'condominio.bairro_id')
+        ->join('franqueado_regiao', 'franqueado_regiao.regiao_id', '=', 'bairro.regiao_id')
+        ->where('franqueado_regiao.franqueado_id', $fid)
+        ->where('franqueado_regiao.status', 'ativo')
+        ->distinct()->pluck('condominio.sindico_id');
+      $sindicos = Sindico::whereIn('id', $sindicoIds)
+        ->orderBy("id", "desc")->limit(10)->get()->all();
     }
 
-    if ($sindicos)
-      krsort($sindicos);
-
-    $sindicosAux = $sindicos;
-    $sindicos = [];
-    foreach ($sindicosAux as $s) {
-      if (count($sindicos) == 10) {
-        break;
-      }
-      $sindicos[] = $s;
-    }
-
-    $fid = Auth::guard('franqueados')->user()->id;
-    $franqueadoRegioes = FranqueadoRegiao::where("franqueado_id", $this->user_franqueado->id)->where("status", "ativo")->orderBy("id", "desc")->get();
-
-    $afiliadosAll = Afiliado::join('afiliado_regiao', 'afiliado_regiao.afiliado_id', 'afiliado.id')
-      ->whereIn('afiliado_regiao.regiao_id', function ($query) {
-        $query->select('regiao_id')
-          ->from('franqueado_regiao')
-          ->where("franqueado_regiao.status", "ativo")
-          ->where('franqueado_regiao.franqueado_id', Auth::guard('franqueados')->user()->id);
-      })->distinct()->select('afiliado.*')->orderBy("afiliado.id", "desc")->get();
-
-    $afiliados_sem_contrato = 0;
-    $documentosPendentesShow = [];
-
+    // --- Afiliados sem contrato (substitui 5 queries por afiliado por 1 JOIN) ---
     $afiliados_sem_contrato_result = [];
-    foreach ($afiliadosAll as $afiliadoLinha) {
-      $afiliadoRegiaoAuxiliarLista = AfiliadoRegiao::where("afiliado_id", $afiliadoLinha->id)->where("modo", Util::getModusOperandi())->get();
+    if ($regiaoIds->isNotEmpty()) {
+      $semContratoRows = Afiliado::join('afiliado_regiao', 'afiliado_regiao.afiliado_id', '=', 'afiliado.id')
+        ->join('regiao', 'regiao.id', '=', 'afiliado_regiao.regiao_id')
+        ->join('plano_assinatura_afiliado_regiao as paar2', 'paar2.id', '=', 'afiliado_regiao.plano_assinatura_afiliado_regiao_id')
+        ->join('franqueado_regiao_plano_disponibilizado as frpd', 'frpd.id', '=', 'paar2.franqueado_regiao_plano_disponibilizado_id')
+        ->join('franqueado_regiao as fr', 'fr.id', '=', 'frpd.franqueado_regiao_id')
+        ->where('afiliado_regiao.modo', Util::getModusOperandi())
+        ->whereIn('afiliado_regiao.regiao_id', $regiaoIds)
+        ->whereNull('regiao.deleted_at')
+        ->whereNull('paar2.arquivo_original')
+        ->whereIn('paar2.statusPlano', [StatusPlano::$ATIVO, StatusPlano::$PENDENTE])
+        ->whereIn('fr.status', ['ativo', 'inativo'])
+        ->whereNull('fr.deleted_at')
+        ->distinct()->select('afiliado.*')->get();
 
-      foreach ($afiliadoRegiaoAuxiliarLista as $afiliadoRegiaoAuxiliar) {
-        $regiao = Regiao::where("id", $afiliadoRegiaoAuxiliar->regiao_id)->first();
-
-        foreach ($franqueadoRegioes as $franqueadoRegiaoLinha) {
-          if ($regiao && $franqueadoRegiaoLinha->regiao_id == $regiao->id) {
-            $afiliado = Afiliado::where("id", $afiliadoRegiaoAuxiliar->afiliado_id)->first();
-            if ($regiao && $afiliado) {
-              $contrato = PlanoAssinaturaAfiliadoRegiao::where("id", $afiliadoRegiaoAuxiliar->plano_assinatura_afiliado_regiao_id)->whereNull("arquivo_original")->first();
-              if ($contrato) {
-                $franqueado_regiao_plano_disponibilizado = FranqueadoRegiaoPlanoDisponibilizado::where("id", $contrato->franqueado_regiao_plano_disponibilizado_id)->first();
-                if ($franqueado_regiao_plano_disponibilizado) {
-                  $franqueado_regiao = FranqueadoRegiao::where("id", $franqueado_regiao_plano_disponibilizado->franqueado_regiao_id)->first();
-                  if ($franqueado_regiao) {
-                    if ($contrato && $franqueado_regiao->status == "ativo" && ($contrato->statusPlano == StatusPlano::$ATIVO || $contrato->statusPlano == StatusPlano::$PENDENTE)) {
-                      //$afiliados_sem_contrato++;
-                      $afiliados_sem_contrato_result[$afiliado->id] = $afiliado;
-                    } else if ($contrato && $franqueado_regiao->status == "inativo" && ($contrato->statusPlano == StatusPlano::$ATIVO || $contrato->statusPlano == StatusPlano::$PENDENTE)) {
-                      $afiliados_sem_contrato_result[$afiliado->id] = $afiliado;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+      foreach ($semContratoRows as $a) {
+        $afiliados_sem_contrato_result[$a->id] = $a;
       }
     }
-
     $afiliados_sem_contrato = count($afiliados_sem_contrato_result);
 
-
-    // END Solicitações
     return view($this->url . '.index', compact(
       'afiliados_sem_contrato',
       'franqueadoRegioes',
@@ -346,39 +307,27 @@ class DashboardController extends Controller
 
     public function getSolicitacoesFranqueadosStatus($status)
     {
-      // [HUBBOX FIX] Converte a string "1,2,3" recebida via AJAX em um array real para o Laravel
       $statusArray = explode(',', $status);
-      
-      $solicitacoesAux = Orcamento::whereIn("status", $statusArray)->where("modo", Util::getModusOperandi())->get();
-      $solicitacoes = 0;
-      foreach ($solicitacoesAux as $solicitacao) {
-        $franqueadoRegiao = FranqueadoRegiao::where("franqueado_id", $this->user_franqueado->id)
-            ->where("regiao_id", $solicitacao->regiao_id)
-            ->where("status", "ativo")
-            ->orderBy("id", "desc")
-            ->first();
-            
-        if ($franqueadoRegiao) {
-            $solicitacoes++;
-        }
-      }
-      return response()->json($solicitacoes);
+      $count = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', '=', 'orcamento.regiao_id')
+        ->where('franqueado_regiao.franqueado_id', $this->user_franqueado->id)
+        ->where('franqueado_regiao.status', 'ativo')
+        ->where('orcamento.modo', Util::getModusOperandi())
+        ->whereIn('orcamento.status', $statusArray)
+        ->distinct('orcamento.id')
+        ->count('orcamento.id');
+      return response()->json($count);
     }
 
   public function getSolicitacoesVistorias()
   {
-    $solicitacoesDisputaAux = Vistoria::where("status", StatusVistoria::$PENDENTE)->get();
-    $solicitacoesDisputa = 0;
-    foreach ($solicitacoesDisputaAux as $vistoria) {
-      $solicitacao = Orcamento::where("id", $vistoria->orcamento_id)->first();
-      if ($solicitacao) {
-        $franqueadoRegiao = FranqueadoRegiao::where("franqueado_id", $this->user_franqueado->id)->where("regiao_id", $solicitacao->regiao_id)->where("status", "ativo")->orderBy("id", "desc")->first();
-        if ($franqueadoRegiao) {
-          $solicitacoesDisputa++;
-        }
-      }
-    }
-    return response()->json($solicitacoesDisputa);
+    $count = Vistoria::join('orcamento', 'orcamento.id', '=', 'vistoria.orcamento_id')
+      ->join('franqueado_regiao', 'franqueado_regiao.regiao_id', '=', 'orcamento.regiao_id')
+      ->where('franqueado_regiao.franqueado_id', $this->user_franqueado->id)
+      ->where('franqueado_regiao.status', 'ativo')
+      ->where('vistoria.status', StatusVistoria::$PENDENTE)
+      ->distinct('vistoria.id')
+      ->count('vistoria.id');
+    return response()->json($count);
   }
 
   public function getSolicitacoesAndamento()
@@ -401,19 +350,28 @@ class DashboardController extends Controller
 
   public function getSolicitacoesFranqueadoAndamento()
     {
-      $solicitacoesLinha = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')->where('franqueado_regiao.franqueado_id', Auth::guard('franqueados')->id())->distinct()->select('orcamento.*')->orderBy('orcamento.id', 'desc')->get();
-      $solicitacoes = [];
-      
-      foreach ($solicitacoesLinha as $key => $value) {
-          if ($value->status <= 4 || $value->status == 10) {
-              // [HUBBOX FIX] Prevenção de quebra na requisição AJAX
-              $bairro_id = optional($value->condominio)->bairro_id;
-              $value->bairroFK = $bairro_id ? Bairro::where("id", $bairro_id)->first() : null;
-              $solicitacoes[] = $value;
-          }
+      $solicitacoes = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', '=', 'orcamento.regiao_id')
+        ->where('franqueado_regiao.franqueado_id', Auth::guard('franqueados')->id())
+        ->where(function ($q) {
+          $q->where('orcamento.status', '<=', 4)->orWhere('orcamento.status', '=', 10);
+        })
+        ->distinct()->select('orcamento.*')
+        ->with([
+          'Condominio'         => fn($q) => $q->withTrashed(),
+          'Condominio.Sindico' => fn($q) => $q->withTrashed(),
+          'Condominio.Bairro.cidade.estado',
+          'Regiao'             => fn($q) => $q->withTrashed(),
+          'Categoria'          => fn($q) => $q->withTrashed(),
+          'afiliado',
+        ])
+        ->orderBy('orcamento.id', 'desc')->get();
+
+      foreach ($solicitacoes as $solicitacao) {
+        $solicitacao->bairroFK = optional($solicitacao->Condominio)->Bairro ?? null;
       }
 
-      $list = view('admin_franqueado.dashboard.solicitacoes-andamento')->with('solicitacoes', $solicitacoes)->render();
+      $list = view('admin_franqueado.dashboard.solicitacoes-andamento')
+        ->with('solicitacoes', $solicitacoes)->render();
       return response()->json($list);
     }
 

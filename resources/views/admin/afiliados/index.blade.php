@@ -98,26 +98,10 @@ use App\Uteis\StatusOrcamento;
                             @else
                                 <span>E-mail não disponível</span>
                             @endif
-                            <?php
-                                $afiliadaAsaas = AfiliadoFranqueadoAsaas::where("afiliado_id", $afiliado->id)
-                                ->orderBy("id", "desc")
-                                ->get();
-
-                                foreach($afiliadaAsaas as $i => $afil){
-                                    $franqueado = Franqueado::where("id", $afil->franqueado_id)->first();
-                                    if($franqueado){
-                                        $afiliadaAsaas[$i]->franqueado_nome = $franqueado->nome;
-                                    } else {
-                                        $afiliadaAsaas[$i]->franqueado_nome = "Sys";
-                                    }
-                                    
-                                }
-
-                                $afiliado->asaas_customer_id = $afiliadaAsaas;
-                            ?>
-                                    @foreach($afiliado->asaas_customer_id as $afiliadoAsaas)
+                            <?php $afiliadaAsaas = $afiliadoAsaasMap[$afiliado->id] ?? collect(); ?>
+                                    @foreach($afiliadaAsaas as $afiliadoAsaas)
                                         <div style="margin-bottom: 16px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-                                            <label>ID do Cliente no ASAAS franquia <b>{{$afiliadoAsaas->franqueado_nome}}</b></label><br>
+                                            <label>ID do Cliente no ASAAS franquia <b>{{$afiliadoAsaas->franqueado_nome ?? 'Sys'}}</b></label><br>
                                             <h5 class="badge badge-success" style="font-size: 12px; margin-top: 0px;">{{$afiliadoAsaas->asaas_customer_id}}</h5>
                                             @if($afiliadoAsaas->modo=="debug")
                                                 <label class="badge badge-danger">MODO TESTE</label>
@@ -149,13 +133,12 @@ use App\Uteis\StatusOrcamento;
                         <span class="whats-link">{{ $afiliado->telefone }}</span>
                     </td>
                     <td>
-                        <?php 
-                            $countConcluidas = Orcamento::where("afiliado_id", $afiliado->id)->where("status", StatusOrcamento::$FINALIZADO)->count();
-                            $countCanceladas = Orcamento::where("afiliado_id", $afiliado->id)->whereIn("status", [StatusOrcamento::$CANCELADO_PELO_ADMIN, StatusOrcamento::$CANCELADO_PELO_SINDICO, StatusOrcamento::$CANCELADO_PELO_AFILIADO, StatusOrcamento::$CANCELADO_PELO_FRANQUEADO])->count();
-                            $countAndamento = Orcamento::where("afiliado_id", $afiliado->id)->whereIn("status", [
-                                StatusOrcamento::$ANALISANDO_CANDIDATOS, StatusOrcamento::$ANALISANDO_ORCAMENTOS, StatusOrcamento::$AGUARDANDO_CONTRATO, StatusOrcamento::$CONTRATO_ASSINADO, StatusOrcamento::$EM_EXECUCAO])->count();
-                            $countTotal = Orcamento::where("afiliado_id", $afiliado->id)->count();
-                            
+                        <?php
+                            $_oc = $orcamentoCounts[$afiliado->id] ?? null;
+                            $countConcluidas = $_oc ? $_oc->concluidas : 0;
+                            $countCanceladas = $_oc ? $_oc->canceladas : 0;
+                            $countAndamento  = $_oc ? $_oc->andamento  : 0;
+                            $countTotal      = $_oc ? $_oc->total      : 0;
                         ?>
                         <label class="badge badge-success mb-2" style="font-size: 13px;">Concluidas: {{$countConcluidas}}</label><br>
                         <label class="badge badge-warning mb-2" style="font-size: 13px;">Em andamento: {{$countAndamento}}</label><br>

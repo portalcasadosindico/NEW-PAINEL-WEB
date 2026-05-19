@@ -27,6 +27,13 @@ class AuthMiddleware
         if (Auth::guard($this->guard)->check()) {
             return $next($request);
         }
+
+        // Admin autenticado tentando acessar rota de franqueado sem ter feito autoLogin:
+        // redireciona para o dashboard admin ao invés da tela de login do franqueado.
+        if ($this->guard === 'franqueados' && Auth::guard('admins')->check()) {
+            return redirect()->route('admin.index');
+        }
+
         return redirect($this->url . '/login')->with('error', "Vocẽ não está logado.");
     }
 }

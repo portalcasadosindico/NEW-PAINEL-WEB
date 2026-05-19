@@ -262,8 +262,8 @@
                   <h6>Dados pessoais</h6>
               </div>
               <div class="form-group">
-                <label for="nome_responsavel">Nome <i style="color: #FF0000; ">*</i></label>
-                <input type="text" class="form-control" required id="nome_responsavel" name="nome_responsavel" value="{{ old('nome_responsavel', optional($afiliado)->responsavel ? optional($afiliado)->responsavel->nome : null) }}" autocomplete="off" placeholder="Nome">
+                <label for="nome_responsavel">Nome</label>
+                <input type="text" class="form-control" id="nome_responsavel" name="nome_responsavel" value="{{ old('nome_responsavel', optional($afiliado)->responsavel ? optional($afiliado)->responsavel->nome : null) }}" autocomplete="off" placeholder="Nome">
                 @error('nome_responsavel')
                     <label id="email-error" class="error mt-2 text-danger" for="nome_responsavel">{{ $message }}</label>
                 @enderror
@@ -276,8 +276,8 @@
                 @enderror
               </div>
               <div class="form-group">
-                <label for="cpf">CPF <i style="color: #FF0000; ">*</i></label>
-                <input type="text" class="form-control" id="cpf" required name="cpf"  data-inputmask-alias="999.999.999-99" value="{{ old('cpf', optional($afiliado)->responsavel ? optional($afiliado)->responsavel->CPF : null) }}" autocomplete="off" placeholder="CPF">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf"  data-inputmask-alias="999.999.999-99" value="{{ old('cpf', optional($afiliado)->responsavel ? optional($afiliado)->responsavel->CPF : null) }}" autocomplete="off" placeholder="CPF">
                 @error('cpf')
                     <label id="telefone-error" class="error mt-2 text-danger" for="telefone">{{ $message }}</label>
                 @enderror

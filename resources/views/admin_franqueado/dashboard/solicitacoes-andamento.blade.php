@@ -54,9 +54,9 @@ use App\Uteis\Formatacao;
       <tbody>
         @foreach($solicitacoes as $solicitacao)
         @php
-          $condominio = $solicitacao->condominio()->withTrashed()->first();
-          $sindico = optional($condominio)->sindico()->withTrashed()->first();
-          $categoria = $solicitacao->categoria()->withTrashed()->first();
+          $condominio = $solicitacao->Condominio;
+          $sindico = optional($condominio)->Sindico;
+          $categoria = $solicitacao->Categoria;
           $bairro = $solicitacao->bairroFK;
         @endphp
         <td>
@@ -71,8 +71,7 @@ use App\Uteis\Formatacao;
         </td>
         <td>
           @if($solicitacao->regiao_id)
-          <label class="badge badge-success">Região: {{
-                                        $solicitacao->regiao()->withTrashed()->first()->nome }}</label>
+          <label class="badge badge-success">Região: {{ optional($solicitacao->Regiao)->nome }}</label>
           @else
           <label class="badge badge-danger">Sem região</label>
           <p>

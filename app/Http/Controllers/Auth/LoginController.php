@@ -36,11 +36,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $dbg = function($msg) { file_put_contents(storage_path('logs/login_debug.txt'), date('H:i:s') . " $msg\n", FILE_APPEND); };
-        $dbg('login() called, email=' . $request->email);
+        $dbg('login() called, email=' . $request->email . ' guard=' . $this->guard);
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
         ];
+        $dbg('password len=' . strlen($request->password));
+        $provider = Auth::guard($this->guard)->getProvider();
+        $userFound = $provider->retrieveByCredentials(['email' => $request->email]);
+        $dbg('user found: ' . ($userFound ? 'yes id='.$userFound->id.' senhaLen='.strlen($userFound->senha??'') : 'NO'));
+        if ($userFound) {
+            $dbg('validateCredentials: ' . ($provider->validateCredentials($userFound, $credentials) ? 'true' : 'false'));
+        }
         $dbg('calling attempt()');
         $result = Auth::guard($this->guard)->attempt($credentials);
         $dbg('attempt() returned: ' . ($result ? 'true' : 'false'));
@@ -65,11 +72,19 @@ class LoginController extends Controller
 
     public function autoLogin(Request $request)
     {
-        if (Auth::guard($this->guard)->loginUsingId($request->franqueado_id)) {
+        $dbg = function($msg) { file_put_contents(storage_path('logs/autologin_debug.txt'), date('H:i:s') . " $msg\n", FILE_APPEND); };
+        $dbg('autoLogin start, franqueado_id=' . $request->franqueado_id . ', guard=' . $this->guard);
+        $result = Auth::guard($this->guard)->loginUsingId($request->franqueado_id);
+        $dbg('loginUsingId result: ' . ($result ? 'true' : 'false'));
+        if ($result) {
+            $dbg('before session_start');
             session_start();
+            $dbg('after session_start');
             $_SESSION['login_as_admin'] = true;
+            $dbg('before redirect');
             return redirect()->route($this->url . '.index');
         }
+        $dbg('loginUsingId returned false — franqueado not found?');
     }
 
     public function autoLogout()
