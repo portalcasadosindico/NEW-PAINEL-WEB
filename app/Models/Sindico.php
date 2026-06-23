@@ -1,25 +1,12 @@
 <?php
 
 namespace App\Models;
-use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sindico extends Model
 {
-    use SoftDeletes, EncryptableDbAttribute;
-
-    /** 
-	 * The attributes that should be encrypted/decrypted
-	 * 
-	 * @var array 
-	 */
-	protected $encryptable = [
-		"nome",
-		"CPF",
-		"telefone",
-		"numero_documento"
-	];
+    use SoftDeletes;
 
     /**
      * Variables update_at, created_at
