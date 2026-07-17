@@ -162,6 +162,12 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        // geekcom/validator-docs está em "dont-discover" no composer.json (extra.laravel)
+        // e por isso precisa ser registrado manualmente aqui — sem isso, toda validação
+        // que usa a regra "cnpj"/"cpf" (ex: FranqueadoController) falha com
+        // "Method Validator::validateCnpj does not exist", silenciosamente redirecionada
+        // de volta pro formulário via catch(Exception) sem mensagem visível.
+        geekcom\ValidatorDocs\ValidatorProvider::class,
         /*
          * Package Service Providers...
          */
