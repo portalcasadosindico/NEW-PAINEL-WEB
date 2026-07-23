@@ -29,7 +29,14 @@
                 </div>
                 <div class="form-group">
                   <label for="password">Senha</label>
-                  <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" placeholder="Senha">
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" placeholder="Senha">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary" onclick="var p=document.getElementById('password'); p.type = p.type === 'password' ? 'text' : 'password'; this.querySelector('i').classList.toggle('mdi-eye'); this.querySelector('i').classList.toggle('mdi-eye-off');">
+                        <i class="mdi mdi-eye"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-check form-check-flat form-check-primary">
                   <label class="form-check-label">
