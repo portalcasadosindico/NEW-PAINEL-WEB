@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuracao;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class FCM
 {
@@ -25,13 +26,29 @@ class FCM
             ],
             "data" => $paramns
         ];
-        $response = Http::withHeaders([
-            'Authorization' => "key=" . self::getTokenFCM(),
-            'Content-Type' => "application/json"
-        ])->post(self::$URL,
-            $notification
-        );
-        return $response;
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => "key=" . self::getTokenFCM(),
+                'Content-Type' => "application/json"
+            ])->post(self::$URL,
+                $notification
+            );
+
+            if ($response->failed() || (is_array($response->json()) && ($response->json()['failure'] ?? 0) > 0)) {
+                Log::error('Falha ao enviar push FCM', [
+                    'titulo' => $titulo,
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+            }
+
+            return $response;
+        } catch (\Exception $e) {
+            Log::error('Exceção ao enviar push FCM: ' . $e->getMessage(), [
+                'titulo' => $titulo,
+            ]);
+            return null;
+        }
     }
 
     public static function sendToTopic($topico, $titulo, $corpo, $paramns = [])

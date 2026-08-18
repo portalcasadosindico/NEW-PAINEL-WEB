@@ -19,6 +19,7 @@ use App\Uteis\Validacao;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Mpdf\Mpdf;
 
 class Destination
@@ -189,9 +190,14 @@ class AfiliadoRegiaoController extends Controller
 
                 // DB::commit();
 
-                
-                DocumentosAutentique::enviarContratoAutentique($afiliadoRegiao, $planoAssinatura, $afiliadoRegiao->afiliado, $email_testemunha1, $email_testemunha2);
-                
+
+                $contratoEnviado = DocumentosAutentique::enviarContratoAutentique($afiliadoRegiao, $planoAssinatura, $afiliadoRegiao->afiliado, $email_testemunha1, $email_testemunha2);
+
+                if(!$contratoEnviado){
+                    DB::rollBack();
+                    return ["errors"=>[ Validacao::getError("Não foi possível enviar o contrato para assinatura no Autentique. Verifique a configuração do franqueado (token Autentique, e-mail de assinatura) e tente novamente.") ], "status"=>false];
+                }
+
                 DB::commit();
                 $afiliado = Afiliado::withTrashed()->where("id", $afiliadoRegiao->afiliado_id)->first();
                 $usuarioApp = $afiliado->usuarioApp;
@@ -209,7 +215,12 @@ class AfiliadoRegiaoController extends Controller
             }
         }catch(Exception $e){
             DB::rollBack();
-            return ["errors"=>$e->getMessage(), "status"=>false];
+            Log::error('Erro ao gerar contrato de filiação: ' . $e->getMessage(), [
+                'afiliado_regiao_id' => $afiliado_regiao_id,
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            return ["errors"=>[ Validacao::getError($e->getMessage()) ], "status"=>false];
         }
     }
 

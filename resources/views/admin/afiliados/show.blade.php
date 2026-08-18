@@ -1192,7 +1192,7 @@ use App\Uteis\StatusOrcamento;
                     alert("Contrato gerado com sucesso.");
                     window.location.reload();
                 } else if (data.status == false) {
-                    alert(data.errors[0].error_message.join("\n"));
+                    alert(data.errors[0].error_message);
                     $("#btn-gerar-contrato-" + afiliado_regiao_id).html("Gerar contrato");
                     $("#btn-gerar-contrato-" + afiliado_regiao_id).removeClass("disabled");
 
