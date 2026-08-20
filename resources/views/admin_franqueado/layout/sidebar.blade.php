@@ -1,8 +1,18 @@
 <nav class="sidebar">
   <div class="sidebar-header">
-    <a href="#" class="sidebar-brand">
+    @php session_start(); @endphp
+    @if(isset($_SESSION['login_as_admin']) && $_SESSION['login_as_admin']) {{-- veio de "entrar como" um franqueado --}}
+    <form method="POST" action="{{ route('admin_franqueado.autoLogout') }}" accept-charset="UTF-8" style="display:inline;">
+      @csrf
+      <button type="submit" class="sidebar-brand" style="background:none;border:none;cursor:pointer;">
+        Casa do <span>Síndico</span>
+      </button>
+    </form>
+    @else
+    <a href="{{ route('admin_franqueado.index') }}" class="sidebar-brand">
       Casa do <span>Síndico</span>
     </a>
+    @endif
     <div class="sidebar-toggler not-active">
       <span></span>
       <span></span>
