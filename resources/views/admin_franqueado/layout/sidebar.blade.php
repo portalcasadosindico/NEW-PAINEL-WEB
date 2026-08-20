@@ -2,12 +2,12 @@
   <div class="sidebar-header">
     @php if (session_status() === PHP_SESSION_NONE) { session_start(); } @endphp
     @if(isset($_SESSION['login_as_admin']) && $_SESSION['login_as_admin']) {{-- veio de "entrar como" um franqueado --}}
-    <form method="POST" action="{{ route('admin_franqueado.autoLogout') }}" accept-charset="UTF-8" style="display:inline;">
+    <form id="sidebar-brand-logout-form" method="POST" action="{{ route('admin_franqueado.autoLogout') }}" accept-charset="UTF-8" style="display:none;">
       @csrf
-      <button type="submit" class="sidebar-brand" style="background:none;border:none;cursor:pointer;">
-        Casa do <span>Síndico</span>
-      </button>
     </form>
+    <a href="javascript:void(0);" onclick="document.getElementById('sidebar-brand-logout-form').submit();" class="sidebar-brand">
+      Casa do <span>Síndico</span>
+    </a>
     @else
     <a href="{{ route('admin_franqueado.index') }}" class="sidebar-brand">
       Casa do <span>Síndico</span>
