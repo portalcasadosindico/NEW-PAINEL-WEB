@@ -184,10 +184,6 @@ class AfiliadoRegiaoController extends Controller
                     $html = ob_get_contents();
                 ob_end_clean();
 
-                // TEMP (2026-08-20): dump de diagnóstico pra investigar o "unserialize(): Extra
-                // data" do Mpdf — remover depois de achar a causa raiz.
-                @file_put_contents("../storage/logs/debug_contrato_html.html", $html);
-                
                 $pasta = "../storage/app/public/contratos/novos";
                 if(!file_exists($pasta))
                     mkdir($pasta, 0777, true);

@@ -820,14 +820,14 @@ use App\Uteis\StatusOrcamento;
                                                                                         <div class="form-group">
                                                                                             <label for="email_testemunha1">E-mail
                                                                                                 testemunha 1</label>
-                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 1" name="email_testemunha1" id="email_testemunha1_auto-{{$item->id}}">
+                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 1" name="email_testemunha1_auto_{{$item->id}}" id="email_testemunha1_auto-{{$item->id}}" autocomplete="off">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label for="email_testemunha2">E-mail
                                                                                                 testemunha 2</label>
-                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2" id="email_testemunha2_auto-{{$item->id}}">
+                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2_auto_{{$item->id}}" id="email_testemunha2_auto-{{$item->id}}" autocomplete="off">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
