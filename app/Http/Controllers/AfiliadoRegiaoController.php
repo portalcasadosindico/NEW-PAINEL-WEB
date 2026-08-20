@@ -170,6 +170,15 @@ class AfiliadoRegiaoController extends Controller
                     mkdir($pasta, 0777, true);
                 
     
+                // Mpdf serializa/desserializa internamente dados de posicionamento com valores
+                // decimais (ver Mpdf::_getObjAttr). Se o locale do processo usar vírgula como
+                // separador decimal, o tamanho da string serializada bate errado e quebra com
+                // "unserialize(): Extra data starting at offset X of Y bytes". Forçar locale
+                // numérico americano só durante a geração do PDF evita isso, sem afetar o resto
+                // da request (datas em português continuam formatadas à parte, via Formatacao).
+                $localeNumericoAnterior = setlocale(LC_NUMERIC, '0');
+                setlocale(LC_NUMERIC, 'C');
+
                 $mpdf = new Mpdf();
                 $rodape = '<div style="font-size: 10px; color: #555;">
                         <strong>'.$franqueado->razao_social.'</strong>
@@ -179,6 +188,8 @@ class AfiliadoRegiaoController extends Controller
                 $mpdf->SetHTMLFooter($rodape);
                 $mpdf->SetDisplayMode('fullpage');
                 $mpdf->WriteHTML($html);
+
+                setlocale(LC_NUMERIC, $localeNumericoAnterior);
                 $n = rand(-9999, 99999);
                 $mpdf->Output($pasta . "/".md5($config->cnpj.$n) . ".pdf", Destination::FILE);
 
