@@ -125,6 +125,7 @@ class DocumentosAutentique
             #AFILIADO
             $attributes["signers"][] = [
                 'name' =>  $afiliado->razao_social,
+                'email' => isset($afiliado->usuarioApp->email) ? $afiliado->usuarioApp->email : $afiliado->email,
                 'action' => 'SIGN'
             ];
 
@@ -274,12 +275,14 @@ class DocumentosAutentique
             if (!$orcamento->data_assinatura_sindico)
                 $attributes["signers"][] = [
                     'name' => $orcamento->condominio->sindico->nome,
+                    'email' => isset($orcamento->condominio->sindico->usuarioApp->email) ? $orcamento->condominio->sindico->usuarioApp->email : null,
                     'action' => 'SIGN'
                 ];
 
             if (!$orcamento->data_assinatura_afiliado && $orcamento->afiliado()->withTrashed()->first())
                 $attributes["signers"][] = [
                     'name' =>  $orcamento->afiliado()->withTrashed()->first()->razao_social . ".",
+                    'email' => isset($orcamento->afiliado()->withTrashed()->first()->usuarioApp->email) ? $orcamento->afiliado()->withTrashed()->first()->usuarioApp->email : null,
                     'action' => 'SIGN'
                 ];
 
