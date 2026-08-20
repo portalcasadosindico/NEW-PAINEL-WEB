@@ -95,6 +95,13 @@ class DocumentosAutentique
                 }
             }
             if($tokenAutentique==null || $plano_assinatura->arquivo_original==null){
+                Log::warning('Falha ao enviar contrato pro Autentique: token ou arquivo ausente', [
+                    'afiliado_regiao_id' => $afiliadoRegiao->id ?? null,
+                    'regiao_id' => $afiliadoRegiao->regiao_id ?? null,
+                    'franqueadoRegiao_franqueado_id' => $franqueadoRegiao->franqueado_id ?? null,
+                    'tokenAutentique_vazio' => empty($tokenAutentique),
+                    'arquivo_original' => $plano_assinatura->arquivo_original ?? null,
+                ]);
                 return false;
             }
             
@@ -133,9 +140,14 @@ class DocumentosAutentique
                 'action' => 'SIGN_AS_A_WITNESS'
             ];
 
-            $res = json_decode(DocumentosAutentique::create($tokenAutentique, $attributes));
+            $resRaw = DocumentosAutentique::create($tokenAutentique, $attributes);
+            $res = json_decode($resRaw);
 
             if(!$res || !isset($res->data)){
+                Log::warning('Falha ao criar documento no Autentique: resposta inesperada', [
+                    'afiliado_regiao_id' => $afiliadoRegiao->id ?? null,
+                    'raw_response' => $resRaw,
+                ]);
                 return false;
             }
 

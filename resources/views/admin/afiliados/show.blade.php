@@ -636,7 +636,7 @@ use App\Uteis\StatusOrcamento;
                                                                                     <div class="col col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label for="email_testemunha2">E-mail testemunha 2</label>
-                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2_auto_{{$item->id}}" id="email_testemunha2_auto-{{$item->id}}" autocomplete="off">
+                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2_auto_{{$item->id}}" id="email_testemunha2_auto-{{$item->id}}" autocomplete="off" onfocus="if(this.value && this.value===$('#email_testemunha1_auto-{{$item->id}}').val()){this.value='';}">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

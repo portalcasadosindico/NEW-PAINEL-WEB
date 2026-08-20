@@ -1,6 +1,6 @@
 <nav class="sidebar">
   <div class="sidebar-header">
-    @php session_start(); @endphp
+    @php if (session_status() === PHP_SESSION_NONE) { session_start(); } @endphp
     @if(isset($_SESSION['login_as_admin']) && $_SESSION['login_as_admin']) {{-- veio de "entrar como" um franqueado --}}
     <form method="POST" action="{{ route('admin_franqueado.autoLogout') }}" accept-charset="UTF-8" style="display:inline;">
       @csrf
