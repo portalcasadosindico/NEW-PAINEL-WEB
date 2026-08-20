@@ -620,7 +620,7 @@ use App\Uteis\StatusOrcamento;
                                                                                     <div class="col col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label for="data_contrato">Data do contrato</label>
-                                                                                            <input type="text" value="<?php echo date("d/m/Y"); ?>" class="form-control" placeholder="Data do contrato" name="data_contrato_auto" id="data_contrato_auto">
+                                                                                            <input type="date" value="<?php echo date("Y-m-d"); ?>" class="form-control" placeholder="Data do contrato" name="data_contrato_auto" id="data_contrato_auto">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
