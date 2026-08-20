@@ -150,6 +150,25 @@ class AfiliadoRegiaoController extends Controller
                 ob_start();
                     $config = Configuracao::orderBy("id","desc")->first();
 
+                    // Embute a logo como data URI (base64) em vez de deixar o Mpdf buscar via
+                    // HTTPS remoto durante o WriteHTML — busca remota de imagem é uma causa
+                    // conhecida de instabilidade no Mpdf (timeouts, resposta truncada/malformada)
+                    // e foi correlacionada com o erro "unserialize(): Extra data..." reproduzido
+                    // em 2026-08-20. Se o fetch falhar por qualquer motivo, mantém a URL original
+                    // como estava antes (mesmo comportamento de sempre).
+                    if($config && $config->logo){
+                        try{
+                            $logoConteudo = @file_get_contents($config->logo);
+                            if($logoConteudo !== false){
+                                $logoInfo = getimagesizefromstring($logoConteudo);
+                                $logoMime = $logoInfo['mime'] ?? 'image/png';
+                                $config->logo = 'data:' . $logoMime . ';base64,' . base64_encode($logoConteudo);
+                            }
+                        }catch(Exception $e){
+                            // segue com a URL remota original
+                        }
+                    }
+
                     if($this->user_franqueado)
                         $franqueado = $this->user_franqueado;
                     else
