@@ -512,7 +512,7 @@ use App\Uteis\Formatacao;
 
 <script>
 async function getSEA() {
-  const res = await fetch("<?php echo getenv("APP_URL"); ?>/dashboard_franqueado/solicitacoes/1,2,3,4,10", {
+  const res = await fetch("<?php echo config("app.url"); ?>/dashboard_franqueado/solicitacoes/1,2,3,4,10", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -524,7 +524,7 @@ async function getSEA() {
 }
 
 async function getSCA() {
-  const res = await fetch("<?php echo getenv("APP_URL"); ?>/dashboard_franqueado/solicitacoes/6,7,8,9", {
+  const res = await fetch("<?php echo config("app.url"); ?>/dashboard_franqueado/solicitacoes/6,7,8,9", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -536,7 +536,7 @@ async function getSCA() {
 }
 
 async function getSVI() {
-  const res = await fetch("<?php echo getenv("APP_URL"); ?>/dashboard_franqueado/solicitacoes/vistoria", {
+  const res = await fetch("<?php echo config("app.url"); ?>/dashboard_franqueado/solicitacoes/vistoria", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -548,7 +548,7 @@ async function getSVI() {
 }
 
 async function getSA() {
-  const res = await fetch("<?php echo getenv("APP_URL"); ?>/dashboard_franqueado/solicitacao/andamento", {
+  const res = await fetch("<?php echo config("app.url"); ?>/dashboard_franqueado/solicitacao/andamento", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -591,7 +591,7 @@ function aprovarCategoria(afiliado_categoria_id, newStatus) {
     var motivo = $("#motivo-reprovado-" + afiliado_categoria_id).val()
     var _token = $('input[name="_token"]').val();
     $.getJSON({
-      url: '<?php echo getenv("APP_URL"); ?>/admin_franqueado/alterar_status_categoria_afiliado/' +
+      url: '<?php echo config("app.url"); ?>/admin_franqueado/alterar_status_categoria_afiliado/' +
         afiliado_categoria_id,
       method: "POST",
       data: {
@@ -639,7 +639,7 @@ function aprovarDocPendente(documento_id, newStatus, tipo) {
     var motivo = $("#motivo-reprovado-doc-" + documento_id + "-" + tipo).val()
     var _token = $('input[name="_token"]').val();
     $.getJSON({
-      url: '<?php echo getenv("APP_URL"); ?>/admin_franqueado/alterar_status_documento_pendente/' + documento_id,
+      url: '<?php echo config("app.url"); ?>/admin_franqueado/alterar_status_documento_pendente/' + documento_id,
       method: "POST",
       data: {
         _token: _token,
