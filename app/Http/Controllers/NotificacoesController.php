@@ -45,8 +45,12 @@ class NotificacoesController extends Controller
     {
         $categorias = Categoria::where("categoria_pai_id", ">", 0)->orderBy("nome","asc")->get();
         $regioes = Regiao::orderBy("nome","asc")->where("id","<>",1)->where("id","<>",12)->get();
-        $sindicos = Sindico::orderBy("nome","ASC")->with("usuarioApp")->get();
-        $afiliados = Afiliado::orderBy("razao_social","ASC")->with("usuarioApp")->get();
+        // usuario_app_id órfão (sem usuario_app correspondente) existe na base real -
+        // filtra antes de chegar na view, que assume usuarioApp sempre presente.
+        $sindicos = Sindico::orderBy("nome","ASC")->with("usuarioApp")->get()
+            ->filter(fn($s) => $s->usuarioApp !== null)->values();
+        $afiliados = Afiliado::orderBy("razao_social","ASC")->with("usuarioApp")->get()
+            ->filter(fn($a) => $a->usuarioApp !== null)->values();
 
         return view('notificacoes.create', compact('regioes', 'sindicos', 'afiliados', 'categorias'));
     }
