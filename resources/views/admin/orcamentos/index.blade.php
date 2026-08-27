@@ -236,6 +236,14 @@ use App\Uteis\StatusOrcamento;
                         </td>
                         <td>
                             <label clas="badge badge-default"><b>{{$orcamento->titulo_contrato}}</b></label><br>
+                            @php
+                            $orcamentoCancelado = in_array($orcamento->status, [
+                                StatusOrcamento::$CANCELADO_PELO_ADMIN,
+                                StatusOrcamento::$CANCELADO_PELO_FRANQUEADO,
+                                StatusOrcamento::$CANCELADO_PELO_SINDICO,
+                                StatusOrcamento::$CANCELADO_PELO_AFILIADO,
+                            ]);
+                            @endphp
                             @if($orcamento->formato_contrato_atual==2)
                             <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "
                                 https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn btn-success" target="_blank">Ver contrato</a>
@@ -245,6 +253,8 @@ use App\Uteis\StatusOrcamento;
                             <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "
                                 https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn
                                 btn-success" target="_blank">Ver contrato assinado</a>
+                            @elseif($orcamentoCancelado)
+                            <label class="badge badge-danger">Cancelada</label>
                             @else
                             <a class="btn btn-danger" href="{{ route('admin.orcamentos.edit', $orcamento->id ) }}#upload">Upload
                                 do
