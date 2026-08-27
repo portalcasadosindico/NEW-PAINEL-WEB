@@ -260,6 +260,11 @@ use App\Uteis\StatusOrcamento;
                         @endforeach
                     </tbody>
                 </table>
+                @if(method_exists($orcamentos, 'links'))
+                <div class="mt-3">
+                    {{ $orcamentos->links() }}
+                </div>
+                @endif
                 @endif
             </div>
         </div>

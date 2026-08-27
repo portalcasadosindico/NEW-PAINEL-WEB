@@ -63,7 +63,10 @@ class OrcamentoController extends Controller
         $franqueados = Franqueado::all();
         if ($this->url == 'admin') {
             if ($franqueado_id == null) {
-                $orcamentos = Orcamento::orderBy("id", "desc")->get();
+                // Paginado (era ->get() sem limite - 7900+ registros, cada um rodando a
+                // sincronização de região abaixo, causava timeout real no servidor com o
+                // volume de produção, ver incidente 2026-08-27).
+                $orcamentos = Orcamento::orderBy("id", "desc")->paginate(50);
             } else {
                 $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')->where('franqueado_regiao.franqueado_id', $franqueado_id)->where("franqueado_regiao.status", "ativo")->select('orcamento.*')->orderBy("orcamento.id", "desc")->get();
             }
