@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-check form-check-flat form-check-primary">
                   <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
+                    <input type="checkbox" name="remember" class="form-check-input">
                     Lembrar-me
                   </label>
                 </div>

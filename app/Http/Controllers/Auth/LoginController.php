@@ -49,7 +49,7 @@ class LoginController extends Controller
             $dbg('validateCredentials: ' . ($provider->validateCredentials($userFound, $credentials) ? 'true' : 'false'));
         }
         $dbg('calling attempt()');
-        $result = Auth::guard($this->guard)->attempt($credentials);
+        $result = Auth::guard($this->guard)->attempt($credentials, $request->boolean('remember'));
         $dbg('attempt() returned: ' . ($result ? 'true' : 'false'));
         if ($result) {
             $dbg('redirecting to ' . $this->url . '.index');
