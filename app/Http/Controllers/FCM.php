@@ -1,72 +1,46 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Configuracao;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+// Push via FCM. Não fala mais direto com o Google (a API legada `fcm.googleapis.com/fcm/send`
+// foi desativada pelo Google em 2024) — chama o endpoint interno da nossa própria API .NET
+// (`POST /admin/push/enviar`, AdminPushController), que já usa FCM v1/OAuth2 corretamente via
+// FirebaseService. Evita duplicar a lógica de autenticação de service account aqui em PHP.
 class FCM
 {
-    public static $URL = "https://fcm.googleapis.com/fcm/send";
-
-    private static function getTokenFCM()
-    {
-        $config = Configuracao::orderBy("id", "desc")->first();
-        return $config->api_key_fcm;
-    }
-
     public static function send($token_notification, $titulo, $corpo, $paramns = [])
     {
-        $notification = [
-            "to" => $token_notification,
-            "collapse_key" => "type_a",
-            "notification" => [
-                "body" => $corpo,
-                "title" => $titulo
-            ],
-            "data" => $paramns
-        ];
+        if (empty($token_notification)) return false;
+
+        $url = rtrim(env('DOTNET_API_URL'), '/') . '/admin/push/enviar';
+
         try {
             $response = Http::withHeaders([
-                'Authorization' => "key=" . self::getTokenFCM(),
-                'Content-Type' => "application/json"
-            ])->post(self::$URL,
-                $notification
-            );
+                'x-push-admin-token' => env('PUSH_ADMIN_TOKEN'),
+                'Content-Type' => 'application/json',
+            ])->post($url, [
+                'token' => $token_notification,
+                'titulo' => $titulo,
+                'corpo' => $corpo,
+                'data' => (object) $paramns,
+            ]);
 
-            if ($response->failed() || (is_array($response->json()) && ($response->json()['failure'] ?? 0) > 0)) {
-                Log::error('Falha ao enviar push FCM', [
+            if ($response->failed()) {
+                Log::error('Falha ao enviar push via API .NET', [
                     'titulo' => $titulo,
                     'status' => $response->status(),
                     'body' => $response->body(),
                 ]);
             }
 
-            return $response;
+            return $response->successful();
         } catch (\Exception $e) {
-            Log::error('Exceção ao enviar push FCM: ' . $e->getMessage(), [
+            Log::error('Exceção ao enviar push via API .NET: ' . $e->getMessage(), [
                 'titulo' => $titulo,
             ]);
-            return null;
+            return false;
         }
-    }
-
-    public static function sendToTopic($topico, $titulo, $corpo, $paramns = [])
-    {
-        $notification = (object) [
-            "to" => "/topics/$topico",
-            "collapse_key" => "type_a",
-            "notification" => [
-                "body" => $corpo,
-                "title" => $titulo
-            ],
-            "data" => $paramns
-        ];
-        $response = Http::withHeaders([
-            'Authorization' => "key=".self::getTokenFCM(),
-        ])->post(self::$URL, [
-            $notification
-        ]);
-        return $response;
     }
 }
