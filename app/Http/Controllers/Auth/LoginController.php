@@ -67,7 +67,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard($this->guard)->logout();
-        return redirect()->route($this->url . '.index');
+        return redirect()->route('admin.login');
     }
 
     public function autoLogin(Request $request)
