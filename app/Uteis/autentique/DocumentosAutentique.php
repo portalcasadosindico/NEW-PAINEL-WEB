@@ -217,6 +217,13 @@ class DocumentosAutentique
                     if ($assinatura->user->email == $assinatura_afiliado->email) {
                         $assinatura_afiliado->public_id = $assinatura->public_id;
                         $assinatura_afiliado->user_id_autentique = $assinatura->user->id;
+                        // [FIX 2026-08-28] Autentique sempre devolve o link de assinatura em
+                        // $assinatura->link, mesmo quando o signatário já é um usuário cadastrado
+                        // lá (ramo "if" acima). Faltava capturar aqui - deixava short_link NULL
+                        // pra sempre pra afiliados que já tinham conta no Autentique.
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        }
                     }
                 } else {
                     if($assinatura->name==$assinatura_afiliado->nome_assinante){
@@ -414,6 +421,26 @@ class DocumentosAutentique
                     if ($assinatura->user->email == $assinatura_testemunha2->email) {
                         $assinatura_testemunha2->public_id = $assinatura->public_id;
                         $assinatura_testemunha2->user_id_autentique = $assinatura->user->id;
+                    }
+
+                    // [FIX 2026-08-28] Afiliado/síndico caíam nesse ramo (já são usuário
+                    // cadastrado no Autentique) e nunca eram identificados aqui - o código só
+                    // checava franqueado/testemunhas por e-mail, deixando public_id/short_link
+                    // de afiliado e síndico NULL pra sempre nesse caso. Autentique sempre devolve
+                    // o link de assinatura em $assinatura->link, independente do signatário já
+                    // ter conta lá ou não.
+                    if ($assinatura->user->email == $assinatura_afiliado->email) {
+                        $assinatura_afiliado->public_id = $assinatura->public_id;
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        }
+                    }
+
+                    if ($assinatura->user->email == $assinatura_sindico->email) {
+                        $assinatura_sindico->public_id = $assinatura->public_id;
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_sindico->short_link = $assinatura->link->short_link;
+                        }
                     }
                 } else {
                     if ($assinatura->name == $assinatura_afiliado->nome_assinante) {
