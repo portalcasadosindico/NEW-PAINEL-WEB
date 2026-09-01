@@ -239,6 +239,7 @@ class DashboardController extends Controller
         ->where('afiliado_regiao.modo', Util::getModusOperandi())
         ->whereIn('afiliado_regiao.regiao_id', $regiaoIds)
         ->whereNull('regiao.deleted_at')
+        ->whereNull('afiliado_regiao.deleted_at')
         ->whereNull('paar2.arquivo_original')
         ->whereIn('paar2.statusPlano', [StatusPlano::$ATIVO, StatusPlano::$PENDENTE])
         ->whereIn('fr.status', ['ativo', 'inativo'])
