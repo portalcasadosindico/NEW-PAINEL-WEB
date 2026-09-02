@@ -71,6 +71,20 @@ class DocumentosAutentique
     }
 
     /**
+     * Gera um novo link de assinatura pra um signatário específico (public_id da assinatura,
+     * não do documento). Necessário porque signatures[].link.short_link some da resposta do
+     * documento depois que o Autentique já enviou o e-mail de convite - esta mutation funciona
+     * a qualquer momento antes da assinatura ser concluída.
+     *
+     * @param string $publicId
+     * @return bool|string
+     */
+    public static function createLinkToSignature($token, string $publicId)
+    {
+        return Api::request($token, "criar_link_assinatura", 'json', null, $publicId);
+    }
+
+    /**
      * Delete document by id
      *
      * @param string $documentId
@@ -104,7 +118,7 @@ class DocumentosAutentique
                 ]);
                 return false;
             }
-            
+
             DB::beginTransaction();
 
             $plano_assinatura->titulo_contrato = 'Contrato #' . $plano_assinatura->id;
@@ -203,17 +217,17 @@ class DocumentosAutentique
                         $assinatura_franqueado->user_id_autentique = $assinatura->user->id;
                         $assinatura_franqueado->signed = isset($assinatura->signed->created_at) ? date("Y-m-d H:i:s", strtotime($assinatura->signed->created_at)) : null;
                     }
-    
+
                     if ($assinatura->user->email == $testemunha1) {
                         $assinatura_testemunha1->public_id = $assinatura->public_id;
                         $assinatura_testemunha1->user_id_autentique = $assinatura->user->id;
                     }
-    
+
                     if ($assinatura->user->email == $testemunha2) {
                         $assinatura_testemunha2->public_id = $assinatura->public_id;
                         $assinatura_testemunha2->user_id_autentique = $assinatura->user->id;
                     }
-    
+
                     if ($assinatura->user->email == $assinatura_afiliado->email) {
                         $assinatura_afiliado->public_id = $assinatura->public_id;
                         $assinatura_afiliado->user_id_autentique = $assinatura->user->id;
@@ -259,15 +273,15 @@ class DocumentosAutentique
 
 
     public static function enviarContratoServico($orcamento, $email_testemunha1, $email_testemunha2){
-        
+
         $email_testemunha1 = !empty($email_testemunha1) ? $email_testemunha1 : 'alexandrejacquet333@gmail.com';
         $email_testemunha2 = !empty($email_testemunha2) ? $email_testemunha2 : 'financeiro@casadosindico.srv.br';
-        
+
         Log::channel('orcamento')->info('Verificando email testemunha', [
             'email testemunha 1' => $email_testemunha1,
             'email testemunha 2' => $email_testemunha2,
         ]);
-        
+
         Log::channel('contratoServico')->info('Chamou o enviarContratoServico');
         try{
             $franqueadoRegiao = FranqueadoRegiao::where("regiao_id", $orcamento->regiao_id)->orderBy("id", "desc")->first();
@@ -279,19 +293,29 @@ class DocumentosAutentique
                 'file' => "../storage/app/public/" . $orcamento->contrato,
             ];
 
-            if (!$orcamento->data_assinatura_sindico)
-                $attributes["signers"][] = [
+            if (!$orcamento->data_assinatura_sindico) {
+                $sindicoSigner = [
                     'name' => $orcamento->condominio->sindico->nome,
-                    'email' => isset($orcamento->condominio->sindico->usuarioApp->email) ? $orcamento->condominio->sindico->usuarioApp->email : null,
                     'action' => 'SIGN'
                 ];
+                // Autentique rejeita signatario com email:null explicito - so inclui a
+                // chave quando ha email de verdade (ver [[technical_debt]] / sessao 02/09).
+                if (isset($orcamento->condominio->sindico->usuarioApp->email)) {
+                    $sindicoSigner['email'] = $orcamento->condominio->sindico->usuarioApp->email;
+                }
+                $attributes["signers"][] = $sindicoSigner;
+            }
 
-            if (!$orcamento->data_assinatura_afiliado && $orcamento->afiliado()->withTrashed()->first())
-                $attributes["signers"][] = [
+            if (!$orcamento->data_assinatura_afiliado && $orcamento->afiliado()->withTrashed()->first()) {
+                $afiliadoSigner = [
                     'name' =>  $orcamento->afiliado()->withTrashed()->first()->razao_social . ".",
-                    'email' => isset($orcamento->afiliado()->withTrashed()->first()->usuarioApp->email) ? $orcamento->afiliado()->withTrashed()->first()->usuarioApp->email : null,
                     'action' => 'SIGN'
                 ];
+                if (isset($orcamento->afiliado()->withTrashed()->first()->usuarioApp->email)) {
+                    $afiliadoSigner['email'] = $orcamento->afiliado()->withTrashed()->first()->usuarioApp->email;
+                }
+                $attributes["signers"][] = $afiliadoSigner;
+            }
 
             if (!$orcamento->data_assinatura_franqueado)
                 $attributes["signers"][] = [
@@ -311,29 +335,25 @@ class DocumentosAutentique
                     'email' =>  $email_testemunha2,
                     'action' => 'SIGN_AS_A_WITNESS'
                 ];
-                
+
             Log::channel('contratoServico')->error('Atributos', ['attributes' => $attributes]);
             Log::channel('contratoServico')->error('token', ['token' => $franqueadoRegiao->franqueado->token_autentique]);
 
-            $res = json_decode(DocumentosAutentique::create($franqueadoRegiao->franqueado->token_autentique, $attributes));
+            $responseRaw = DocumentosAutentique::create($franqueadoRegiao->franqueado->token_autentique, $attributes);
+            Log::channel('contratoServico')->info('Resposta bruta da API', ['response' => $responseRaw]);
+            $res = json_decode($responseRaw);
 
-            if(!$res || !isset($res->data)){
-                // Log::channel('contratoServico')->error('Falha ao criar documento', ['res' => $res]);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                Log::channel('contratoServico')->error('Erro no JSON decode', [
+                    'json_error' => json_last_error_msg(),
+                    'raw' => $responseRaw
+                ]);
+            }
+
+            if (!$res || !isset($res->data) || !isset($res->data->createDocument->id)) {
+                Log::channel('contratoServico')->error('Falha ao criar documento no Autentique', ['res' => $res]);
                 return;
             }
-            
-            // $responseRaw = DocumentosAutentique::create($franqueadoRegiao->franqueado->token_autentique, $attributes);
-            // Log::channel('contratoServico')->error('Resposta bruta da API', ['response' => $responseRaw]);
-            // $res = json_decode($responseRaw);
-            
-            // if (json_last_error() !== JSON_ERROR_NONE) {
-            //     Log::channel('contratoServico')->error('Erro no JSON decode', [
-            //         'json_error' => json_last_error_msg(),
-            //         'raw' => $responseRaw
-            //     ]);
-            // }
-
-
 
             $orcamento->documento_id_autentique = $res->data->createDocument->id;
 
@@ -348,7 +368,7 @@ class DocumentosAutentique
             $orcamento->contrato_original = $res2->data->document->files->original;
             $orcamento->contrato_assinado = $res2->data->document->files->signed;
             $orcamento->update();
-            
+
             Log::channel('orcamento')->info('Verificando contrato e afiliado', [
                 'email franqueado' => $franqueadoRegiao->franqueado ? $franqueadoRegiao->franqueado->email_autentique : 'Não encontrado',
                 'email sindico' => $orcamento->condominio && $orcamento->condominio->sindico && $orcamento->condominio->sindico->usuarioApp ? $orcamento->condominio->sindico->usuarioApp->email : 'Não encontrado',
@@ -366,7 +386,7 @@ class DocumentosAutentique
             $assinatura_franqueado->email = $franqueadoRegiao->franqueado->email_autentique;
             $assinatura_franqueado->franqueado_id = $franqueadoRegiao->franqueado->id;
             $assinatura_franqueado->nome = $attributes['document']['name'];
-            
+
             $appId = $orcamento->condominio->sindico->usuario_app_id;
             $emailSindico = UsuarioApp::withTrashed()->findOrFail($appId);
 
