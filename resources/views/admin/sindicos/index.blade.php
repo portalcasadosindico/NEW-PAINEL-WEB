@@ -74,6 +74,7 @@ if($franqueado_id==-1) echo "selected"; ?> value="-1">Cadastrados pelo App</opti
                        </thead>
                        <tbody>
                        @foreach($sindicos as $sindico)
+                           <tr>
                                <td>
                                     {{ $sindico->nome }}
                                     <span class="citacao">
