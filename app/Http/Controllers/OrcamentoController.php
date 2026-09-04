@@ -1009,6 +1009,31 @@ class OrcamentoController extends Controller
         return $regiao_id_bairro_condominio;
     }
 
+    // Corrigir a região de um bairro não propagava sozinho pras solicitações já
+    // criadas antes da correção (só recalculava quando alguém reabria e salvava
+    // a solicitação individualmente no Painel) - ver sessão 2026-09-04, caso #8568.
+    // Chamado pelo BairroController::update() sempre que a região de um bairro muda,
+    // pra resincronizar todas as solicitações ainda abertas vinculadas a esse bairro.
+    public function resincronizarOrcamentosDoBairroAlterado($bairroId)
+    {
+        $condominioIds = Condominio::where('bairro_id', $bairroId)->pluck('id');
+        if ($condominioIds->isEmpty()) {
+            return;
+        }
+
+        // Mesmo critério de "solicitação ainda aberta" usado pela API .NET em
+        // ListarOrcamentos: sem afiliado vinculado e em status 1 (Analisando
+        // candidatos) ou 2 (Em cotação) - não mexe em solicitações já fechadas/aceitas.
+        $orcamentos = Orcamento::whereIn('condominio_id', $condominioIds)
+            ->whereNull('afiliado_id')
+            ->whereIn('status', [1, 2])
+            ->get();
+
+        foreach ($orcamentos as $orcamento) {
+            $this->sincronizarRegiaoOrcamentoComCondominio($orcamento);
+        }
+    }
+
     // [HUBBOX FIX] Sincroniza regiao_id da solicitação com o endereço atual do condomínio (bairro/cidade/CEP)
     private function sincronizarRegiaoOrcamentoComCondominio($orcamento)
     {
