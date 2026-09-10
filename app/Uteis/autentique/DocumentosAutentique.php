@@ -84,6 +84,35 @@ class DocumentosAutentique
         return Api::request($token, "criar_link_assinatura", 'json', null, $publicId);
     }
 
+    // O Autentique manda o e-mail de convite assim que o documento e criado (dentro
+    // do proprio create()) - e o campo signatures[].link.short_link some da resposta
+    // assim que esse e-mail sai. Como listById() roda logo em seguida (create ->
+    // signById -> listById, poucos milissegundos depois), a captura de short_link a
+    // partir dessa resposta e uma corrida contra o envio do e-mail: as vezes ganha,
+    // as vezes perde - por isso o mesmo bug (link some) reaparecia mesmo depois do
+    // fix de 2026-08-28, inclusive em solicitacoes novas (ver sessao 2026-09-10,
+    // casos #8550/#8585 e o comando artisan autentique:backfill-short-links).
+    // Em vez de torcer pra ganhar a corrida, gera um link novo e garantido via
+    // createLinkToSignature() sempre que a captura passiva não trouxe nada.
+    private static function garantirLinkAssinatura($token, $assinaturaRow): void
+    {
+        if (!$assinaturaRow->public_id || $assinaturaRow->short_link) {
+            return;
+        }
+        try {
+            $res = json_decode(self::createLinkToSignature($token, $assinaturaRow->public_id));
+            $shortLink = $res->data->createLinkToSignature->short_link ?? null;
+            if ($shortLink) {
+                $assinaturaRow->short_link = $shortLink;
+            }
+        } catch (Exception $e) {
+            Log::channel('contratoServico')->warning('Falha ao gerar link de assinatura garantido na criação do documento', [
+                'public_id' => $assinaturaRow->public_id,
+                'erro' => $e->getMessage(),
+            ]);
+        }
+    }
+
     /**
      * Delete document by id
      *
@@ -242,9 +271,13 @@ class DocumentosAutentique
                 } else {
                     if($assinatura->name==$assinatura_afiliado->nome_assinante){
                         $assinatura_afiliado->public_id = $assinatura->public_id;
-                        $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        $assinatura_afiliado->short_link = $assinatura->link->short_link ?? null;
                     }
                 }
+            }
+
+            foreach ([$assinatura_afiliado, $assinatura_testemunha1, $assinatura_testemunha2] as $row) {
+                self::garantirLinkAssinatura($tokenAutentique, $row);
             }
 
             $plano_assinatura->status = StatusAssinaturaPlano::$AGUARDANDO;
@@ -465,13 +498,17 @@ class DocumentosAutentique
                 } else {
                     if ($assinatura->name == $assinatura_afiliado->nome_assinante) {
                         $assinatura_afiliado->public_id = $assinatura->public_id;
-                        $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        $assinatura_afiliado->short_link = $assinatura->link->short_link ?? null;
                     }
                     if ($assinatura->name == $assinatura_sindico->nome_assinante) {
                         $assinatura_sindico->public_id = $assinatura->public_id;
-                        $assinatura_sindico->short_link = $assinatura->link->short_link;
+                        $assinatura_sindico->short_link = $assinatura->link->short_link ?? null;
                     }
                 }
+            }
+
+            foreach ([$assinatura_sindico, $assinatura_afiliado, $assinatura_testemunha1, $assinatura_testemunha2] as $row) {
+                self::garantirLinkAssinatura($franqueadoRegiao->franqueado->token_autentique, $row);
             }
 
             $orcamento->update();
