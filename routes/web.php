@@ -50,8 +50,8 @@ Route::get('/admin_franqueado/login', 'Auth\LoginController@loginPage')->name('a
 /** Rotas Dashboard franqueado **/
 Route::get('/admin_franqueado/inicio', 'DashboardController@index')->name('admin_franqueado.index');
 Route::get('admin_franqueado/pendencias', 'DashboardController@pendencias')->name('admin_franqueado.pendencias');
-Route::get('dashboard_franqueado/solicitacoes/{status}', 'DashboardController@getSolicitacoesFranqueadosStatus');
 Route::get('dashboard_franqueado/solicitacoes/vistoria', 'DashboardController@getSolicitacoesVistorias');
+Route::get('dashboard_franqueado/solicitacoes/{status}', 'DashboardController@getSolicitacoesFranqueadosStatus');
 Route::get('dashboard_franqueado/solicitacao/andamento', 'DashboardController@getSolicitacoesFranqueadoAndamento');
 /** END Rotas Dashboard frnaqueado **/
 

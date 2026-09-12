@@ -572,12 +572,22 @@ use App\Uteis\StatusPlano;
                     @endif
                 </div>
 
+                @php
+                $orcamentoCancelado = in_array($orcamento->status, [
+                    StatusOrcamento::$CANCELADO_PELO_ADMIN,
+                    StatusOrcamento::$CANCELADO_PELO_FRANQUEADO,
+                    StatusOrcamento::$CANCELADO_PELO_SINDICO,
+                    StatusOrcamento::$CANCELADO_PELO_AFILIADO,
+                ]);
+                @endphp
                 @if($orcamento->formato_contrato_atual==2)
                 <p>{{$orcamento->contrato_assinado}}</p>
                 <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn btn-success" target="_blank">Ver contrato</a>
                 @elseif($orcamento->formato_contrato_atual==1)
                 <a href="{{$orcamento->contrato_original ? $orcamento->contrato_original : "https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn btn-secondary" target="_blank">Ver contrato</a>
                 <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn btn-success" target="_blank">Ver contrato assinado</a>
+                @elseif($orcamentoCancelado)
+                <label class="badge badge-danger" style="font-size: 14px;">Solicitação cancelada — upload de contrato desabilitado</label>
                 @else
                 <label for="" class="btn btn-secondary btn-upload-contrato">Upload do contrato</label>
                 <label class="badge badge-primary arquivo-selecionado"></label>

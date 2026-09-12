@@ -19,6 +19,7 @@ use App\Uteis\Validacao;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Mpdf\Mpdf;
 
 class Destination
@@ -149,6 +150,25 @@ class AfiliadoRegiaoController extends Controller
                 ob_start();
                     $config = Configuracao::orderBy("id","desc")->first();
 
+                    // Embute a logo como data URI (base64) em vez de deixar o Mpdf buscar via
+                    // HTTPS remoto durante o WriteHTML — busca remota de imagem é uma causa
+                    // conhecida de instabilidade no Mpdf (timeouts, resposta truncada/malformada)
+                    // e foi correlacionada com o erro "unserialize(): Extra data..." reproduzido
+                    // em 2026-08-20. Se o fetch falhar por qualquer motivo, mantém a URL original
+                    // como estava antes (mesmo comportamento de sempre).
+                    if($config && $config->logo){
+                        try{
+                            $logoConteudo = @file_get_contents($config->logo);
+                            if($logoConteudo !== false){
+                                $logoInfo = getimagesizefromstring($logoConteudo);
+                                $logoMime = $logoInfo['mime'] ?? 'image/png';
+                                $config->logo = 'data:' . $logoMime . ';base64,' . base64_encode($logoConteudo);
+                            }
+                        }catch(Exception $e){
+                            // segue com a URL remota original
+                        }
+                    }
+
                     if($this->user_franqueado)
                         $franqueado = $this->user_franqueado;
                     else
@@ -163,12 +183,21 @@ class AfiliadoRegiaoController extends Controller
                     include("../resources/views/modelos_contratos/contrato_$modelo_contrato.blade.php");
                     $html = ob_get_contents();
                 ob_end_clean();
-                
+
                 $pasta = "../storage/app/public/contratos/novos";
                 if(!file_exists($pasta))
                     mkdir($pasta, 0777, true);
                 
     
+                // Mpdf serializa/desserializa internamente dados de posicionamento com valores
+                // decimais (ver Mpdf::_getObjAttr). Se o locale do processo usar vírgula como
+                // separador decimal, o tamanho da string serializada bate errado e quebra com
+                // "unserialize(): Extra data starting at offset X of Y bytes". Forçar locale
+                // numérico americano só durante a geração do PDF evita isso, sem afetar o resto
+                // da request (datas em português continuam formatadas à parte, via Formatacao).
+                $localeNumericoAnterior = setlocale(LC_NUMERIC, '0');
+                setlocale(LC_NUMERIC, 'C');
+
                 $mpdf = new Mpdf();
                 $rodape = '<div style="font-size: 10px; color: #555;">
                         <strong>'.$franqueado->razao_social.'</strong>
@@ -178,6 +207,8 @@ class AfiliadoRegiaoController extends Controller
                 $mpdf->SetHTMLFooter($rodape);
                 $mpdf->SetDisplayMode('fullpage');
                 $mpdf->WriteHTML($html);
+
+                setlocale(LC_NUMERIC, $localeNumericoAnterior);
                 $n = rand(-9999, 99999);
                 $mpdf->Output($pasta . "/".md5($config->cnpj.$n) . ".pdf", Destination::FILE);
 
@@ -189,9 +220,14 @@ class AfiliadoRegiaoController extends Controller
 
                 // DB::commit();
 
-                
-                DocumentosAutentique::enviarContratoAutentique($afiliadoRegiao, $planoAssinatura, $afiliadoRegiao->afiliado, $email_testemunha1, $email_testemunha2);
-                
+
+                $contratoEnviado = DocumentosAutentique::enviarContratoAutentique($afiliadoRegiao, $planoAssinatura, $afiliadoRegiao->afiliado, $email_testemunha1, $email_testemunha2);
+
+                if(!$contratoEnviado){
+                    DB::rollBack();
+                    return ["errors"=>[ Validacao::getError("Não foi possível enviar o contrato para assinatura no Autentique. Verifique a configuração do franqueado (token Autentique, e-mail de assinatura) e tente novamente.") ], "status"=>false];
+                }
+
                 DB::commit();
                 $afiliado = Afiliado::withTrashed()->where("id", $afiliadoRegiao->afiliado_id)->first();
                 $usuarioApp = $afiliado->usuarioApp;
@@ -209,7 +245,12 @@ class AfiliadoRegiaoController extends Controller
             }
         }catch(Exception $e){
             DB::rollBack();
-            return ["errors"=>$e->getMessage(), "status"=>false];
+            Log::error('Erro ao gerar contrato de filiação: ' . $e->getMessage(), [
+                'afiliado_regiao_id' => $afiliado_regiao_id,
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            return ["errors"=>[ Validacao::getError($e->getMessage()) ], "status"=>false];
         }
     }
 

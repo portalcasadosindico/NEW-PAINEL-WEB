@@ -21,9 +21,7 @@ class Asaas{
             ];
             $response = Http::withHeaders([
                 'access_token' => $token,
-            ])->post(self::getUrlAsaas()."/subscriptions/$id", [
-                $assinatura
-            ]);
+            ])->post(self::getUrlAsaas()."/subscriptions/$id", (array) $assinatura);
             //$response->throw();
             return $response->json();
         }
@@ -55,9 +53,7 @@ class Asaas{
             ];
             $response = Http::withHeaders([
                 'access_token' => $token,
-            ])->post(self::getUrlAsaas()."/subscriptions", [
-                $assinatura
-            ]);
+            ])->post(self::getUrlAsaas()."/subscriptions", (array) $assinatura);
             //$response->throw();
             return $response->json();
         }

@@ -113,11 +113,19 @@ class BairroController extends Controller
         try {
             $data = $this->getData($request);
             $bairro =  Bairro::findOrFail($id);
+            $regiaoAntiga = $bairro->regiao_id;
             $bairro->nome = $data['nome'];
             $bairro->cidade_id = $data['cidade_id'];
             $bairro->regiao_id = $data['regiao_id'];
             $bairro->chave = Formatacao::removerCaracteresEspeciais($data['nome']);
             $bairro->update();
+
+            // Propaga a correção pras solicitações já existentes vinculadas a esse
+            // bairro, que senão ficam presas com a região antiga (ver sessão 2026-09-04).
+            if ((int) $regiaoAntiga !== (int) $bairro->regiao_id) {
+                app(OrcamentoController::class)->resincronizarOrcamentosDoBairroAlterado($bairro->id);
+            }
+
             return redirect()->route('bairros.index')
                 ->with('success_message', 'Bairro foi atualizado com sucesso.');
         } catch (Exception $e) {

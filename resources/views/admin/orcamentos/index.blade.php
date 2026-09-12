@@ -70,6 +70,21 @@ use App\Uteis\StatusOrcamento;
             </form>
         </div>
 
+        @if($franqueado_id == null)
+        <div class="btn-group btn-group-sm mt-2" role="group">
+            <form action="{{route('admin.orcamentos.index')}}" method="GET" class="form-inline">
+                <div class="form-group row m-2">
+                    <label for="q" class="mr-1">Buscar por título, ID ou síndico</label>
+                    <input type="text" class="form-control" id="q" name="q" value="{{ request('q') }}">
+                </div>
+                <button class="btn btn-primary m-1" type="submit">Buscar</button>
+                @if(request('q'))
+                <a href="{{route('admin.orcamentos.index')}}" class="btn btn-secondary m-1">Limpar busca</a>
+                @endif
+            </form>
+        </div>
+        @endif
+
 
         @if(count($orcamentos) == 0 && $franqueado_id != null)
         <div class="panel-body text-center">
@@ -221,6 +236,14 @@ use App\Uteis\StatusOrcamento;
                         </td>
                         <td>
                             <label clas="badge badge-default"><b>{{$orcamento->titulo_contrato}}</b></label><br>
+                            @php
+                            $orcamentoCancelado = in_array($orcamento->status, [
+                                StatusOrcamento::$CANCELADO_PELO_ADMIN,
+                                StatusOrcamento::$CANCELADO_PELO_FRANQUEADO,
+                                StatusOrcamento::$CANCELADO_PELO_SINDICO,
+                                StatusOrcamento::$CANCELADO_PELO_AFILIADO,
+                            ]);
+                            @endphp
                             @if($orcamento->formato_contrato_atual==2)
                             <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "
                                 https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn btn-success" target="_blank">Ver contrato</a>
@@ -230,8 +253,10 @@ use App\Uteis\StatusOrcamento;
                             <a href="{{$orcamento->contrato_assinado ? $orcamento->contrato_assinado : "
                                 https://admin2.casadosindico.srv.br/storage/".$orcamento->contrato}}" class="btn
                                 btn-success" target="_blank">Ver contrato assinado</a>
+                            @elseif($orcamentoCancelado)
+                            <label class="badge badge-danger">Cancelada</label>
                             @else
-                            <a class="btn btn-danger" href="{{ route('admin_franqueado.orcamentos.edit', $orcamento->id ) }}#upload">Upload
+                            <a class="btn btn-danger" href="{{ route('admin.orcamentos.edit', $orcamento->id ) }}#upload">Upload
                                 do
                                 contrato</a>
                             @endif
@@ -260,6 +285,11 @@ use App\Uteis\StatusOrcamento;
                         @endforeach
                     </tbody>
                 </table>
+                @if(method_exists($orcamentos, 'links'))
+                <div class="mt-3">
+                    {{ $orcamentos->links('pagination::bootstrap-4') }}
+                </div>
+                @endif
                 @endif
             </div>
         </div>

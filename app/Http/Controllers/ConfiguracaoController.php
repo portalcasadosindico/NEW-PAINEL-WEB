@@ -18,10 +18,9 @@ class ConfiguracaoController extends Controller
     public function alterar_modus_operandi(Request $request)
     {
         try {
-            $pin = $request['pin'];
             $modo = $request['modo'];
             $config = Configuracao::orderBy("id", "desc")->first();
-            if($config->modus_operandi_pin==md5($pin) && ($modo==ModusOperandiStatus::$DEDUB || $modo==ModusOperandiStatus::$PRODUCAO || $modo==ModusOperandiStatus::$MANUTENCAO)){
+            if($modo==ModusOperandiStatus::$DEDUB || $modo==ModusOperandiStatus::$PRODUCAO || $modo==ModusOperandiStatus::$MANUTENCAO){
                 $config->modus_operandi = $modo;
                 $config->update();
                 return ["status"=>true];

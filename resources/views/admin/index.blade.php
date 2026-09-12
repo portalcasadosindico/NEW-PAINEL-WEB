@@ -859,13 +859,11 @@
         var _token = $('input[name="_token"]').val();
         var w = prompt('Você deve digitar o valor do novo status.\nDigite producao para deixar modo real\nDigite debug para testes\nDigite manutencao para remover o sistema do ar')
         if(w && (w=="producao" || w=="debug" || w=="manutencao")){
-            var q = prompt("Informe o PIN secreto")
             $.getJSON({
                 url: '<?php echo getenv("APP_URL"); ?>/admin/alterar_modus_operandi',
                 method: "POST",
                 data: {
                     _token: _token,
-                    pin: q,
                     modo: w
                 },
                 success: function(data) {
@@ -873,7 +871,7 @@
                         alert("Modus operandi alterado para " + w + " com sucesso!")
                         window.location.reload()
                     } else {
-                        alert("PIN Incorreto.")
+                        alert("Não foi possível alterar o modo.")
                     }
                 },
                 error: function() {

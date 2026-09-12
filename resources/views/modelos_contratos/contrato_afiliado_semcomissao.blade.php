@@ -123,8 +123,8 @@ indeterminado, podendo ser rescindido a qualquer momento por qualquer das
 partes, sem motivo procedente, com aviso prévio de 30 dias sem que haja multas
 para ambos os lados desde que não houve prejuízo <span style='background:white'>predecessores</span>.</span></p>
 
-<p class=MsoNormal style='line-height:150%'><a name="_Hlk77944484"><b><i><u><span
-style='font-family:"Verdana","sans-serif"'>Parágrafo primeiro;</span></u></i></b></a><b><i><span
+<p class=MsoNormal style='line-height:150%'><b><i><u><span
+style='font-family:"Verdana","sans-serif"'>Parágrafo primeiro;</span></u></i></b><b><i><span
 style='font-family:"Verdana","sans-serif"'> </span></i></b><span
 style='font-family:"Verdana","sans-serif"'>na hipótese do <b>CONTRATANTE</b>,
 solicitar o desligamento da filiação com obras e serviços em andamento, esse

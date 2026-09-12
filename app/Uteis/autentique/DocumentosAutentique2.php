@@ -204,6 +204,12 @@ class DocumentosAutentique2
                     if ($assinatura->user->email == $assinatura_afiliado->email) {
                         $assinatura_afiliado->public_id = $assinatura->public_id;
                         $assinatura_afiliado->user_id_autentique = $assinatura->user->id;
+                        // [FIX 2026-08-28] mesmo bug de DocumentosAutentique.php - faltava
+                        // capturar o short_link aqui, deixava NULL pra afiliados que já são
+                        // usuário cadastrado no Autentique.
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        }
                     }
                 } else {
                     if($assinatura->name==$assinatura_afiliado->nome_assinante){
@@ -386,6 +392,24 @@ class DocumentosAutentique2
                     if ($assinatura->user->email == $assinatura_testemunha2->email) {
                         $assinatura_testemunha2->public_id = $assinatura->public_id;
                         $assinatura_testemunha2->user_id_autentique = $assinatura->user->id;
+                    }
+
+                    // [FIX 2026-08-28] mesmo bug de DocumentosAutentique.php - afiliado/síndico
+                    // que já têm conta cadastrada no Autentique caíam nesse ramo sem nunca serem
+                    // identificados (só franqueado/testemunhas eram checados por e-mail aqui),
+                    // deixando public_id/short_link deles NULL pra sempre.
+                    if ($assinatura->user->email == $assinatura_afiliado->email) {
+                        $assinatura_afiliado->public_id = $assinatura->public_id;
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_afiliado->short_link = $assinatura->link->short_link;
+                        }
+                    }
+
+                    if ($assinatura->user->email == $assinatura_sindico->email) {
+                        $assinatura_sindico->public_id = $assinatura->public_id;
+                        if (isset($assinatura->link->short_link)) {
+                            $assinatura_sindico->short_link = $assinatura->link->short_link;
+                        }
                     }
                 } else {
                     if ($assinatura->name == $assinatura_afiliado->nome_assinante) {

@@ -808,8 +808,7 @@ use App\Uteis\StatusOrcamento;
                                                                                         <div class="form-group">
                                                                                             <label for="data_contrato">Data
                                                                                                 do contrato</label>
-                                                                                            <input type="text" value="<?php echo date("
-                                                                                            d/m/Y"); ?>" class="form-control" placeholder="Data do contrato" name="data_contrato_auto" id="data_contrato_auto">
+                                                                                            <input type="date" value="<?php echo date("Y-m-d"); ?>" class="form-control" placeholder="Data do contrato" name="data_contrato_auto" id="data_contrato_auto">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -821,14 +820,14 @@ use App\Uteis\StatusOrcamento;
                                                                                         <div class="form-group">
                                                                                             <label for="email_testemunha1">E-mail
                                                                                                 testemunha 1</label>
-                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 1" name="email_testemunha1" id="email_testemunha1_auto-{{$item->id}}">
+                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 1" name="email_testemunha1_auto_{{$item->id}}" id="email_testemunha1_auto-{{$item->id}}" autocomplete="off">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label for="email_testemunha2">E-mail
                                                                                                 testemunha 2</label>
-                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2" id="email_testemunha2_auto-{{$item->id}}">
+                                                                                            <input type="text" class="form-control" placeholder="E-mail testemunha 2" name="email_testemunha2_auto_{{$item->id}}" id="email_testemunha2_auto-{{$item->id}}" autocomplete="off" onfocus="if(this.value && this.value===$('#email_testemunha1_auto-{{$item->id}}').val()){this.value='';}">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -1313,7 +1312,15 @@ use App\Uteis\StatusOrcamento;
 
 
 
-        var data_contrato = $("#data_contrato_auto").val();
+        // input type="date" manda aaaa-mm-dd nativamente, mas Formatacao::data() no backend
+        // espera dd/mm/aaaa (mesmo formato que o campo de texto antigo usava) — converte aqui
+        // pra não precisar mexer na função de formatação compartilhada com outras telas.
+        var data_contrato_raw = $("#data_contrato_auto").val();
+        var data_contrato = data_contrato_raw;
+        if (data_contrato_raw && data_contrato_raw.indexOf("-") !== -1) {
+            var partes = data_contrato_raw.split("-");
+            data_contrato = partes[2] + "/" + partes[1] + "/" + partes[0];
+        }
 
         var _token = $('input[name="_token"]').val();
         $.getJSON({

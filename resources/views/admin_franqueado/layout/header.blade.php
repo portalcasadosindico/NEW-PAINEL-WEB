@@ -113,7 +113,7 @@ $name = Auth::guard('franqueados')->user()->nome;
                                 </a>
                             </li>
                             @php
-                            session_start();
+                            if (session_status() === PHP_SESSION_NONE) { session_start(); }
                             @endphp
                             @if(isset($_SESSION['login_as_admin']) && $_SESSION['login_as_admin'])
                             <li class="nav-item">

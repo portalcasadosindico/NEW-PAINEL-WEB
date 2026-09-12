@@ -61,9 +61,25 @@ class OrcamentoController extends Controller
 
         $regiaos = Regiao::all();
         $franqueados = Franqueado::all();
+        $busca = request('q');
         if ($this->url == 'admin') {
             if ($franqueado_id == null) {
-                $orcamentos = Orcamento::orderBy("id", "desc")->get();
+                // Paginado (era ->get() sem limite - 7900+ registros, cada um rodando a
+                // sincronização de região abaixo, causava timeout real no servidor com o
+                // volume de produção, ver incidente 2026-08-27).
+                // Busca (campo "q") roda direto na query SQL, não só na página carregada -
+                // client-side search do DataTables só enxerga os 50 registros da página atual.
+                $orcamentosQuery = Orcamento::orderBy("id", "desc");
+                if ($busca) {
+                    $orcamentosQuery->where(function ($query) use ($busca) {
+                        $query->where("nome", "like", "%{$busca}%")
+                            ->orWhere("id", $busca)
+                            ->orWhereHas("condominio.sindico", function ($q) use ($busca) {
+                                $q->where("nome", "like", "%{$busca}%");
+                            });
+                    });
+                }
+                $orcamentos = $orcamentosQuery->paginate(50)->appends(['q' => $busca]);
             } else {
                 $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')->where('franqueado_regiao.franqueado_id', $franqueado_id)->where("franqueado_regiao.status", "ativo")->select('orcamento.*')->orderBy("orcamento.id", "desc")->get();
             }
@@ -991,6 +1007,31 @@ class OrcamentoController extends Controller
         }
 
         return $regiao_id_bairro_condominio;
+    }
+
+    // Corrigir a região de um bairro não propagava sozinho pras solicitações já
+    // criadas antes da correção (só recalculava quando alguém reabria e salvava
+    // a solicitação individualmente no Painel) - ver sessão 2026-09-04, caso #8568.
+    // Chamado pelo BairroController::update() sempre que a região de um bairro muda,
+    // pra resincronizar todas as solicitações ainda abertas vinculadas a esse bairro.
+    public function resincronizarOrcamentosDoBairroAlterado($bairroId)
+    {
+        $condominioIds = Condominio::where('bairro_id', $bairroId)->pluck('id');
+        if ($condominioIds->isEmpty()) {
+            return;
+        }
+
+        // Mesmo critério de "solicitação ainda aberta" usado pela API .NET em
+        // ListarOrcamentos: sem afiliado vinculado e em status 1 (Analisando
+        // candidatos) ou 2 (Em cotação) - não mexe em solicitações já fechadas/aceitas.
+        $orcamentos = Orcamento::whereIn('condominio_id', $condominioIds)
+            ->whereNull('afiliado_id')
+            ->whereIn('status', [1, 2])
+            ->get();
+
+        foreach ($orcamentos as $orcamento) {
+            $this->sincronizarRegiaoOrcamentoComCondominio($orcamento);
+        }
     }
 
     // [HUBBOX FIX] Sincroniza regiao_id da solicitação com o endereço atual do condomínio (bairro/cidade/CEP)

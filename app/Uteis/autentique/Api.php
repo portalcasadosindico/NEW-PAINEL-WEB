@@ -48,6 +48,11 @@ class Api
                         "query": "mutation { signDocument(id: \"' . $document_id . '\") }",
                         "variables": {}
                     }';
+                } elseif ($query == "criar_link_assinatura") {
+                    $postFields = '{
+                        "query": "mutation { createLinkToSignature(public_id: \"' . $document_id . '\") { short_link } }",
+                        "variables": {}
+                    }';
                 }
                 array_push($httpHeader, 'Content-Type: application/json');
                 break;

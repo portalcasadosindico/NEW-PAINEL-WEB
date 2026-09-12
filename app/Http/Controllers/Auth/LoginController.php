@@ -49,7 +49,7 @@ class LoginController extends Controller
             $dbg('validateCredentials: ' . ($provider->validateCredentials($userFound, $credentials) ? 'true' : 'false'));
         }
         $dbg('calling attempt()');
-        $result = Auth::guard($this->guard)->attempt($credentials);
+        $result = Auth::guard($this->guard)->attempt($credentials, $request->boolean('remember'));
         $dbg('attempt() returned: ' . ($result ? 'true' : 'false'));
         if ($result) {
             $dbg('redirecting to ' . $this->url . '.index');
@@ -67,7 +67,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard($this->guard)->logout();
-        return redirect()->route($this->url . '.index');
+        return redirect()->route('admin.login');
     }
 
     public function autoLogin(Request $request)
@@ -78,7 +78,7 @@ class LoginController extends Controller
         $dbg('loginUsingId result: ' . ($result ? 'true' : 'false'));
         if ($result) {
             $dbg('before session_start');
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) { session_start(); }
             $dbg('after session_start');
             $_SESSION['login_as_admin'] = true;
             $dbg('before redirect');
@@ -91,7 +91,7 @@ class LoginController extends Controller
     {
         if (Auth::guard('franqueados')->check()) {
             Auth::guard('franqueados')->logout();
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) { session_start(); }
             $_SESSION['login_as_admin'] = true;
             return redirect()->route('admin.index');
         } else {

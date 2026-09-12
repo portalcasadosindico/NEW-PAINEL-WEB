@@ -38,18 +38,13 @@ class EnviarEmailSendinBlue
             
             $response = Http::withHeaders([
                 "content-type" => "application/json",
-                "api-key" => "env_key_here",
+                "api-key" => env('BREVO_API_KEY'),
                 "accept" => "application/json",
             ])->post($url, $body);
-            return $response;
-            if (key_exists("messageId", $response->json())) {
-                return true;
-            } else {
-                return false;
-            }
-            // return $response->json();
+
+            return $response->successful();
         } catch (Exception $e) {
-            return ['errors' => $e->getMessage()];
+            return false;
         }
     }
 }

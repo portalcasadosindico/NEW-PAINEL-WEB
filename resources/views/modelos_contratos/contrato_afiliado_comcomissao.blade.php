@@ -182,8 +182,8 @@ style='font-family:"Verdana","sans-serif"'>as comissões dos serviços executado
 e porcentagens referentes ao plano de fidelidade (<b>CONDS</b>) serão cobradas
 no vigésimo quinto dia do mês subsequente da prestação de serviço de forma
 integral ou parcelado dependendo da forma de pagamento ao qual estipulado no
-contrato com o cliente final<a name="_Hlk66630347">, o fechamento para apuração
-desses valores se dá todo dia quinze de cada mês.</a></span></p>
+contrato com o cliente final, o fechamento para apuração
+desses valores se dá todo dia quinze de cada mês.</span></p>
 
 <p class=MsoNormal style='line-height:150%'><b><i><u><span style='font-family:
 "Verdana","sans-serif"'>Parágrafo terceiro;</span></u></i></b><span
