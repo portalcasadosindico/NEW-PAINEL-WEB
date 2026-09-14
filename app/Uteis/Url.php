@@ -91,6 +91,32 @@ class Url {
 
 	}
 
+	/**
+	 * Monta a URL pra abrir/exibir um arquivo salvo em `caminho_imagem`/`arquivo`,
+	 * cobrindo os dois esquemas de storage que convivem no banco (ver
+	 * [[saveincloud_deploy]]/migração do storage, 2026-06-18):
+	 * - uploads novos, feitos via app/API .NET: caminho começa com "user-{id}/..."
+	 *   e o arquivo físico vive em /var/www/webroot/dotnet-api/storage/, não no
+	 *   storage do Laravel - Storage::url() nunca acha esses arquivos (sessão
+	 *   2026-09-14, bug real: Contrato Social/Cartão CNPJ enviados pelo app
+	 *   davam 404 no Painel).
+	 * - uploads antigos, feitos direto pelo Painel: caminho sem esse prefixo,
+	 *   arquivo vive no storage do próprio Laravel - usa Storage::url() normal.
+	 *
+	 * @param string|null $path
+	 * @return string|null
+	 */
+	public static function documentUrl( ?string $path ) {
+		if (empty($path)) {
+			return null;
+		}
+
+		if (str_starts_with($path, 'user-')) {
+			return '/dotnet-api/storage/' . ltrim($path, '/');
+		}
+
+		return \Illuminate\Support\Facades\Storage::url($path);
+	}
 
 }
 

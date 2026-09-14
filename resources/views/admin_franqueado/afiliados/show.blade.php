@@ -12,6 +12,7 @@ use App\Uteis\StatusPlano;
 use App\Models\Orcamento;
 use App\Models\AfiliadoOrcamentoInteresse;
 use App\Uteis\StatusOrcamento;
+use App\Uteis\Url;
 ?>
 @extends('admin_franqueado.layout.master')
 
@@ -189,7 +190,7 @@ use App\Uteis\StatusOrcamento;
                                 <div style="overflow: hidden;">
                                     <img style="width: 100%; opacity: 0.30;" src="{{ asset('assets/images/contrato-social.png') }}">
                                     @if(isset($contratoSocial->arquivo))
-                                    <a style="position: absolute; left: 63px; top: 69px;" href="{{Storage::url($contratoSocial->arquivo)}}" class="btn btn-primary" target="_blank">Ver
+                                    <a style="position: absolute; left: 63px; top: 69px;" href="{{Url::documentUrl($contratoSocial->arquivo)}}" class="btn btn-primary" target="_blank">Ver
                                         arquivo</a>
                                     @else
                                     <a style="position: absolute; left: 63px; top: 69px;" href="{{ route('admin_franqueado.afiliados.edit', $afiliado->id) }}" class="btn btn-danger">Upload</a>
@@ -211,7 +212,7 @@ use App\Uteis\StatusOrcamento;
                                 <div style="overflow: hidden;">
                                     <img style="width: 100%; opacity: 0.30; position: relative; top: -34px;" src="{{ asset('assets/images/cartao-cnpj.png') }}">
                                     @if(isset($cartaoCNPJ->arquivo))
-                                    <a style="position: absolute; left: 63px; top: 69px;" href="{{Storage::url($cartaoCNPJ->arquivo)}}" class="btn btn-primary" target="_blank">Ver arquivo</a>
+                                    <a style="position: absolute; left: 63px; top: 69px;" href="{{Url::documentUrl($cartaoCNPJ->arquivo)}}" class="btn btn-primary" target="_blank">Ver arquivo</a>
 
                                     @else
                                     <a style="position: absolute; left: 63px; top: 69px;" href="{{ route('admin_franqueado.afiliados.edit', $afiliado->id) }}" class="btn btn-danger">Upload</a>
@@ -390,7 +391,7 @@ use App\Uteis\StatusOrcamento;
                             <dt>Logo</dt>
                             <dd>
                                 @if($afiliado->logo)
-                                <img src="{{ Storage::url($afiliado->logo) }}" style="width: 150px" alt="logo">
+                                <img src="{{ Url::documentUrl($afiliado->logo) }}" style="width: 150px" alt="logo">
                                 @else
                                 <a style="" href="{{ route('admin_franqueado.afiliados.edit', $afiliado->id) }}" class="btn btn-danger">Upload</a>
                                 @endif

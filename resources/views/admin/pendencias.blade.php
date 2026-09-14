@@ -4,7 +4,8 @@
     use App\Uteis\StatusOrcamento; 
     use App\Uteis\StatusPlano;
     use App\Uteis\Formatacao; 
-    use App\Uteis\StatusVistoria; 
+    use App\Uteis\StatusVistoria;
+    use App\Uteis\Url;
 ?>
 @extends('layout.master')
 
@@ -56,7 +57,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{Storage::url($doc->arquivo)}}" target="_blank">Ver Documento</a>
+                                                    <a href="{{Url::documentUrl($doc->arquivo)}}" target="_blank">Ver Documento</a>
                                                     <h6>{{$doc->tipo}}</h6>
                                                 </td>
                                                 <td>
