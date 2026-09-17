@@ -81,18 +81,23 @@ class OrcamentoController extends Controller
                 }
                 $orcamentos = $orcamentosQuery->paginate(50)->appends(['q' => $busca]);
             } else {
-                $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')->where('franqueado_regiao.franqueado_id', $franqueado_id)->where("franqueado_regiao.status", "ativo")->select('orcamento.*')->orderBy("orcamento.id", "desc")->get();
+                // Paginado (mesmo motivo da branch acima - franqueados grandes como a
+                // MATRIZ passam de 7000 solicitações, ->get() sem limite trava a página,
+                // ver sessão 2026-09-17).
+                $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')->where('franqueado_regiao.franqueado_id', $franqueado_id)->where("franqueado_regiao.status", "ativo")->select('orcamento.*')->orderBy("orcamento.id", "desc")->paginate(50);
             }
         } elseif ($this->url == 'admin_franqueado') {
-            $orcamentos = [];
             $franqueado_id = $this->user_franqueado->id;
-            $franqueadoRegiaos = FranqueadoRegiao::where("franqueado_id", $franqueado_id)->where("status", "ativo")->get();
-            foreach ($franqueadoRegiaos as $franqueadoRegiao) {
-                $orcamentoRegiaos = Orcamento::where("regiao_id", $franqueadoRegiao->regiao_id)->orderBy("id", "desc")->get();
-                foreach ($orcamentoRegiaos as $orcamento) {
-                    array_push($orcamentos, $orcamento);
-                }
-            }
+            // [HUBBOX FIX] Antes rodava uma query por região do franqueado (N+1) e
+            // acumulava tudo num array PHP sem limite - com a MATRIZ (7000+ solicitações
+            // ao todo) isso travava a página com loading infinito (sessão 2026-09-17).
+            // Trocado pra 1 JOIN + paginação, igual à listagem do admin.
+            $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')
+                ->where('franqueado_regiao.franqueado_id', $franqueado_id)
+                ->where('franqueado_regiao.status', 'ativo')
+                ->select('orcamento.*')
+                ->orderBy('orcamento.id', 'desc')
+                ->paginate(50);
         }
 
         // [HUBBOX FIX] Sincroniza região dos orçamentos com a região atual do condomínio para evitar "SEM REGIÃO" indevido

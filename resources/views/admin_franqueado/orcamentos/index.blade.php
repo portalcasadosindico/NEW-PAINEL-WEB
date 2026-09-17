@@ -189,6 +189,11 @@ table td .badge {
             @endforeach
           </tbody>
         </table>
+        @if(method_exists($orcamentos, 'links'))
+        <div class="d-flex justify-content-center">
+          {{ $orcamentos->links('pagination::bootstrap-4') }}
+        </div>
+        @endif
       </div>
     </div>
     @endif
