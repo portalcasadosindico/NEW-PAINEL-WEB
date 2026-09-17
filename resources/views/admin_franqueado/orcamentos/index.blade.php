@@ -73,6 +73,18 @@ table td .badge {
       </form>
     </div>
 
+    <div class="btn-group btn-group-sm mt-2" role="group">
+      <form action="{{route('admin_franqueado.orcamentos.index')}}" method="GET" class="form-inline">
+        <div class="form-group row m-2">
+          <label for="q" class="mr-1">Buscar por título, ID ou síndico</label>
+          <input type="text" class="form-control" id="q" name="q" value="{{ request('q') }}">
+        </div>
+        <button class="btn btn-primary m-1" type="submit">Buscar</button>
+        @if(request('q'))
+        <a href="{{route('admin_franqueado.orcamentos.index')}}" class="btn btn-secondary m-1">Limpar busca</a>
+        @endif
+      </form>
+    </div>
 
     @if(count($orcamentos) == 0 && $franqueado_id != null)
     <div class="panel-body text-center">
@@ -82,7 +94,7 @@ table td .badge {
     <div class="panel-body panel-body-with-table">
       <div class="table-responsive">
 
-        <table data-page-length="25" id="dataTableExample" class="table table-striped dataTableDesc no-footer"
+        <table id="dataTableExample" class="table table-striped dataTableNoOrderNoPage no-footer"
           role="grid" aria-describedby="dataTableExample_info">
           <thead>
             <tr>

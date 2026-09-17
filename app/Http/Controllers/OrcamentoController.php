@@ -92,12 +92,24 @@ class OrcamentoController extends Controller
             // acumulava tudo num array PHP sem limite - com a MATRIZ (7000+ solicitações
             // ao todo) isso travava a página com loading infinito (sessão 2026-09-17).
             // Trocado pra 1 JOIN + paginação, igual à listagem do admin.
-            $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')
+            // Busca (campo "q") roda direto na query SQL, não só na página carregada -
+            // client-side search do DataTables só enxerga os 50 registros da página atual
+            // (era isso que fazia solicitações antigas "sumirem" da busca).
+            $orcamentosQuery = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')
                 ->where('franqueado_regiao.franqueado_id', $franqueado_id)
                 ->where('franqueado_regiao.status', 'ativo')
                 ->select('orcamento.*')
-                ->orderBy('orcamento.id', 'desc')
-                ->paginate(50);
+                ->orderBy('orcamento.id', 'desc');
+            if ($busca) {
+                $orcamentosQuery->where(function ($query) use ($busca) {
+                    $query->where("orcamento.nome", "like", "%{$busca}%")
+                        ->orWhere("orcamento.id", $busca)
+                        ->orWhereHas("condominio.sindico", function ($q) use ($busca) {
+                            $q->where("nome", "like", "%{$busca}%");
+                        });
+                });
+            }
+            $orcamentos = $orcamentosQuery->paginate(50)->appends(['q' => $busca]);
         }
 
         // [HUBBOX FIX] Sincroniza região dos orçamentos com a região atual do condomínio para evitar "SEM REGIÃO" indevido
@@ -152,20 +164,27 @@ class OrcamentoController extends Controller
                 }
             }
         } elseif ($this->url == 'admin_franqueado') {
-            $orcamentos = [];
             $franqueado_id = $this->user_franqueado->id;
-            $franqueadoRegiaos = FranqueadoRegiao::where("franqueado_id", $franqueado_id)->where("status", "ativo")->get();
-            foreach ($franqueadoRegiaos as $franqueadoRegiao) {
-                if ($ano == '-1') {
-                    $ano = date("Y");
-                    $orcamentoRegiaos = Orcamento::where("regiao_id", $franqueadoRegiao->regiao_id)->whereYEAR("orcamento.data_cadastro", $ano)->orderBy("id", "desc")->get();
-                    $ano = -1;
-                } else {
-                    $orcamentoRegiaos = Orcamento::where("regiao_id", $franqueadoRegiao->regiao_id)->whereYEAR("orcamento.data_cadastro", $ano)->whereMONTH("orcamento.data_cadastro", $mes)->orderBy("id", "desc")->get();
-                }
-                foreach ($orcamentoRegiaos as $orcamento) {
-                    array_push($orcamentos, $orcamento);
-                }
+            // [HUBBOX FIX] Antes montava um array PHP puro juntando o resultado de uma
+            // query por região do franqueado (N+1, sem limite). Além do risco de
+            // performance (mesmo padrão já corrigido em index()), a view chama
+            // method_exists($orcamentos, 'links'), que no PHP 8 lança TypeError fatal
+            // quando o argumento é um array em vez de objeto - causava 500 real ao
+            // aplicar o filtro de Ano/Mês (sessão 2026-09-17). Trocado pra 1 JOIN só,
+            // igual ao branch admin com franqueado_id, retornando Collection (objeto).
+            if ($ano == '-1') {
+                $ano = date("Y");
+                $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')
+                    ->whereYEAR("orcamento.data_cadastro", $ano)
+                    ->where('franqueado_regiao.franqueado_id', $franqueado_id)
+                    ->where("franqueado_regiao.status", "ativo")
+                    ->select('orcamento.*')->orderBy("orcamento.id", "desc")->get();
+                $ano = -1;
+            } else {
+                $orcamentos = Orcamento::join('franqueado_regiao', 'franqueado_regiao.regiao_id', 'orcamento.regiao_id')
+                    ->whereYEAR("orcamento.data_cadastro", $ano)->whereMONTH("orcamento.data_cadastro", $mes)
+                    ->where('franqueado_regiao.franqueado_id', $franqueado_id)->where("franqueado_regiao.status", "ativo")
+                    ->select('orcamento.*')->orderBy("orcamento.id", "desc")->get();
             }
         }
 

@@ -94,7 +94,7 @@ use App\Uteis\StatusOrcamento;
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
 
-                <table data-page-length="15" id="dataTableExample" class="table table-striped dataTableDesc no-footer" role="grid" aria-describedby="dataTableExample_info">
+                <table id="dataTableExample" class="table table-striped dataTableNoOrderNoPage no-footer" role="grid" aria-describedby="dataTableExample_info">
                     <thead>
                         <tr>
                             <th>#</th>
