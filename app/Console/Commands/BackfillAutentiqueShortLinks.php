@@ -208,6 +208,9 @@ class BackfillAutentiqueShortLinks extends Command
 
             if (!$encontrouAlguma) {
                 $semMatch++;
+                $idsRows = $rows->pluck('id')->implode(',');
+                $orcamentoIdsRows = $rows->pluck('orcamento_id')->unique()->implode(',');
+                $this->line(" -> SEM MATCH: documento={$documentoId} orcamento(s)=#{$orcamentoIdsRows} orcamento_assinatura.id=[{$idsRows}]");
             }
 
             if ($sleepSeconds > 0) sleep($sleepSeconds);
