@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ContratoAssinatura;
 use App\Models\FranqueadoRegiao;
 use App\Models\Orcamento;
 use App\Models\OrcamentoAssinatura;
@@ -17,10 +18,11 @@ class BackfillAutentiqueShortLinks extends Command
         {--dry-run : Apenas simula, sem gravar no banco}
         {--limit= : Limita a quantidade de documentos processados}
         {--documento= : Processa só este documento_id_autentique específico}
+        {--tipo=todos : Qual tabela processar - orcamento (orcamento_assinatura), filiacao (contrato_assinatura) ou todos}
         {--debug : Imprime o JSON bruto das assinaturas retornadas pelo Autentique}
         {--sleep=1 : Segundos de espera entre chamadas à API do Autentique}';
 
-    protected $description = 'Preenche short_link de assinaturas pendentes (orcamento_assinatura) que já têm documento_id_autentique salvo mas nunca tiveram o link capturado (bug corrigido em DocumentosAutentique.php, 2026-08-28).';
+    protected $description = 'Preenche short_link de assinaturas pendentes (orcamento_assinatura e contrato_assinatura) que já têm documento_id_autentique salvo mas nunca tiveram o link capturado (bug corrigido em DocumentosAutentique.php, 2026-08-28 e 2026-09-17).';
 
     public function handle(): int
     {
@@ -31,7 +33,34 @@ class BackfillAutentiqueShortLinks extends Command
         $this->info($dryRun ? '[DRY RUN] Nenhuma gravação será feita.' : 'Gravando no banco.');
 
         $documentoFiltro = $this->option('documento');
+        $tipo = $this->option('tipo');
 
+        $atualizados = 0;
+        $semToken = 0;
+        $falhaApi = 0;
+        $semMatch = 0;
+
+        if (in_array($tipo, ['orcamento', 'todos'])) {
+            $this->info('--- Contratos de serviço (orcamento_assinatura) ---');
+            $this->processarOrcamentos($documentoFiltro, $limit, $dryRun, $sleepSeconds, $atualizados, $semToken, $falhaApi, $semMatch);
+        }
+
+        if (in_array($tipo, ['filiacao', 'todos'])) {
+            $this->info('--- Contratos de filiação (contrato_assinatura) ---');
+            $this->processarFiliacoes($documentoFiltro, $limit, $dryRun, $sleepSeconds, $atualizados, $semToken, $falhaApi, $semMatch);
+        }
+
+        $this->newLine(2);
+        $this->info("Total atualizados: {$atualizados}");
+        $this->info("Total sem token/franqueado resolvido: {$semToken}");
+        $this->info("Total com falha na API do Autentique: {$falhaApi}");
+        $this->info("Total documento OK mas nenhuma assinatura bateu (email/nome): {$semMatch}");
+
+        return self::SUCCESS;
+    }
+
+    private function processarOrcamentos($documentoFiltro, $limit, $dryRun, $sleepSeconds, &$atualizados, &$semToken, &$falhaApi, &$semMatch): void
+    {
         $query = OrcamentoAssinatura::whereNull('signed')
             ->where(function ($q) {
                 $q->whereNull('short_link')->orWhere('short_link', '');
@@ -53,11 +82,6 @@ class BackfillAutentiqueShortLinks extends Command
         $this->info("Documentos a processar: {$documentoIds->count()}");
         $bar = $this->output->createProgressBar($documentoIds->count());
         $bar->start();
-
-        $atualizados = 0;
-        $semToken = 0;
-        $falhaApi = 0;
-        $semMatch = 0;
 
         foreach ($documentoIds as $documentoId) {
             $bar->advance();
@@ -190,12 +214,146 @@ class BackfillAutentiqueShortLinks extends Command
         }
 
         $bar->finish();
-        $this->newLine(2);
-        $this->info("Atualizados: {$atualizados}");
-        $this->info("Sem token/franqueado resolvido: {$semToken}");
-        $this->info("Falha na API do Autentique: {$falhaApi}");
-        $this->info("Documento OK mas nenhuma assinatura bateu (email/nome): {$semMatch}");
+        $this->newLine();
+    }
 
-        return self::SUCCESS;
+    private function processarFiliacoes($documentoFiltro, $limit, $dryRun, $sleepSeconds, &$atualizados, &$semToken, &$falhaApi, &$semMatch): void
+    {
+        // Mesma lógica de processarOrcamentos(), mas pra contrato_assinatura (filiação
+        // do afiliado por região) - tabela separada, nunca coberta por este comando até
+        // 2026-09-17 (só orcamento_assinatura era processada). franqueado_id já vem na
+        // própria linha, não precisa resolver via Orcamento/FranqueadoRegiao.
+        $query = ContratoAssinatura::whereNull('signed')
+            ->where(function ($q) {
+                $q->whereNull('short_link')->orWhere('short_link', '');
+            })
+            ->whereNotNull('documento_id_autentique')
+            ->where('documento_id_autentique', '!=', '')
+            ->whereNull('deleted_at');
+
+        if ($documentoFiltro) {
+            $query->where('documento_id_autentique', $documentoFiltro);
+        }
+
+        $documentoIds = $query->distinct()->pluck('documento_id_autentique');
+
+        if ($limit) {
+            $documentoIds = $documentoIds->take($limit);
+        }
+
+        $this->info("Documentos a processar: {$documentoIds->count()}");
+        $bar = $this->output->createProgressBar($documentoIds->count());
+        $bar->start();
+
+        foreach ($documentoIds as $documentoId) {
+            $bar->advance();
+
+            $rows = ContratoAssinatura::where('documento_id_autentique', $documentoId)
+                ->whereNull('signed')
+                ->where(function ($q) {
+                    $q->whereNull('short_link')->orWhere('short_link', '');
+                })
+                ->whereNull('deleted_at')
+                ->get();
+
+            if ($rows->isEmpty()) {
+                continue;
+            }
+
+            $franqueadoId = $rows->first()->franqueado_id;
+            $token = $franqueadoId ? Util::getTokenAutentique($franqueadoId) : null;
+            if (!$token) {
+                $semToken++;
+                continue;
+            }
+
+            try {
+                $res = json_decode(DocumentosAutentique::listById($token, $documentoId));
+            } catch (\Exception $e) {
+                Log::error('backfill-short-links: exceção ao consultar Autentique (filiação)', [
+                    'documento_id_autentique' => $documentoId,
+                    'erro' => $e->getMessage(),
+                ]);
+                $falhaApi++;
+                if ($sleepSeconds > 0) sleep($sleepSeconds);
+                continue;
+            }
+
+            if (!$res || !isset($res->data->document->signatures)) {
+                $falhaApi++;
+                if ($sleepSeconds > 0) sleep($sleepSeconds);
+                continue;
+            }
+
+            $assinaturas = $res->data->document->signatures;
+
+            if ($this->option('debug')) {
+                $this->line(json_encode($assinaturas, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                foreach ($rows as $row) {
+                    $this->line("ROW: id={$row->id} tipo={$row->tipo_usuario} email={$row->email} nome_assinante=" . var_export($row->nome_assinante, true));
+                }
+            }
+
+            $encontrouAlguma = false;
+
+            foreach ($rows as $row) {
+                $shortLink = null;
+                $publicId = null;
+                $signedAt = null;
+
+                foreach ($assinaturas as $assinatura) {
+                    $emailApi = isset($assinatura->user) && $assinatura->user
+                        ? ($assinatura->user->email ?? null)
+                        : ($assinatura->email ?? null);
+
+                    $bateEmail = $emailApi && $row->email && strcasecmp(trim($emailApi), trim($row->email)) === 0;
+                    $bateNome = $row->nome_assinante && isset($assinatura->name)
+                        && trim($assinatura->name) === trim($row->nome_assinante);
+
+                    if ($bateEmail || $bateNome) {
+                        $publicId = $assinatura->public_id ?? null;
+                        $shortLink = $assinatura->link->short_link ?? null;
+                        $signedAt = isset($assinatura->signed->created_at)
+                            ? date('Y-m-d H:i:s', strtotime($assinatura->signed->created_at))
+                            : null;
+                        break;
+                    }
+                }
+
+                if (!$shortLink && $publicId) {
+                    try {
+                        $resLink = json_decode(DocumentosAutentique::createLinkToSignature($token, $publicId));
+                        $shortLink = $resLink->data->createLinkToSignature->short_link ?? null;
+                    } catch (\Exception $e) {
+                        Log::error('backfill-short-links: falha ao gerar link fresco (filiação)', [
+                            'public_id' => $publicId,
+                            'erro' => $e->getMessage(),
+                        ]);
+                    }
+                    if ($sleepSeconds > 0) sleep($sleepSeconds);
+                }
+
+                if ($shortLink || $publicId) {
+                    $encontrouAlguma = true;
+                    if (!$dryRun) {
+                        $row->public_id = $publicId ?: $row->public_id;
+                        if ($shortLink) $row->short_link = $shortLink;
+                        if ($signedAt) $row->signed = $signedAt;
+                        $row->save();
+                    }
+                    if ($shortLink) $atualizados++;
+                    $this->line(" -> contrato_assinatura #{$row->id} ({$row->tipo_usuario}, {$row->email}): " . ($shortLink ? "link capturado" : "public_id salvo, sem link") . ($dryRun ? ' [dry-run]' : ''));
+                }
+            }
+
+            if (!$encontrouAlguma) {
+                $semMatch++;
+            }
+
+            if ($sleepSeconds > 0) sleep($sleepSeconds);
+        }
+
+        $bar->finish();
+        $this->newLine();
     }
 }
