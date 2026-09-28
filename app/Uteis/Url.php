@@ -135,10 +135,20 @@ class Url {
 	 * @return string Caminho relativo pra salvar no banco (mesmo formato que o .NET grava)
 	 */
 	public static function salvarNoStorageCompartilhado($file, int $usuarioAppId, string $tipoUsuario = 'afiliado'): string {
-		$storagePath = env('DOTNET_STORAGE_PATH', '/var/www/webroot/dotnet-api/storage');
 		$bytes = file_get_contents($file->getRealPath());
-		$hash = strtolower(md5($bytes));
 		$ext = strtolower($file->getClientOriginalExtension() ?: $file->extension() ?: 'jpg');
+		return self::salvarBytesNoStorageCompartilhado($bytes, $usuarioAppId, $ext, $tipoUsuario);
+	}
+
+	/**
+	 * Núcleo de `salvarNoStorageCompartilhado()`, separado pra poder ser
+	 * reusado por scripts de backfill que já têm os bytes em mãos (arquivo
+	 * já existente em disco), sem precisar de um `UploadedFile` de verdade.
+	 */
+	public static function salvarBytesNoStorageCompartilhado(string $bytes, int $usuarioAppId, string $ext, string $tipoUsuario = 'afiliado'): string {
+		$storagePath = env('DOTNET_STORAGE_PATH', '/var/www/webroot/dotnet-api/storage');
+		$hash = strtolower(md5($bytes));
+		$ext = strtolower($ext);
 		$pasta = $ext === 'pdf' ? 'documentos' : 'imagens';
 		$relativePath = "user-{$usuarioAppId}/{$tipoUsuario}/{$pasta}/{$hash}.{$ext}";
 		$fullPath = rtrim($storagePath, '/') . '/' . $relativePath;
