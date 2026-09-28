@@ -118,6 +118,39 @@ class Url {
 		return \Illuminate\Support\Facades\Storage::url($path);
 	}
 
+	/**
+	 * Grava um arquivo enviado pelo Painel no MESMO storage físico que a API
+	 * .NET usa (/var/www/webroot/dotnet-api/storage), com a MESMA convenção
+	 * de path (`user-{usuario_app_id}/{tipoUsuario}/{pasta}/{hash}.{ext}`,
+	 * onde `pasta` é "imagens" ou "documentos" conforme o mimetype - ver
+	 * `UsuarioController.Upload`/`ParseDataUri` no .NET). Sem isso, um
+	 * arquivo enviado pelo Painel (ex: logo do afiliado) fica só no storage
+	 * do Laravel - inacessível pelo app, que só conhece o storage
+	 * compartilhado via `DOC_URL` (bug real: logo trocada pelo Painel nunca
+	 * aparecia no app, sessão 2026-09-28).
+	 *
+	 * @param \Illuminate\Http\UploadedFile $file
+	 * @param int $usuarioAppId usuario_app.id (não afiliado.id)
+	 * @param string $tipoUsuario ex: 'afiliado'
+	 * @return string Caminho relativo pra salvar no banco (mesmo formato que o .NET grava)
+	 */
+	public static function salvarNoStorageCompartilhado($file, int $usuarioAppId, string $tipoUsuario = 'afiliado'): string {
+		$storagePath = env('DOTNET_STORAGE_PATH', '/var/www/webroot/dotnet-api/storage');
+		$bytes = file_get_contents($file->getRealPath());
+		$hash = strtolower(md5($bytes));
+		$ext = strtolower($file->getClientOriginalExtension() ?: $file->extension() ?: 'jpg');
+		$pasta = $ext === 'pdf' ? 'documentos' : 'imagens';
+		$relativePath = "user-{$usuarioAppId}/{$tipoUsuario}/{$pasta}/{$hash}.{$ext}";
+		$fullPath = rtrim($storagePath, '/') . '/' . $relativePath;
+
+		if (!is_dir(dirname($fullPath))) {
+			mkdir(dirname($fullPath), 0755, true);
+		}
+		file_put_contents($fullPath, $bytes);
+
+		return $relativePath;
+	}
+
 }
 
 ?>

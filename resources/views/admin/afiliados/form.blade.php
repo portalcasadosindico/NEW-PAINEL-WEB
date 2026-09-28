@@ -16,7 +16,7 @@
               @if(optional($afiliado)->logo)
                 <h6>Logo Atual</h6>
                 <p title="Marque esta seleção para deixar este afiliado sem a logo após clicar em Salvar"><label><input type="checkbox" name="remover_logo"> - Remover logo</label></p>
-                <img src="{{ Storage::url($afiliado->logo) }}" style="width: 130px;" >
+                <img src="{{ \App\Uteis\Url::documentUrl($afiliado->logo) }}" style="width: 130px;" >
               @endif
               @error('logo')
                 <label id="logo-error" class="error mt-2 text-danger" for="logo">{{ $message }}</label>

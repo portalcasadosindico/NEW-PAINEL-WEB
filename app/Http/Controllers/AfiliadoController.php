@@ -569,8 +569,7 @@ class AfiliadoController extends Controller
 
 
             if (isset($request['logo'])) {
-                $image_url = $request['logo']->store('afiliado/logo');
-                $afiliado->logo = $image_url;
+                $afiliado->logo = Url::salvarNoStorageCompartilhado($request['logo'], $usuario_app->id);
             } else {
                 $afiliado->logo = '';
             }
@@ -944,8 +943,7 @@ class AfiliadoController extends Controller
             $afiliado->numero_funcionarios = $request['numero_funcionarios'];
 
             if ($request['logo'] != null) {
-                $image_url = $request['logo']->store('afiliado/logo');
-                $afiliado->logo = $image_url;
+                $afiliado->logo = Url::salvarNoStorageCompartilhado($request['logo'], $usuario_app->id);
             }
 
             if (isset($this->user_franqueado->id)) {
