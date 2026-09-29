@@ -81,15 +81,8 @@ class SenderEmails
                     </tbody></table>";
                     
         try {
-            if ($tipo == "sendingblue") {
-                //Sendingblue
-                //$sender = new EnviarEmailSendinBlue();
-                $sender = new EnviarEmail();
-            } else {
-                //Server
-                $sender = new EnviarEmail();
-            }
-            
+            $sender = new EnviarEmailSendinBlue();
+
             $res = $sender->send(
                 "{$config->nome_empresa} - Confirme o seu e-mail",
                 $html,
@@ -141,13 +134,7 @@ class SenderEmails
                         </tr>
                     </tbody></table>";
 
-            if ($tipo == "sendingblue") {
-                //Sendingblue
-                $sender = new EnviarEmailSendinBlue();
-            } else {
-                //Server
-                $sender = new EnviarEmail();
-            }
+            $sender = new EnviarEmailSendinBlue();
             $res = $sender->send(
                 "{$config->nome_empresa} - " . $titulo,
                 $html,
@@ -223,11 +210,7 @@ class SenderEmails
                     </tbody></table>";
 
         try {
-            if ($host == "sendinblue") {
-                $sender = new EnviarEmailSendinBlue();
-            } else {
-                $sender = new EnviarEmail();
-            }
+            $sender = new EnviarEmailSendinBlue();
             $res = $sender->send(
                 "Casa do Síndico - Nova solicitação pelo App",
                 $html,
@@ -292,13 +275,7 @@ class SenderEmails
                     </tbody></table>";
 
         try {
-            if ($tipo == "sendingblue") {
-                //Sendingblue
-                $sender = new EnviarEmailSendinBlue();
-            } else {
-                //Server
-                $sender = new EnviarEmail();
-            }
+            $sender = new EnviarEmailSendinBlue();
             $res = $sender->send(
                 $config->nome_empresa . " - Alteração de status da solicitação",
                 $html,
