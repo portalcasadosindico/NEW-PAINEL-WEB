@@ -16,6 +16,9 @@ class StatusOrcamento
     public static $CANCELADO_PELO_SINDICO = 8;
     public static $CANCELADO_PELO_AFILIADO = 9;
     public static $CONTRATO_ASSINADO = 10;
+    // Encerramento automático por inação do síndico (LembreteSelecaoService, API .NET) - status
+    // dedicado, não reaproveita CANCELADO_PELO_ADMIN (feedback do cliente, 29/09).
+    public static $ENCERRADO_POR_INACAO = 11;
 
     public static function getAllStatus()
     {
@@ -179,6 +182,8 @@ class StatusOrcamento
                 return "Cancelado pelo síndico";
             case self::$CANCELADO_PELO_AFILIADO:
                 return "Cancelado pelo afiliado";
+            case self::$ENCERRADO_POR_INACAO:
+                return "Encerrado automaticamente devido a falta de interação do síndico(a) com a solicitação";
             default:
                 return '--';
         }
@@ -207,6 +212,8 @@ class StatusOrcamento
                 return "Cancelado pelo síndico";
             case self::$CANCELADO_PELO_AFILIADO:
                 return "Cancelado pelo afiliado";
+            case self::$ENCERRADO_POR_INACAO:
+                return "Encerrado automaticamente devido a falta de interação do síndico(a) com a solicitação";
         }
     }
 
@@ -233,6 +240,8 @@ class StatusOrcamento
                 return "#d32f2f";
             case self::$CANCELADO_PELO_AFILIADO:
                 return "#d32f2f";
+            case self::$ENCERRADO_POR_INACAO:
+                return "#d32f2f";
         }
     }
 
@@ -258,6 +267,8 @@ class StatusOrcamento
             case self::$CANCELADO_PELO_SINDICO:
                 return "danger";
             case self::$CANCELADO_PELO_AFILIADO:
+                return "danger";
+            case self::$ENCERRADO_POR_INACAO:
                 return "danger";
         }
     }
